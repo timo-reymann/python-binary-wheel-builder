@@ -1,6 +1,7 @@
+import urllib
 from pathlib import Path
 
-from binary_wheel_bundler import WheelSource, WheelPlatformIdentifier
+from binary_wheel_bundler import WheelSource, WheelPlatformIdentifier, well_known_platforms
 
 
 class StaticLocalWheelSource(WheelSource):

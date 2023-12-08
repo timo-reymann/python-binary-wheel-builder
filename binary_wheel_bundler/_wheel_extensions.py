@@ -9,6 +9,7 @@ from binary_wheel_bundler._wheel_util import _write_wheel
 def _write_platform_wheel(out_dir: str, wheel_info: Wheel, platform: WheelPlatformIdentifier, source: WheelSource):
     contents = {
         f'{wheel_info.package}/__init__.py': b'',
+        # TODO Add thin wrapper for direct calls in python for subprocess, this would just work for direct invocation
         f'{wheel_info.package}/__main__.py': f'''\
 import os, sys, subprocess
 sys.exit(subprocess.call([

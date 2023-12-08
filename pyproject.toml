@@ -1,0 +1,16 @@
+[tool.poetry]
+name = "binary_wheel_builder"
+version = "0.1.0"
+description = "Binary wheel builder"
+authors = ["Timo Reymann <timo.reymann@deepl.com>"]
+readme = "README.md"
+packages = [
+    { include = "binary_wheel_builder" }
+]
+[tool.poetry.dependencies]
+python = "^3.11"
+wheel = "^0.42.0"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

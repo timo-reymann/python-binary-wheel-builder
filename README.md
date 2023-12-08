@@ -3,6 +3,11 @@ Proof of concept - Ship CLI tools using python wheels
 
 Proof of concept to create a CLI binary as wheel in a reusable manner.
 
+This would allow:
+
+- easy distribution of CLI tools with managed version
+- Installation via pip/pix or via package manager as regular dependency
+
 ## Setup
 
 1. Install dependencies with poetry:

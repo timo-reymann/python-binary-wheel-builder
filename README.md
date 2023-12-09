@@ -23,15 +23,26 @@ This would allow:
 - Idempotent zip files with resetted timestamps on file content
 - Checksum calc for output
 - Simple to use API
-- Supports bascially every binary
+- Supports basically every binary
 - Extendable Source file generation (fetch from remote, fs, compile etc)
+- Generated util package for easy getting started
+  ```python
+  # lets take for example buf package
+  from buf.exec import exec_silently, exec_with_templated_output
+    
+  process = exec_silently(["--help"])
+  print(process.returncode)
+    
+  result = exec_with_templated_output(["--help"])
+  print(result.exit_code)
+  ```
 
 ## Limitations
 
 - Files are loaded completely in-memory, this should not be a problem as long as you are not using a too huge binary.
   With a certain size RAM becomes the limit.
   You should not package any files that are that large, so thats a more theoretical limitation.
-- For now only single binaries are supported, irl use cases might include lib folders, dll/so files etc
+- Package can not be nested (for now) - for simplicity reasons
 
 ## Run it
 

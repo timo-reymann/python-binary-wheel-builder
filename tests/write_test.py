@@ -1,3 +1,4 @@
+import os
 import tempfile
 import unittest
 from pathlib import Path
@@ -8,6 +9,9 @@ from binary_wheel_bundler import Wheel, well_known_platforms, StaticLocalWheelSo
 
 class WriteTest(unittest.TestCase):
     def test_idempotent_creation(self):
+        script_path = os.path.abspath(__file__)
+        folder_name = os.path.basename(os.path.dirname(script_path))
+
         wheel_meta = Wheel(
             package="dummy",
             executable="dummy",
@@ -24,7 +28,7 @@ class WriteTest(unittest.TestCase):
                 'Source Code, https://github.com/examle/example',
                 'Bug Tracker, https://github.com/example/example/issues',
             ],
-            source=StaticLocalWheelSource(Path("testdata/dummy")),
+            source=StaticLocalWheelSource(Path(f"{folder_name}/testdata/dummy")),
             platforms=[
                 well_known_platforms.WINDOWS_i386,
                 well_known_platforms.WINDOWS_x86_64,

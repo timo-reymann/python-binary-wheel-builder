@@ -3,8 +3,8 @@ import tempfile
 import unittest
 from pathlib import Path
 
-from binary_wheel_bundler import Wheel, well_known_platforms, StaticLocalWheelSource, \
-    create_all_supported_platform_wheels
+from binary_wheel_bundler import Wheel, StaticLocalWheelSource
+from binary_wheel_bundler import well_known_platforms, create_all_supported_platform_wheels
 
 
 class WriteTest(unittest.TestCase):
@@ -14,7 +14,7 @@ class WriteTest(unittest.TestCase):
 
         wheel_meta = Wheel(
             package="dummy",
-            executable="dummy",
+            executable="dummy/dummy",
             name="dummy",
             version="0.0.1",
             summary='Dummy is showcasing how it could look like',

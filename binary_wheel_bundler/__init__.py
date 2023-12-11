@@ -2,3 +2,4 @@ from binary_wheel_bundler._meta import WheelSource, Wheel, WheelPlatformIdentifi
 from binary_wheel_bundler._wheel_extensions import create_all_supported_platform_wheels
 from binary_wheel_bundler._wheel_sources import StaticLocalWheelSource
 import binary_wheel_bundler.well_known_platforms
+from binary_wheel_bundler._meta import WheelSource, WheelFileEntry

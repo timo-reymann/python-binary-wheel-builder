@@ -3,15 +3,15 @@ from pathlib import Path
 from unittest import TestCase
 from urllib.request import urlopen
 
-from binary_wheel_bundler import well_known_platforms, WheelSource, WheelPlatformIdentifier, \
-    create_all_supported_platform_wheels, StaticLocalWheelSource, Wheel
+from binary_wheel_bundler import well_known_platforms, create_all_supported_platform_wheels
+from binary_wheel_bundler import WheelSource, WheelPlatformIdentifier, Wheel, WheelFileEntry
 
 
 class BufGithubReleaseSource(WheelSource):
     def __init__(self, version: str):
         self.version = version
 
-    def generate_fileset(self, wheel_platform: WheelPlatformIdentifier) -> dict[str, bytes]:
+    def generate_fileset(self, wheel_platform: WheelPlatformIdentifier) -> list[WheelFileEntry]:
         os_name = None
         arch = None
 
@@ -32,12 +32,17 @@ class BufGithubReleaseSource(WheelSource):
                 os_name = 'Linux'
                 arch = "aarch64"
         url = f"https://github.com/bufbuild/buf/releases/download/v{self.version}/buf-{os_name}-{arch}"
-        print(url)
+
         with urlopen(url) as response:
             file_content = response.read()
-        return {
-            "buf": file_content,
-        }
+
+        return [
+            WheelFileEntry(
+                path="buf/buf",
+                content=file_content,
+                permissions=0o755
+            )
+        ]
 
 
 class GitHubReleasesTest(TestCase):

@@ -2,22 +2,28 @@ import hashlib
 from typing import Sequence
 from zipfile import Path
 
-from binary_wheel_bundler._meta import WheelSource, WheelPlatformIdentifier, WheelPlatformBuildResult, Wheel
+from binary_wheel_bundler._meta import WheelSource, WheelPlatformIdentifier, WheelPlatformBuildResult, Wheel, \
+    WheelFileEntry
 from binary_wheel_bundler._wheel_util import _write_wheel
 
 
 def _write_platform_wheel(out_dir: str, wheel_info: Wheel, platform: WheelPlatformIdentifier, source: WheelSource):
-    contents = {
-        f'{wheel_info.package}/__init__.py': b'',
-        # TODO Add thin wrapper for direct calls in python for subprocess, this would just work for direct invocation
-        f'{wheel_info.package}/__main__.py': f'''\
+    contents = [
+        WheelFileEntry(
+            path=f'{wheel_info.package}/__init__.py',
+            content=b''),
+        WheelFileEntry(
+            path=f'{wheel_info.package}/__main__.py',
+            content=f'''\
 import os, sys, subprocess
 sys.exit(subprocess.call([
     os.path.join(os.path.dirname(__file__), "{wheel_info.executable}"),
     *sys.argv[1:]
 ]))
-'''.encode('utf-8'),
-        f'{wheel_info.package}/exec.py': f'''\
+'''.encode('utf-8')),
+        WheelFileEntry(
+            path=f'{wheel_info.package}/exec.py',
+            content=f'''\
 from dataclasses import dataclass
 import subprocess
 import os
@@ -118,11 +124,8 @@ def exec_with_templated_output(args: list[str],
         stderr_buffer=stderr_buffer if stderr_buffer != "" else None,
     )
 
-        '''.encode("utf-8")
-    }
-
-    for file, content in source.generate_fileset(platform).items():
-        contents[wheel_info.package + "/" + file] = content
+        '''.encode("utf-8"))
+    ]
 
     return _write_wheel(
         out_dir,
@@ -138,12 +141,11 @@ def exec_with_templated_output(args: list[str],
             'Requires-Python': wheel_info.requires_python,
         },
         description=wheel_info.description,
-        contents=contents,
+        wheel_file_entries=[*contents, *source.generate_fileset(platform)],
     )
 
 
 def create_all_supported_platform_wheels(wheel_meta: Wheel, dist_folder: Path) -> Sequence[WheelPlatformBuildResult]:
-
     for python_platform in wheel_meta.platforms:
         wheel_path = _write_platform_wheel(
             dist_folder.__str__(),

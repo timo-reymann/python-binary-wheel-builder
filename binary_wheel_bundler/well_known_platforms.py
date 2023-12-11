@@ -1,3 +1,6 @@
+"""
+Contains the well known platforms for python wheel one might want to target to simplify usage
+"""
 from binary_wheel_bundler import WheelPlatformIdentifier
 
 WINDOWS_i386 = WheelPlatformIdentifier("win32")

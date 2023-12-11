@@ -3,3 +3,4 @@ from binary_wheel_bundler._wheel_extensions import create_all_supported_platform
 from binary_wheel_bundler._wheel_sources import StaticLocalWheelSource
 import binary_wheel_bundler.well_known_platforms
 from binary_wheel_bundler._meta import WheelSource, WheelFileEntry
+from binary_wheel_bundler._build import build

@@ -3,7 +3,7 @@ from pathlib import Path
 from unittest import TestCase
 from urllib.request import urlopen
 
-from binary_wheel_bundler import well_known_platforms, create_all_supported_platform_wheels
+from binary_wheel_bundler import well_known_platforms, create_all_supported_platform_wheels, build
 from binary_wheel_bundler import WheelSource, WheelPlatformIdentifier, Wheel, WheelFileEntry
 
 
@@ -47,31 +47,31 @@ class BufGithubReleaseSource(WheelSource):
 
 class GitHubReleasesTest(TestCase):
     def test_buf(self):
-        wheel_meta = Wheel(
-            package="buf",
-            executable="buf",
-            name="buf",
-            version="0.0.1",
-            summary='Buf cli wrapped',
-            license='MIT',
-            requires_python=">=3.9",
-            classifier=[
-                'License :: OSI Approved :: MIT License',
-            ],
-            project_urls=[
-                'Homepage, https://example.com',
-                'Source Code, https://github.com/examle/example',
-                'Bug Tracker, https://github.com/example/example/issues',
-            ],
-            source=BufGithubReleaseSource("1.28.1"),
-            platforms=[
-                well_known_platforms.WINDOWS_x86_64,
-                well_known_platforms.MAC_INTEL,
-                well_known_platforms.MAC_SILICONE,
-                well_known_platforms.LINUX_GENERIC_x84_64,
-            ]
-        )
-        dist_folder = Path(tempfile.mkdtemp())
-        dist_folder.mkdir(exist_ok=True)
-        for result in create_all_supported_platform_wheels(wheel_meta, dist_folder):
+        for result in build(
+                Wheel(
+                    package="buf",
+                    executable="buf",
+                    name="buf",
+                    version="0.0.1",
+                    summary='Buf cli wrapped',
+                    license='MIT',
+                    requires_python=">=3.9",
+                    classifier=[
+                        'License :: OSI Approved :: MIT License',
+                    ],
+                    project_urls=[
+                        'Homepage, https://example.com',
+                        'Source Code, https://github.com/examle/example',
+                        'Bug Tracker, https://github.com/example/example/issues',
+                    ],
+                    source=BufGithubReleaseSource("1.28.1"),
+                    platforms=[
+                        well_known_platforms.WINDOWS_x86_64,
+                        well_known_platforms.MAC_INTEL,
+                        well_known_platforms.MAC_SILICONE,
+                        well_known_platforms.LINUX_GENERIC_x84_64,
+                    ]
+                ),
+                Path(tempfile.mkdtemp())
+        ):
             print(result)

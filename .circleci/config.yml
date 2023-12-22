@@ -23,11 +23,11 @@ jobs:
             pipx ensurepath
       - run:
           name: Install packages
-          command: poetry.exe install --all-extras
+          command: C:\Users\circleci\.local\bin\poetry.exe install --all-extras
       - run:
           name: Run tests
           command: |
-            poetry.exe run pytest --capture=no
+            C:\Users\circleci\.local\bin\poetry.exe run pytest --capture=no
   test-macos:
     macos:
       xcode: "15.1.0"

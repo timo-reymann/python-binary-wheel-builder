@@ -12,7 +12,7 @@ class WheelPlatformBuildResult:
     """Full qualified path to wheel"""
 
 
-@dataclasses.dataclass
+@dataclasses.dataclass(frozen=True)
 class WheelPlatformIdentifier:
     platform: str
     """Name of the platform"""

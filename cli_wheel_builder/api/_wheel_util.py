@@ -5,7 +5,7 @@ from zipfile import ZipInfo, ZIP_DEFLATED
 
 from wheel.wheelfile import WheelFile
 
-from cli_wheel_builder._meta import WheelFileEntry
+from cli_wheel_builder.api._meta import WheelFileEntry
 
 
 def _generate_metafile_content(headers: dict[str, str], payload=None) -> bytes:
@@ -14,6 +14,9 @@ def _generate_metafile_content(headers: dict[str, str], payload=None) -> bytes:
         if isinstance(value, list):
             for value_part in value:
                 msg[name] = value_part
+        elif isinstance(value, dict):
+            for key, val in value.items():
+                msg[name] = f'{key}, {val}'
         else:
             msg[name] = value
     if payload:

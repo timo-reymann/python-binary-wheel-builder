@@ -1,0 +1,107 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "package": {
+      "type": "string"
+    },
+    "executable": {
+      "type": "string"
+    },
+    "name": {
+      "type": "string"
+    },
+    "version": {
+      "type": "string"
+    },
+    "summary": {
+      "type": "string"
+    },
+    "license": {
+      "type": "string"
+    },
+    "requires_python": {
+      "type": "string"
+    },
+    "classifier": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "project_urls": {
+      "type": "object",
+      "properties": {
+        "Homepage": {
+          "type": "string"
+        },
+        "Source Code": {
+          "type": "string"
+        },
+        "Bug Tracker": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "Homepage",
+        "Source Code",
+        "Bug Tracker"
+      ],
+      "additionalProperties": false
+    },
+    "source": {
+      "type": "object",
+      "properties": {
+        "implementation": {
+          "type": "string"
+        },
+        "project_slug": {
+          "type": "string"
+        },
+        "version": {
+          "type": "string"
+        },
+        "tag_prefix": {
+          "type": "string"
+        },
+        "binary_path": {
+          "type": "string"
+        },
+        "asset_name_mapping": {
+          "type": "object",
+          "additionalProperties": true
+        }
+      },
+      "required": [
+        "implementation",
+        "project_slug",
+        "version",
+        "tag_prefix",
+        "binary_path",
+        "asset_name_mapping"
+      ],
+      "additionalProperties": false
+    },
+    "platforms": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "minItems": 1
+    }
+  },
+  "required": [
+    "package",
+    "executable",
+    "name",
+    "version",
+    "summary",
+    "license",
+    "requires_python",
+    "classifier",
+    "project_urls",
+    "source",
+    "platforms"
+  ],
+  "additionalProperties": false
+}

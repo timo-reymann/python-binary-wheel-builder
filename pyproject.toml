@@ -14,9 +14,13 @@ pyyaml = { version = "^6.0.1", optional = true }
 
 [tool.poetry.group.dev.dependencies]
 pytest = "^7.4.3"
+pyyaml = "^6.0.1"
 
 [tool.poetry.extras]
 cli = ["pyyaml"]
+
+[tool.poetry.scripts]
+cli-wheel-builder = "cli_wheel_builder.cli.main:main"
 
 [build-system]
 requires = ["poetry-core"]

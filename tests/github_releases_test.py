@@ -50,11 +50,11 @@ class GitHubReleasesTest(TestCase):
                     classifier=[
                         'License :: OSI Approved :: MIT License',
                     ],
-                    project_urls=[
-                        'Homepage, https://example.com',
-                        'Source Code, https://github.com/examle/example',
-                        'Bug Tracker, https://github.com/example/example/issues',
-                    ],
+                    project_urls={
+                        'Homepage': 'https://example.com',
+                        'Source Code': ' https://github.com/examle/example',
+                        'Bug Tracker': ' https://github.com/example/example/issues',
+                    },
                     source=BufGithubReleaseSource("1.28.1"),
                     platforms=[
                         well_known_platforms.MAC_INTEL,
@@ -80,11 +80,11 @@ class GitHubReleasesTest(TestCase):
                     classifier=[
                         'License :: OSI Approved :: MIT License',
                     ],
-                    project_urls=[
-                        'Homepage, https://example.com',
-                        'Source Code, https://github.com/examle/example',
-                        'Bug Tracker, https://github.com/example/example/issues',
-                    ],
+                    project_urls={
+                        'Homepage': ' https://example.com',
+                        'Source Code': ' https://github.com/examle/example',
+                        'Bug Tracker': ' https://github.com/example/example/issues',
+                    },
                     source=DeterministicZipGitHubReleaseSource("2.1.0"),
                     platforms=[
                         well_known_platforms.MAC_INTEL,

@@ -1,6 +1,6 @@
 from pathlib import Path
 
-from cli_wheel_builder._meta import WheelSource, WheelPlatformIdentifier, WheelFileEntry
+from cli_wheel_builder.api._meta import WheelSource, WheelPlatformIdentifier, WheelFileEntry
 
 
 class StaticLocalWheelSource(WheelSource):
@@ -39,7 +39,6 @@ class GithubReleaseBinarySource(WheelSource):
         url = (f"https://github.com/{self.project_slug}"
                f"/releases/download/{self.tag_prefix}{self.version}/{self.asset_name_mapping[wheel_platform]}")
 
-        print(url)
         with urlopen(url) as response:
             file_content = response.read()
 

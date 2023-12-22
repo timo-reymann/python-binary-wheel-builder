@@ -2,20 +2,13 @@ import hashlib
 from typing import Sequence
 from zipfile import Path
 
-from cli_wheel_builder._meta import WheelSource, WheelPlatformIdentifier, WheelPlatformBuildResult, Wheel, \
+from cli_wheel_builder.api._meta import WheelSource, WheelPlatformIdentifier, WheelPlatformBuildResult, Wheel, \
     WheelFileEntry
-from cli_wheel_builder._wheel_util import _write_wheel
+from cli_wheel_builder.api._wheel_util import _write_wheel
 
 
 def _write_platform_wheel(out_dir: str, wheel_info: Wheel, platform: WheelPlatformIdentifier, source: WheelSource):
     contents = [
-        WheelFileEntry(
-            path=f'{wheel_info.package}-{wheel_info.version}.dist-info/entry_points.txt',
-            content=f'''\
-[console_scripts]
-{wheel_info.name}={wheel_info.package}:__main__
-'''.encode("utf-8")
-        ),
         WheelFileEntry(
             path=f'{wheel_info.package}/__init__.py',
             content=b''),
@@ -133,6 +126,16 @@ def exec_with_templated_output(args: list[str],
 
         '''.encode("utf-8"))
     ]
+
+    if wheel_info.add_to_path:
+        contents.append(WheelFileEntry(
+            path=f'{wheel_info.package}-{wheel_info.version}.dist-info/entry_points.txt',
+            content=f'''\
+[console_scripts]
+{wheel_info.name}={wheel_info.package}:__main__
+'''.encode("utf-8")
+        )
+        )
 
     return _write_wheel(
         out_dir,

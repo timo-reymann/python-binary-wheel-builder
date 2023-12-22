@@ -36,6 +36,11 @@ This would allow:
   result = exec_with_templated_output(["--help"])
   print(result.exit_code)
   ```
+- Add binary to path so one can call it by binary name and it is managed by pip
+- CLI to define wheel config as YAML, without having to touch python
+  ```sh
+  poetry run cli-wheel-builder --wheel-spec tests/testdata/wheel.yaml
+  ```
 
 ## Limitations
 

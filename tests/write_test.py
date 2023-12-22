@@ -9,14 +9,14 @@ from cli_wheel_builder import well_known_platforms
 
 class WriteTest(unittest.TestCase):
     expected_checksums = {
-        'dummy-0.0.1-py3-none-win32.whl': 'e13d9e65439d58d713998d606568a3addf09d62eb208774151ad0507af26eead',
-        'dummy-0.0.1-py3-none-win_amd64.whl': '6b0846627633050aceec845e28abd77cc3f973309f6925c32fe41d872bfc335d',
-        'dummy-0.0.1-py3-none-macosx_10_9_x86_64.whl': '31fa78bc34b624fa264d0e8f0a80eb4d1952329f85d8cf6766a4a80158fbd038',
-        'dummy-0.0.1-py3-none-macosx_11_0_arm64.whl': '065913e1c2db92d2492e8f6e2dba390b2dadc75b4934bc1c73dd9aee55662385',
-        'dummy-0.0.1-py3-none-manylinux_2_12_i686.manylinux2010_i686.whl': 'de80927d4f57cac9743f49e17058b7759239dbaec85d0ef11e06a56ee801e9cd',
-        'dummy-0.0.1-py3-none-manylinux_2_12_x86_64.manylinux2010_x86_64.whl': 'ee6bf170438b75969a4bcd4af55dcb9893248b94952251673e71530489aca517',
-        'dummy-0.0.1-py3-none-manylinux_2_17_armv7l.manylinux2014_armv7l.whl': 'a7c525ad50a53f0bb579e4562dc597cc0f24d60352f04960e8713569e060a00a',
-        'dummy-0.0.1-py3-none-manylinux_2_17_aarch64.manylinux2014_aarch64.whl': 'c7d0e87fba66d94d63f69e377aded09940c4587b922bd42e130ce26ecbb5a872',
+        'dummy-0.0.1-py3-none-win32.whl': '2b6b5511b317b94594e0d47508edccc43b294e8ac12b32910fb7f40f6030facb',
+        'dummy-0.0.1-py3-none-win_amd64.whl': '0e5b3c59877a3e1ade955fb9090dc64b89f4a7989d0574b70a82d72eaef4248c',
+        'dummy-0.0.1-py3-none-macosx_10_9_x86_64.whl': 'a76739571c86efef8c6aced19d49b9ae2fa21a89d4ab6810336f62e3928c7c87',
+        'dummy-0.0.1-py3-none-macosx_11_0_arm64.whl': 'd12f6ce63684efa9eaddfa8bfd7873700d786b833f7fe795ba7f5d3d2c97fce6',
+        'dummy-0.0.1-py3-none-manylinux_2_12_i686.manylinux2010_i686.whl': '052e1aecbf09b25284a91799c81f1f8ed73d3045fe8035ccc1d8278ac42290db',
+        'dummy-0.0.1-py3-none-manylinux_2_12_x86_64.manylinux2010_x86_64.whl': 'fe7243bf6b8d5a8b4bdaed97b3f00515f4319e4fdd1defdba00de1449a6ac033',
+        'dummy-0.0.1-py3-none-manylinux_2_17_armv7l.manylinux2014_armv7l.whl': '89fd470508068aa8f2b52b0c896c582d7da6629614c4eb3e7a8c9ca6de512627',
+        'dummy-0.0.1-py3-none-manylinux_2_17_aarch64.manylinux2014_aarch64.whl': '85cce005163ddf8c0460caeafe0520c0e1e44f57956f1710c812a08ef946e22b',
     }
 
     def test_idempotent_creation(self):
@@ -35,11 +35,11 @@ class WriteTest(unittest.TestCase):
                 classifier=[
                     'License :: OSI Approved :: MIT License',
                 ],
-                project_urls=[
-                    'Homepage, https://example.com',
-                    'Source Code, https://github.com/examle/example',
-                    'Bug Tracker, https://github.com/example/example/issues',
-                ],
+                project_urls={
+                    'Homepage': ' https://example.com',
+                    'Source Code': ' https://github.com/examle/example',
+                    'Bug Tracker': ' https://github.com/example/example/issues',
+                },
                 source=StaticLocalWheelSource(Path(f"{folder_name}/testdata/dummy")),
                 platforms=[
                     well_known_platforms.WINDOWS_i386,
@@ -50,6 +50,7 @@ class WriteTest(unittest.TestCase):
                     well_known_platforms.LINUX_GENERIC_x84_64,
                     well_known_platforms.LINUX_GENERIC_armv7a,
                     well_known_platforms.LINUX_GENERIC_aarch64,
-                ]
+                ],
+                add_to_path=False,
         ), temp_path):
             self.assertEqual(result.checksum, self.expected_checksums[Path(result.file_path).name])

@@ -1,7 +1,7 @@
 from pathlib import Path
 from typing import Generator
 
-from cli_wheel_builder import Wheel, create_all_supported_platform_wheels, WheelPlatformBuildResult
+from cli_wheel_builder.api import Wheel, create_all_supported_platform_wheels, WheelPlatformBuildResult
 
 
 def build(wheel_meta: Wheel, dist_folder: Path) -> Generator[WheelPlatformBuildResult, None, None]:

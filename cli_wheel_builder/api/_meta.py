@@ -73,7 +73,9 @@ class Wheel:
     """Name of the license"""
     classifier: Sequence[str] | None = None
     """Classifiers to show in frontends"""
-    project_urls: Sequence[str] | None = None
+    project_urls: dict[str, str] | None = None
     """Incude project URLs like bugtrackers etc."""
     requires_python: str | None = None
     """Python version constraint for the wheel"""
+    add_to_path: bool = True
+    """Should the executable be added to the path (using python wrapper)"""

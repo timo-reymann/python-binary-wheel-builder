@@ -4,7 +4,7 @@ import unittest
 from pathlib import Path
 
 from binary_wheel_bundler import Wheel, StaticLocalWheelSource, build
-from binary_wheel_bundler import well_known_platforms, create_all_supported_platform_wheels
+from binary_wheel_bundler import well_known_platforms
 
 
 class WriteTest(unittest.TestCase):

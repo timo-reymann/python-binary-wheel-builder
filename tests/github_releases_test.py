@@ -1,10 +1,9 @@
 import tempfile
 from pathlib import Path
 from unittest import TestCase
-from urllib.request import urlopen
 
-from binary_wheel_bundler import well_known_platforms, create_all_supported_platform_wheels, build
-from binary_wheel_bundler import WheelSource, WheelPlatformIdentifier, Wheel, WheelFileEntry, GithubReleaseBinarySource
+from binary_wheel_bundler import Wheel, GithubReleaseBinarySource
+from binary_wheel_bundler import well_known_platforms, build
 
 
 class BufGithubReleaseSource(GithubReleaseBinarySource):

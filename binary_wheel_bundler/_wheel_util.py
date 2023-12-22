@@ -48,7 +48,7 @@ def _write_wheel(
         wheel_file_entries: list[WheelFileEntry]
 ):
     wheel_name = f'{name}-{version}-{tag}.whl'
-    dist_info = f'{name}-{version}.dist-info'
+    dist_info = f'{name}.dist-info'
     wheel_file_path = os.path.join(out_dir, wheel_name)
 
     entries = [

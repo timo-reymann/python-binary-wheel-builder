@@ -103,5 +103,11 @@
     "source",
     "platforms"
   ],
+  ".additional_properties": {
+    "type": "object",
+    "propertyNames": {
+      "pattern": "^\\."
+    }
+  },
   "additionalProperties": false
 }

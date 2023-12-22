@@ -102,5 +102,6 @@ def load_wheel_spec_from_yaml(file_path: Path):
         data = yaml.load(file, Loader=_yaml_loader())
         if data is None:
             raise ValueError("Config file can not be empty")
+        data = {k: v for k,v in data.items() if k[0] != "."}
         validated_data = _validate_wheel_data(data)
         return Wheel(**validated_data)

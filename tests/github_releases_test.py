@@ -2,8 +2,8 @@ import tempfile
 from pathlib import Path
 from unittest import TestCase
 
-from binary_wheel_bundler import Wheel, GithubReleaseBinarySource
-from binary_wheel_bundler import well_known_platforms, build
+from cli_wheel_builder import Wheel, GithubReleaseBinarySource
+from cli_wheel_builder import well_known_platforms, build
 
 
 class BufGithubReleaseSource(GithubReleaseBinarySource):

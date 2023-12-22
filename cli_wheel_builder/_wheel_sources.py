@@ -1,6 +1,6 @@
 from pathlib import Path
 
-from binary_wheel_bundler._meta import WheelSource, WheelPlatformIdentifier, WheelFileEntry
+from cli_wheel_builder._meta import WheelSource, WheelPlatformIdentifier, WheelFileEntry
 
 
 class StaticLocalWheelSource(WheelSource):

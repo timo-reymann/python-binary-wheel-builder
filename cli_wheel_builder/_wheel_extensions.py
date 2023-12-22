@@ -2,9 +2,9 @@ import hashlib
 from typing import Sequence
 from zipfile import Path
 
-from binary_wheel_bundler._meta import WheelSource, WheelPlatformIdentifier, WheelPlatformBuildResult, Wheel, \
+from cli_wheel_builder._meta import WheelSource, WheelPlatformIdentifier, WheelPlatformBuildResult, Wheel, \
     WheelFileEntry
-from binary_wheel_bundler._wheel_util import _write_wheel
+from cli_wheel_builder._wheel_util import _write_wheel
 
 
 def _write_platform_wheel(out_dir: str, wheel_info: Wheel, platform: WheelPlatformIdentifier, source: WheelSource):

@@ -1,7 +1,7 @@
 """
 Contains the well known platforms for python wheel one might want to target to simplify usage
 """
-from binary_wheel_bundler import WheelPlatformIdentifier
+from cli_wheel_builder import WheelPlatformIdentifier
 
 WINDOWS_i386 = WheelPlatformIdentifier("win32")
 WINDOWS_x86_64 = WheelPlatformIdentifier("win_amd64")

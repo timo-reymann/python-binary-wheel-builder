@@ -1,11 +1,11 @@
 [tool.poetry]
 name = "binary_wheel_builder"
 version = "0.1.0"
-description = "Binary wheel builder"
-authors = ["Timo Reymann <timo.reymann@deepl.com>"]
+description = "Bundle CLI applications as wheel to use them in code or as standalone binary"
+authors = ["Timo Reymann <mail@timo-reymann.de>"]
 readme = "README.md"
 packages = [
-    { include = "binary_wheel_bundler" }
+    { include = "cli_wheel_builder" }
 ]
 [tool.poetry.dependencies]
 python = "> 3.8"

@@ -10,10 +10,13 @@ packages = [
 [tool.poetry.dependencies]
 python = "> 3.8"
 wheel = "> 0.30.0"
-
+pyyaml = { version = "^6.0.1", optional = true }
 
 [tool.poetry.group.dev.dependencies]
 pytest = "^7.4.3"
+
+[tool.poetry.extras]
+cli = ["pyyaml"]
 
 [build-system]
 requires = ["poetry-core"]

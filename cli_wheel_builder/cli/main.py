@@ -14,6 +14,11 @@ def parse_args(args) -> Namespace:
 
 
 def main(argv=None) -> None:
+    try:
+        import yaml
+    except:
+        raise SystemExit("PyYAML not installed, can not use CLI.")
+
     if argv is None:
         argv = sys.argv[1:] if sys.argv else []
 

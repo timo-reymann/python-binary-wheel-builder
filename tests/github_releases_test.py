@@ -28,8 +28,8 @@ class DeterministicZipGitHubReleaseSource(GithubReleaseBinarySource):
         super().__init__("timo-reymann/deterministic-zip",
                          version,
                          {
-                             well_known_platforms.MAC_SILICONE: "deterministic-zip_darwin-amd64",
-                             well_known_platforms.MAC_INTEL: "deterministic-zip_darwin-arm64",
+                             well_known_platforms.MAC_SILICONE: "deterministic-zip_darwin-arm64",
+                             well_known_platforms.MAC_INTEL: "deterministic-zip_darwin-amd64",
                              well_known_platforms.LINUX_GENERIC_x84_64: "deterministic-zip_linux-amd64",
                              well_known_platforms.LINUX_GENERIC_aarch64: "deterministic-zip_linux-arm",
                              well_known_platforms.LINUX_GENERIC_armv7a: "deterministic-zip_linux-arm",

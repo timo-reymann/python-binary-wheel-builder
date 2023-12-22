@@ -1,0 +1,68 @@
+version: "2.1"
+
+orbs:
+  win: circleci/windows@5.0.0
+  python: circleci/python@2.1.1
+
+jobs:
+  test-win:
+    executor:
+      name: win/default
+      size: medium
+    steps:
+      - checkout
+      - run:
+          name: Show system info
+          command: systeminfo /fo csv | ConvertFrom-Csv | select OS*, System*, Hotfix* | Format-List
+      - run:
+          name: Install python and poetry
+          command: |
+            choco install python -y --version=3.12.1
+            pip install pipx
+            pipx install poetry
+      - python/install-packages:
+          pkg-manager: poetry
+      - run:
+          name: Run tests
+          command: |
+            poetry run pytest
+  test-macos:
+    macos:
+      xcode: "15.1.0"
+    steps:
+      - checkout
+      - run:
+          name: Show system info
+          command: uname -a
+      - run:
+          name: Install python and poetry
+          command: |
+            brew install python@3.12
+            pip install pipx
+            pipx install poetry
+      - python/install-packages:
+          pkg-manager: poetry
+      - run:
+          name: Run tests
+          command: |
+            poetry run pytest
+  test-linux:
+    docker:
+      - image: cimg/python:3.12
+    steps:
+      - checkout
+      - run:
+          name: Show system info
+          command: uname -a
+      - python/install-packages:
+          pkg-manager: poetry
+      - run:
+          name: Run tests
+          command: |
+            poetry run pytest
+workflows:
+  main:
+    jobs:
+      - test-win
+      - test-macos
+      - test-linux

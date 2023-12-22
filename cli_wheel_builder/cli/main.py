@@ -1,6 +1,6 @@
 from pathlib import Path
 
-from cli_wheel_builder.cli.config_file import load_wheel_from_yaml
+from cli_wheel_builder.cli.config_file import load_wheel_spec_from_yaml
 from cli_wheel_builder.api import create_all_supported_platform_wheels
 import sys
 from argparse import ArgumentParser, Namespace
@@ -22,7 +22,7 @@ def main(argv=None) -> None:
     dist_path = Path(args.dist_folder)
     dist_path.mkdir(exist_ok=True)
 
-    wheel = load_wheel_from_yaml(args.wheel_spec)
+    wheel = load_wheel_spec_from_yaml(Path(args.wheel_spec))
     for result in create_all_supported_platform_wheels(wheel, dist_path):
         print(f"> {result.checksum} - {result.file_path}")
 

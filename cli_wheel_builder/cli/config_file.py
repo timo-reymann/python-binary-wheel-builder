@@ -1,5 +1,6 @@
 import dataclasses
 import importlib
+from pathlib import Path
 from typing import Generator, Tuple
 
 import yaml
@@ -8,7 +9,7 @@ from cli_wheel_builder import Wheel, WheelSource, WheelPlatformIdentifier
 from cli_wheel_builder.api import well_known_platforms
 
 
-def validate_wheel_data(data):
+def _validate_wheel_data(data):
     required_fields = [
         "package",
         "executable",
@@ -30,7 +31,7 @@ def validate_wheel_data(data):
     return data
 
 
-def iterate_mapping_node(
+def _iterate_mapping_node(
         loader: yaml.SafeLoader,
         node: yaml.nodes.MappingNode
 ) -> Generator[Tuple[str, any], None, None]:
@@ -39,7 +40,7 @@ def iterate_mapping_node(
         yield key_node.value, loader.construct_object(value_node, True)
 
 
-def construct_well_known_platform(_: yaml.SafeLoader, node: yaml.nodes.ScalarNode) -> WheelPlatformIdentifier:
+def _construct_well_known_platform(_: yaml.SafeLoader, node: yaml.nodes.ScalarNode) -> WheelPlatformIdentifier:
     name = node.value
     if not hasattr(well_known_platforms, name):
         raise yaml.constructor.ConstructorError(None, None,
@@ -48,10 +49,10 @@ def construct_well_known_platform(_: yaml.SafeLoader, node: yaml.nodes.ScalarNod
     return getattr(well_known_platforms, name)
 
 
-def construct_wheel_source(loader: yaml.SafeLoader, node: yaml.nodes.MappingNode) -> WheelSource:
+def _construct_wheel_source(loader: yaml.SafeLoader, node: yaml.nodes.MappingNode) -> WheelSource:
     kwargs = {}
     implementation_class = ""
-    for key, val in iterate_mapping_node(loader, node):
+    for key, val in _iterate_mapping_node(loader, node):
         if key == "implementation":
             implementation_class = val
             continue
@@ -74,18 +75,32 @@ def construct_wheel_source(loader: yaml.SafeLoader, node: yaml.nodes.MappingNode
     return source_impl(**kwargs)
 
 
-def yaml_loader():
+def _construct_wheel_platform_identifier(loader: yaml.SafeLoader,
+                                         node: yaml.nodes.MappingNode) -> WheelPlatformIdentifier:
+    kwargs = {}
+
+    for key, val in _iterate_mapping_node(loader, node):
+        if key not in ['platform', 'python_tag', 'abi_tag']:
+            raise yaml.constructor.ConstructorError(None, None,
+                                                    "Unsupported argument %s with value '%s'" % (key, val),
+                                                    node.start_mark)
+        kwargs[key] = val
+
+    return WheelPlatformIdentifier(**kwargs)
+
+
+def _yaml_loader():
     loader = yaml.SafeLoader
-    loader.add_constructor("!WellknownPlatform", construct_well_known_platform)
-    loader.add_constructor("!WheelSource", construct_wheel_source)
+    loader.add_constructor("!WellknownPlatform", _construct_well_known_platform)
+    loader.add_constructor("!WheelSource", _construct_wheel_source)
+    loader.add_constructor("!WheelPlatform", _construct_wheel_platform_identifier)
     return loader
 
 
-# Function to load YAML file and create Wheel instance
-def load_wheel_from_yaml(file_path):
-    with open(file_path, 'r') as file:
-        data = yaml.load(file, Loader=yaml_loader())
+def load_wheel_spec_from_yaml(file_path: Path):
+    with file_path.open("r") as file:
+        data = yaml.load(file, Loader=_yaml_loader())
         if data is None:
             raise ValueError("Config file can not be empty")
-        validated_data = validate_wheel_data(data)
+        validated_data = _validate_wheel_data(data)
         return Wheel(**validated_data)

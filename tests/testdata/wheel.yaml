@@ -21,7 +21,9 @@ source: !WheelSource
     !WellknownPlatform MAC_SILICONE: "deterministic-zip_darwin-amd64"
     !WellknownPlatform MAC_INTEL: "deterministic-zip_darwin-arm64"
     !WellknownPlatform LINUX_GENERIC_x84_64: "deterministic-zip_linux-amd64"
+    !WheelPlatform { platform: manylinux_3_0_i686, python_tag: py2 }:  "deterministic-zip_linux-amd64"
 platforms:
   - !WellknownPlatform MAC_INTEL
   - !WellknownPlatform MAC_SILICONE
   - !WellknownPlatform LINUX_GENERIC_x84_64
+  - !WheelPlatform { platform: manylinux_3_0_i686, python_tag: py2 }

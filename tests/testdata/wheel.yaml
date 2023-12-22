@@ -23,8 +23,8 @@ source: !WheelSource
   tag_prefix: ""
   binary_path: deterministic_zip/deterministic-zip
   asset_name_mapping:
-    !WellknownPlatform MAC_SILICONE: "deterministic-zip_darwin-amd64"
-    !WellknownPlatform MAC_INTEL: "deterministic-zip_darwin-arm64"
+    !WellknownPlatform MAC_SILICONE: "deterministic-zip_darwin-arm64"
+    !WellknownPlatform MAC_INTEL: "deterministic-zip_darwin-amd64"
     !WellknownPlatform LINUX_GENERIC_x84_64: "deterministic-zip_linux-amd64"
     *python3_libc3_linux_platform: "deterministic-zip_linux-amd64"
 platforms:

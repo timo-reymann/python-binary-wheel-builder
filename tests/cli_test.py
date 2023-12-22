@@ -1,8 +1,9 @@
 import os
+import platform
 
 import unittest
 from cli_wheel_builder.cli.main import main
-from tests.util import install_wheel
+from tests.util import install_wheel, verify_install
 
 
 class CliTest(unittest.TestCase):
@@ -17,3 +18,5 @@ class CliTest(unittest.TestCase):
             "/tmp/dist"
         ])
         install_wheel("/tmp/dist/","deterministic-zip")
+        if platform.system() != "Windows":
+            verify_install("deterministic-zip")

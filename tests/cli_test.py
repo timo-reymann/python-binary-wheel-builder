@@ -2,6 +2,7 @@ import os
 
 import unittest
 from cli_wheel_builder.cli.main import main
+from tests.util import install_wheel
 
 
 class CliTest(unittest.TestCase):
@@ -15,3 +16,4 @@ class CliTest(unittest.TestCase):
             "--dist-folder",
             "/tmp/dist"
         ])
+        install_wheel("/tmp/dist/","deterministic-zip")

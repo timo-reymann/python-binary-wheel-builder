@@ -1,9 +1,11 @@
+import subprocess
 import tempfile
 from pathlib import Path
 from unittest import TestCase
 
 from cli_wheel_builder import Wheel, GithubReleaseBinarySource
 from cli_wheel_builder import well_known_platforms, build
+from tests.util import install_wheel, verify_install
 
 
 class BufGithubReleaseSource(GithubReleaseBinarySource):
@@ -38,6 +40,8 @@ class DeterministicZipGitHubReleaseSource(GithubReleaseBinarySource):
 
 class GitHubReleasesTest(TestCase):
     def test_buf(self):
+        dist_folder = Path(tempfile.mkdtemp())
+
         for result in build(
                 Wheel(
                     package="buf",
@@ -63,11 +67,15 @@ class GitHubReleasesTest(TestCase):
                         well_known_platforms.LINUX_GENERIC_x84_64,
                     ]
                 ),
-                Path(tempfile.mkdtemp())
+                dist_folder
         ):
             print(result)
 
+        install_wheel(dist_folder, "buf")
+        verify_install("buf", "--version")
+
     def test_zip(self):
+        dist_folder = Path(tempfile.mkdtemp())
         for result in build(
                 Wheel(
                     package="deterministic_zip",
@@ -92,6 +100,8 @@ class GitHubReleasesTest(TestCase):
                         well_known_platforms.LINUX_GENERIC_x84_64,
                     ]
                 ),
-                Path(tempfile.mkdtemp())
+                dist_folder
         ):
             print(result)
+        install_wheel(dist_folder, "deterministic-zip")
+        verify_install("deterministic-zip", "--version")

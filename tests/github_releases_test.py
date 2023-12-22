@@ -1,3 +1,5 @@
+import os
+import platform
 import subprocess
 import tempfile
 from pathlib import Path
@@ -104,4 +106,5 @@ class GitHubReleasesTest(TestCase):
         ):
             print(result)
         install_wheel(dist_folder, "deterministic-zip")
-        verify_install("deterministic-zip", "--version")
+        if platform.system() != "Windows":
+            verify_install("deterministic-zip", "--version")

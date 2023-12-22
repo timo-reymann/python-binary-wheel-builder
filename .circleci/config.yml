@@ -20,9 +20,10 @@ jobs:
             choco install python -y --version=3.12.1
             pip install pipx
             pipx install poetry
-      - python/install-packages:
-          pkg-manager: poetry
-          args: --all-extras
+            pipx ensurepath
+      - run:
+          name: Install packages
+          command: poetry install --all-extras
       - run:
           name: Run tests
           command: |
@@ -41,6 +42,7 @@ jobs:
             brew install python@3.12
             pip install pipx
             pipx install poetry
+            pipx ensurepath
       - python/install-packages:
           pkg-manager: poetry
           args: --all-extras

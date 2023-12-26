@@ -6,6 +6,7 @@ from pathlib import Path
 
 from cli_wheel_builder import Wheel, StaticLocalWheelSource, build
 from cli_wheel_builder import well_known_platforms
+from tests.util import verify_wheel_structure
 
 
 class WriteTest(unittest.TestCase):
@@ -57,3 +58,13 @@ class WriteTest(unittest.TestCase):
             print(result)
             if platform.system() != "Windows":
                 self.assertEqual(result.checksum, self.expected_checksums[Path(result.file_path).name])
+
+            verify_wheel_structure(
+                result.file_path,
+                [
+                    ('dummy-0.0.1.dist-info/RECORD', 0o644),
+                    ('dummy-0.0.1.dist-info/METADATA', 0o644)
+                ], [
+                    'dummy-0.0.1.dist-info/entry_points.txt'
+                ]
+            )

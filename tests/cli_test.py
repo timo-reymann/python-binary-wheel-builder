@@ -2,6 +2,7 @@ import os
 import platform
 
 import unittest
+
 from cli_wheel_builder.cli.main import main
 from tests.util import install_wheel, verify_install
 

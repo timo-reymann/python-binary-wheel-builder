@@ -7,7 +7,7 @@ from unittest import TestCase
 
 from cli_wheel_builder import Wheel, GithubReleaseBinarySource
 from cli_wheel_builder import well_known_platforms, build
-from tests.util import install_wheel, verify_install
+from tests.util import install_wheel, verify_install, verify_wheel_structure
 
 
 class BufGithubReleaseSource(GithubReleaseBinarySource):
@@ -72,9 +72,20 @@ class GitHubReleasesTest(TestCase):
                 dist_folder
         ):
             print(result)
+            verify_wheel_structure(
+                result.file_path,
+                [
+                    ('buf-0.0.1.dist-info/RECORD', 0o644),
+                    ('buf-0.0.1.dist-info/METADATA', 0o644),
+                    ('buf-0.0.1.dist-info/entry_points.txt', 0o644),
+                    ('buf/buf', 0o755),
+                ]
+            )
 
         install_wheel(dist_folder, "buf")
         verify_install("buf", "--version")
+
+
 
     def test_zip(self):
         dist_folder = Path(tempfile.mkdtemp())
@@ -105,6 +116,16 @@ class GitHubReleasesTest(TestCase):
                 dist_folder
         ):
             print(result)
+            verify_wheel_structure(
+                result.file_path,
+                [
+                    ('deterministic_zip-0.0.1.dist-info/RECORD', 0o644),
+                    ('deterministic_zip-0.0.1.dist-info/METADATA', 0o644),
+                    ('deterministic_zip-0.0.1.dist-info/entry_points.txt', 0o644),
+                    ('deterministic_zip/deterministic-zip', 0o755),
+                ]
+            )
+
         install_wheel(dist_folder, "deterministic-zip")
         if platform.system() != "Windows":
             verify_install("deterministic-zip", "--version")

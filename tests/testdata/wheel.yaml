@@ -8,6 +8,7 @@ executable: deterministic-zip
 name: deterministic-zip
 version: 0.0.1
 summary: deterministic-zip wrapped for usage with pip and/or python.
+description: !FileContent README.md
 license: MIT
 requires_python: ">=3.8"
 classifier:

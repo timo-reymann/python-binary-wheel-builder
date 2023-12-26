@@ -89,19 +89,34 @@ def _construct_wheel_platform_identifier(loader: yaml.SafeLoader,
     return WheelPlatformIdentifier(**kwargs)
 
 
-def _yaml_loader():
-    loader = yaml.SafeLoader
+class YamlSafeLoaderWithFileContext(yaml.SafeLoader):
+    file_path: Path
+
+
+def _construct_file_content(loader: YamlSafeLoaderWithFileContext, node: yaml.nodes.ScalarNode) -> str:
+    file_path = Path(loader.file_path.parent, node.value)
+    if not file_path.exists() or file_path.is_dir():
+        raise yaml.constructor.ConstructorError(None, None,
+                                                "%s does not resolve to a file" % str(file_path),
+                                                node.start_mark)
+    return file_path.read_text()
+
+
+def _yaml_loader(file_path):
+    loader = YamlSafeLoaderWithFileContext
     loader.add_constructor("!WellknownPlatform", _construct_well_known_platform)
     loader.add_constructor("!WheelSource", _construct_wheel_source)
     loader.add_constructor("!WheelPlatform", _construct_wheel_platform_identifier)
+    loader.add_constructor("!FileContent", _construct_file_content)
+    loader.file_path = file_path
     return loader
 
 
 def load_wheel_spec_from_yaml(file_path: Path):
     with file_path.open("r") as file:
-        data = yaml.load(file, Loader=_yaml_loader())
+        data = yaml.load(file, Loader=_yaml_loader(file_path))
         if data is None:
             raise ValueError("Config file can not be empty")
-        data = {k: v for k,v in data.items() if k[0] != "."}
+        data = {k: v for k, v in data.items() if k[0] != "."}
         validated_data = _validate_wheel_data(data)
         return Wheel(**validated_data)

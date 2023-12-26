@@ -30,7 +30,3 @@ def main(argv=None) -> None:
     wheel = load_wheel_spec_from_yaml(Path(args.wheel_spec))
     for result in create_all_supported_platform_wheels(wheel, dist_path):
         print(f"> {result.checksum} - {result.file_path}")
-
-
-if __name__ == "__main__":
-    main()

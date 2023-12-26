@@ -19,7 +19,7 @@ pytest = "^7.4.3"
 cli = ["pyyaml"]
 
 [tool.poetry.scripts]
-cli-wheel-builder = "cli_wheel_builder.cli.main:main"
+cli-wheel-builder = "cli_wheel_builder.__main__:main"
 
 [build-system]
 requires = ["poetry-core"]

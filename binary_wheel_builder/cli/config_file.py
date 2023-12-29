@@ -1,5 +1,6 @@
 import dataclasses
 import importlib
+import traceback
 from pathlib import Path
 from typing import Generator, Tuple
 
@@ -7,28 +8,6 @@ import yaml
 
 from binary_wheel_builder import Wheel, WheelSource, WheelPlatformIdentifier
 from binary_wheel_builder.api import well_known_platforms
-
-
-def _validate_wheel_data(data):
-    required_fields = [
-        "package",
-        "executable",
-        "name",
-        "version",
-        "source",
-        "platforms"
-    ]
-    for field in required_fields:
-        if field not in data:
-            raise ValueError(f"Missing required field: {field}")
-
-    allowed_fields = set([field.name for field in list(dataclasses.fields(Wheel))])
-    unknown_fields = set(data.keys()) - allowed_fields
-
-    if unknown_fields:
-        raise ValueError(f"Unknown fields found: {', '.join(unknown_fields)}")
-
-    return data
 
 
 def _iterate_mapping_node(
@@ -69,6 +48,7 @@ def _construct_wheel_source(loader: yaml.SafeLoader, node: yaml.nodes.MappingNod
         module = importlib.import_module(module_name)
         source_impl = getattr(module, class_name)
     except:
+        traceback.print_exc()
         raise yaml.constructor.ConstructorError(None, None,
                                                 "Wheel source implementation for tag %r could not be instantiated" % node.tag,
                                                 node.start_mark)
@@ -118,5 +98,4 @@ def load_wheel_spec_from_yaml(file_path: Path):
         if data is None:
             raise ValueError("Config file can not be empty")
         data = {k: v for k, v in data.items() if k[0] != "."}
-        validated_data = _validate_wheel_data(data)
-        return Wheel(**validated_data)
+        return Wheel(**data)

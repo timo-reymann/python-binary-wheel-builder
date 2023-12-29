@@ -1,7 +1,10 @@
-import dataclasses
+from pydantic import dataclasses, ConfigDict, BaseModel, Field, GetJsonSchemaHandler
 from abc import abstractmethod, ABC
 from pathlib import Path
-from typing import Sequence
+from typing import Sequence, Any, Callable
+
+from pydantic.json_schema import JsonSchemaValue
+from pydantic_core import core_schema
 
 
 @dataclasses.dataclass
@@ -14,12 +17,10 @@ class WheelPlatformBuildResult:
 
 @dataclasses.dataclass(frozen=True)
 class WheelPlatformIdentifier:
-    platform: str
-    """Name of the platform"""
-    python_tag: str = "py3"
-    """Python tag pyXx"""
-    abi_tag: str = "none"
-    """ABI tag"""
+    platform: str = Field(description="Name of the platform")
+    python_tag: str = Field(default="py3", description="Python tag (e.g pyX)")
+    abi_tag: str = Field(default="none",
+                         description="Indicates which Python ABI is required by any included extension modules.")
 
     def to_tag(self):
         """Build to python wheel tag format"""
@@ -32,12 +33,9 @@ class WheelPlatformIdentifier:
 
 @dataclasses.dataclass
 class WheelFileEntry:
-    path: str
-    """Path of the file in the wheel"""
-    content: bytes
-    """Binary content for the file"""
-    permissions: int = 0o644
-    """Permissions for the file in the archive"""
+    path: str = Field(description="Path of the file in the wheel")
+    content: bytes = Field(description="Binary content for the file")
+    permissions: int = Field(0o644, description="Permissions for the file in the archive")
 
 
 class WheelSource(ABC):
@@ -50,32 +48,45 @@ class WheelSource(ABC):
         """
         return []
 
+    @classmethod
+    def __get_pydantic_json_schema__(
+            cls, core_schema: core_schema.JsonSchema, handler: GetJsonSchemaHandler
+    ) -> JsonSchemaValue:
+        json_schema = {}
+        json_schema.update(type="object", required=[], properties={})
+        return json_schema
+
+    @classmethod
+    def validate(
+            cls, __input_value: Any, _: core_schema.ValidationInfo
+    ) -> "WheelSource":
+        if not isinstance(__input_value, cls):
+            raise ValueError(f"Expected WheelSource, received: {type(__input_value)}")
+        return __input_value
+
+    @classmethod
+    def __get_pydantic_core_schema__(
+            cls,
+            source: type[Any],
+            handler: Callable[[Any], core_schema.CoreSchema]
+    ) -> core_schema.CoreSchema:
+        return core_schema.with_info_plain_validator_function(cls.validate)
+
 
 @dataclasses.dataclass
 class Wheel:
-    package: str
-    """Name of the generated package"""
-    executable: str
-    """Relative path of the executable"""
-    name: str
-    """Name of the pypi package"""
-    version: str
-    """Version of the package"""
-    source: WheelSource
-    """Source to fetch files from"""
-    platforms: Sequence[WheelPlatformIdentifier]
-    """Platforms supported by the wheel"""
-    summary: str | None = None
-    """Summary for package metadata"""
-    description: str | None = None
-    """Description for package metadata"""
-    license: str | None = None
-    """Name of the license"""
-    classifier: Sequence[str] | None = None
-    """Classifiers to show in frontends"""
-    project_urls: dict[str, str] | None = None
-    """Incude project URLs like bugtrackers etc."""
-    requires_python: str | None = None
-    """Python version constraint for the wheel"""
-    add_to_path: bool = True
-    """Should the executable be added to the path (using python wrapper)"""
+    model_config = ConfigDict(arbitrary_types_allowed=True, extra="forbid")
+
+    package: str = Field(description="Name of the generated package")
+    executable: str = Field(description="Relative path of the executable")
+    name: str = Field(description="Name of the pypi package")
+    version: str = Field(description="Version of the package")
+    source: WheelSource = Field(description="Source to fetch files from")
+    platforms: Sequence[WheelPlatformIdentifier] = Field(description="Platforms supported by the wheel")
+    summary: str | None = Field(None, description="Summary for package metadata")
+    description: str | None = Field(None, description="Description for package metadata")
+    license: str | None = Field(None, description="Name of the license")
+    classifier: Sequence[str] | None = Field(None, description="Classifiers to show in frontends")
+    project_urls: dict[str, str] | None = Field(None, description="Incude project URLs like bugtrackers etc.")
+    requires_python: str | None = Field(None, description="Python version constraint for the wheel")
+    add_to_path: bool = Field(True, description="Should the executable be added to the path (using python wrapper)")

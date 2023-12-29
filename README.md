@@ -39,7 +39,7 @@ This would allow:
 - Add binary to path so one can call it by binary name and it is managed by pip
 - CLI to define wheel config as YAML, without having to touch python
   ```sh
-  poetry run cli-wheel-builder --wheel-spec tests/testdata/wheel.yaml
+  poetry run binary-wheel-builder --wheel-spec integration_tests/testdata/wheel.yaml
   ```
 
 ## Limitations

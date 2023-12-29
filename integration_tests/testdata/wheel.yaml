@@ -18,7 +18,7 @@ project_urls:
   "Source Code": "https://github.com/examle/example"
   "Bug Tracker": "https://github.com/example/example/issues"
 source: !WheelSource
-  implementation: binary_wheel_builder.GithubReleaseBinarySource
+  implementation: binary_wheel_builder.api.wheel_sources.GithubReleaseBinarySource
   project_slug: timo-reymann/deterministic-zip
   version: "2.1.0"
   tag_prefix: ""

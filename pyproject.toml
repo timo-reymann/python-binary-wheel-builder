@@ -20,7 +20,7 @@ pytest = "^7.4.3"
 cli = ["pyyaml"]
 
 [tool.poetry.scripts]
-binary-wheel-builder = "binary_wheel_builder.__main__:main"
+binary-wheel-builder = "binary_wheel_builder.cli.main:main"
 
 [build-system]
 requires = ["poetry-core"]

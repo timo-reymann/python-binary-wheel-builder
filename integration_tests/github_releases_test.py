@@ -5,8 +5,8 @@ import tempfile
 from pathlib import Path
 from unittest import TestCase
 
-from binary_wheel_builder import Wheel, GithubReleaseBinarySource
-from binary_wheel_builder import well_known_platforms, build
+from binary_wheel_builder import Wheel, well_known_platforms, build_wheel
+from binary_wheel_builder.api.wheel_sources import GithubReleaseBinarySource
 from integration_tests.util import install_wheel, verify_install, verify_wheel_structure
 
 
@@ -44,7 +44,7 @@ class GitHubReleasesTest(TestCase):
     def test_buf(self):
         dist_folder = Path(tempfile.mkdtemp())
 
-        for result in build(
+        for result in build_wheel(
                 Wheel(
                     package="buf",
                     executable="buf",
@@ -89,7 +89,7 @@ class GitHubReleasesTest(TestCase):
 
     def test_zip(self):
         dist_folder = Path(tempfile.mkdtemp())
-        for result in build(
+        for result in build_wheel(
                 Wheel(
                     package="deterministic_zip",
                     executable="deterministic-zip",

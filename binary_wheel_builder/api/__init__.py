@@ -1,6 +1,9 @@
-from binary_wheel_builder.api._meta import WheelSource, Wheel, WheelPlatformIdentifier, WheelPlatformBuildResult
-from binary_wheel_builder.api._wheel_extensions import create_all_supported_platform_wheels
-from binary_wheel_builder.api._wheel_sources import StaticLocalWheelSource, GithubReleaseBinarySource
+from binary_wheel_builder.api.meta import (WheelSource,
+                                           Wheel,
+                                           WheelPlatformIdentifier,
+                                           WheelPlatformBuildResult,
+                                           WheelFileEntry)
+from binary_wheel_builder.api.build import build_wheel
+
+import binary_wheel_builder.api.wheel_sources
 import binary_wheel_builder.api.well_known_platforms
-from binary_wheel_builder.api._meta import WheelSource, WheelFileEntry
-from binary_wheel_builder.api._build import build

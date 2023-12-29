@@ -4,8 +4,9 @@ import tempfile
 import unittest
 from pathlib import Path
 
-from binary_wheel_builder import Wheel, StaticLocalWheelSource, build
+from binary_wheel_builder import Wheel, build_wheel
 from binary_wheel_builder import well_known_platforms
+from binary_wheel_builder.api.wheel_sources import StaticLocalWheelSource
 from integration_tests.util import verify_wheel_structure
 
 
@@ -26,7 +27,7 @@ class WriteTest(unittest.TestCase):
         folder_name = os.path.basename(os.path.dirname(script_path))
         temp_path = Path(tempfile.mktemp())
 
-        for result in build(Wheel(
+        for result in build_wheel(Wheel(
                 package="dummy",
                 executable="dummy/dummy",
                 name="dummy",

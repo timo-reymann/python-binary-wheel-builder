@@ -1,8 +1,8 @@
-from pydantic import dataclasses, ConfigDict, BaseModel, Field, GetJsonSchemaHandler
 from abc import abstractmethod, ABC
 from pathlib import Path
 from typing import Sequence, Any, Callable
 
+from pydantic import dataclasses, ConfigDict, Field, GetJsonSchemaHandler
 from pydantic.json_schema import JsonSchemaValue
 from pydantic_core import core_schema
 

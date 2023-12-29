@@ -1,9 +1,11 @@
 import hashlib
-from typing import Sequence
+from typing import Generator
 from zipfile import Path
 
-from binary_wheel_builder.api._meta import WheelSource, WheelPlatformIdentifier, WheelPlatformBuildResult, Wheel, \
-    WheelFileEntry
+from binary_wheel_builder.api.meta import (WheelSource,
+                                           WheelPlatformIdentifier,
+                                           WheelPlatformBuildResult, Wheel,
+                                           WheelFileEntry)
 from binary_wheel_builder.api._wheel_util import _write_wheel
 
 
@@ -158,7 +160,8 @@ def exec_with_templated_output(args: list[str],
     )
 
 
-def create_all_supported_platform_wheels(wheel_meta: Wheel, dist_folder: Path) -> Sequence[WheelPlatformBuildResult]:
+def _create_all_supported_platform_wheels(wheel_meta: Wheel, dist_folder: Path) -> Generator[
+    WheelPlatformBuildResult, None, None]:
     for python_platform in wheel_meta.platforms:
         wheel_path = _write_platform_wheel(
             dist_folder.__str__(),

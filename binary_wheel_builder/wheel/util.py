@@ -2,7 +2,7 @@ from email.message import EmailMessage
 
 
 def generate_wheel_file(tag: str):
-    generate_metafile_content({
+    return generate_metafile_content({
         'Wheel-Version': '1.0',
         'Generator': 'binary-wheel-builder',
         'Root-Is-Purelib': 'false',
@@ -11,7 +11,7 @@ def generate_wheel_file(tag: str):
 
 
 def generate_metadata_file(name: str, version: str, description: str, **metadata):
-    generate_metafile_content({
+    return generate_metafile_content({
         'Metadata-Version': '2.1',
         'Name': name,
         'Version': version,

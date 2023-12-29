@@ -7,19 +7,19 @@ from pathlib import Path
 from binary_wheel_builder import Wheel, build_wheel
 from binary_wheel_builder import well_known_platforms
 from binary_wheel_builder.api.wheel_sources import StaticLocalWheelSource
-from integration_tests.util import verify_wheel_structure
+from integration_tests.util import verify_wheel_structure, install_wheel
 
 
 class WriteTest(unittest.TestCase):
     expected_checksums = {
-        'dummy-0.0.1-py3-none-win32.whl': '2b6b5511b317b94594e0d47508edccc43b294e8ac12b32910fb7f40f6030facb',
-        'dummy-0.0.1-py3-none-win_amd64.whl': '0e5b3c59877a3e1ade955fb9090dc64b89f4a7989d0574b70a82d72eaef4248c',
-        'dummy-0.0.1-py3-none-macosx_10_9_x86_64.whl': 'a76739571c86efef8c6aced19d49b9ae2fa21a89d4ab6810336f62e3928c7c87',
-        'dummy-0.0.1-py3-none-macosx_11_0_arm64.whl': 'd12f6ce63684efa9eaddfa8bfd7873700d786b833f7fe795ba7f5d3d2c97fce6',
-        'dummy-0.0.1-py3-none-manylinux_2_12_i686.manylinux2010_i686.whl': '052e1aecbf09b25284a91799c81f1f8ed73d3045fe8035ccc1d8278ac42290db',
-        'dummy-0.0.1-py3-none-manylinux_2_12_x86_64.manylinux2010_x86_64.whl': 'fe7243bf6b8d5a8b4bdaed97b3f00515f4319e4fdd1defdba00de1449a6ac033',
-        'dummy-0.0.1-py3-none-manylinux_2_17_armv7l.manylinux2014_armv7l.whl': '89fd470508068aa8f2b52b0c896c582d7da6629614c4eb3e7a8c9ca6de512627',
-        'dummy-0.0.1-py3-none-manylinux_2_17_aarch64.manylinux2014_aarch64.whl': '85cce005163ddf8c0460caeafe0520c0e1e44f57956f1710c812a08ef946e22b',
+        'dummy-0.0.1-py3-none-win32.whl': 'bc9f0cde7d905fd820b8752819eb22f9b64088f912cf04b463743de597b4fe85',
+        'dummy-0.0.1-py3-none-win_amd64.whl': 'a79a2c0fe5c01883400980cefec14022998227297e96536aeed2f468e04e3824',
+        'dummy-0.0.1-py3-none-macosx_10_9_x86_64.whl': 'c379162257e63a98222de65a01c3e54461124b8579955a7ba9d2f80107b84154',
+        'dummy-0.0.1-py3-none-macosx_11_0_arm64.whl': '4b8ca8d7e0ce8559e852178baead909ea4e5e83da063d6a3c6bd0d68eb98c4b5',
+        'dummy-0.0.1-py3-none-manylinux_2_12_i686.manylinux2010_i686.whl': 'da5071eb0957d1ff139c2c0283f5e71ec6fc6b763c4cdf79192a407b70102d18',
+        'dummy-0.0.1-py3-none-manylinux_2_12_x86_64.manylinux2010_x86_64.whl': '2697973602bbfa523a6327b0edbe40f0cb3d469dbd35e1192c9aa2bec8eccaa3',
+        'dummy-0.0.1-py3-none-manylinux_2_17_armv7l.manylinux2014_armv7l.whl': '2960fd23b9493fbf9e179e585790e79f2185dc9d32a1b2bb6d4dcabae7ba104a',
+        'dummy-0.0.1-py3-none-manylinux_2_17_aarch64.manylinux2014_aarch64.whl': '7b66bff256800fdb9ecf1c2d60733d31cd709b2072f1aafc544d64c43f26c874',
     }
 
     def test_idempotent_creation(self):
@@ -57,8 +57,6 @@ class WriteTest(unittest.TestCase):
                 add_to_path=False,
         ), temp_path):
             print(result)
-            if platform.system() != "Windows":
-                self.assertEqual(result.checksum, self.expected_checksums[Path(result.file_path).name])
 
             verify_wheel_structure(
                 result.file_path,
@@ -69,3 +67,8 @@ class WriteTest(unittest.TestCase):
                     'dummy-0.0.1.dist-info/entry_points.txt'
                 ]
             )
+
+            install_wheel(result.file_path.parent, "dummy")
+
+            if platform.system() != "Windows":
+                self.assertEqual(self.expected_checksums[Path(result.file_path).name], result.checksum)

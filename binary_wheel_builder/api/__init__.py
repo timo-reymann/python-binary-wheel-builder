@@ -1,3 +1,7 @@
+"""
+API surface for using the package with python code
+"""
+
 from binary_wheel_builder.api.meta import (WheelSource,
                                            Wheel,
                                            WheelPlatformIdentifier,

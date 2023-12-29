@@ -7,6 +7,10 @@ readme = "README.md"
 packages = [
     { include = "binary_wheel_builder" }
 ]
+include = [
+    "wheel.schema.json",
+    "LICENSE"
+]
 [tool.poetry.dependencies]
 python = "> 3.8"
 wheel = "> 0.30.0"

@@ -1,4 +1,9 @@
 #!/usr/bin/env python3
+"""
+Script to regenerate the JSON schema in the repo.
+
+The intention is to provide this in the package as well as in the repo for reference.
+"""
 import os
 from pathlib import Path
 

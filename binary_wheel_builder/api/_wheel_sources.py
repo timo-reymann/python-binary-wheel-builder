@@ -22,7 +22,7 @@ class GithubReleaseBinarySource(WheelSource):
                  version: str,
                  asset_name_mapping: dict[WheelPlatformIdentifier, str],
                  binary_path: str,
-                 tag_prefix="v", ):
+                 tag_prefix="v"):
         self.project_slug = project_slug
         self.version = version
         self.tag_prefix = tag_prefix

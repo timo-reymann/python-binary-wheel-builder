@@ -14,6 +14,7 @@ def _write_platform_wheel(out_dir: str, wheel_info: Wheel, platform: WheelPlatfo
             content=b''),
         WheelFileEntry(
             path=f'{wheel_info.package}/__main__.py',
+            # language=python
             content=f'''\
 import os, sys, subprocess
 sys.exit(subprocess.call([
@@ -23,6 +24,7 @@ sys.exit(subprocess.call([
 '''.encode('utf-8')),
         WheelFileEntry(
             path=f'{wheel_info.package}/exec.py',
+            # language=python
             content=f'''\
 from dataclasses import dataclass
 import subprocess
@@ -130,6 +132,7 @@ def exec_with_templated_output(args: list[str],
     if wheel_info.add_to_path:
         contents.append(WheelFileEntry(
             path=f'{wheel_info.package}-{wheel_info.version}.dist-info/entry_points.txt',
+            # language=ini
             content=f'''\
 [console_scripts]
 {wheel_info.name}={wheel_info.package}:__main__

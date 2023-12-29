@@ -5,7 +5,7 @@ from zipfile import ZipInfo, ZIP_DEFLATED
 
 from wheel.wheelfile import WheelFile
 
-from cli_wheel_builder.api._meta import WheelFileEntry
+from binary_wheel_builder.api._meta import WheelFileEntry
 
 
 def _generate_metafile_content(headers: dict[str, str], payload=None) -> bytes:

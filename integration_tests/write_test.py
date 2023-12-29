@@ -4,9 +4,9 @@ import tempfile
 import unittest
 from pathlib import Path
 
-from cli_wheel_builder import Wheel, StaticLocalWheelSource, build
-from cli_wheel_builder import well_known_platforms
-from tests.util import verify_wheel_structure
+from binary_wheel_builder import Wheel, StaticLocalWheelSource, build
+from binary_wheel_builder import well_known_platforms
+from integration_tests.util import verify_wheel_structure
 
 
 class WriteTest(unittest.TestCase):

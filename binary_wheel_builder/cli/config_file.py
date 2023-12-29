@@ -5,8 +5,8 @@ from typing import Generator, Tuple
 
 import yaml
 
-from cli_wheel_builder import Wheel, WheelSource, WheelPlatformIdentifier
-from cli_wheel_builder.api import well_known_platforms
+from binary_wheel_builder import Wheel, WheelSource, WheelPlatformIdentifier
+from binary_wheel_builder.api import well_known_platforms
 
 
 def _validate_wheel_data(data):

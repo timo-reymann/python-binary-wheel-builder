@@ -3,8 +3,8 @@ import platform
 
 import unittest
 
-from cli_wheel_builder.cli.main import main
-from tests.util import install_wheel, verify_install
+from binary_wheel_builder.cli.main import main
+from integration_tests.util import install_wheel, verify_install
 
 
 class CliTest(unittest.TestCase):

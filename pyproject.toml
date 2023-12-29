@@ -1,11 +1,11 @@
 [tool.poetry]
 name = "binary_wheel_builder"
 version = "0.1.0"
-description = "Bundle CLI applications as wheel to use them in code or as standalone binary"
+description = "Bundle CLI applications or other binary data as wheel to use them in code or as standalone binary"
 authors = ["Timo Reymann <mail@timo-reymann.de>"]
 readme = "README.md"
 packages = [
-    { include = "cli_wheel_builder" }
+    { include = "binary_wheel_builder" }
 ]
 [tool.poetry.dependencies]
 python = "> 3.8"
@@ -19,7 +19,7 @@ pytest = "^7.4.3"
 cli = ["pyyaml"]
 
 [tool.poetry.scripts]
-cli-wheel-builder = "cli_wheel_builder.__main__:main"
+binary-wheel-builder = "binary_wheel_builder.__main__:main"
 
 [build-system]
 requires = ["poetry-core"]

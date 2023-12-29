@@ -5,7 +5,7 @@ orbs:
   python: circleci/python@2.1.1
 
 jobs:
-  test-win:
+  integration-test-win:
     executor:
       name: win/default
       size: medium
@@ -28,7 +28,7 @@ jobs:
           name: Run tests
           command: |
             C:\Users\circleci\.local\bin\poetry.exe run pytest --capture=no
-  test-macos:
+  integration-test-macos:
     macos:
       xcode: "15.1.0"
     steps:
@@ -50,7 +50,7 @@ jobs:
           name: Run tests
           command: |
             poetry run pytest --capture=no
-  test-linux:
+  integration-test-linux:
     docker:
       - image: cimg/python:3.12
     steps:
@@ -68,6 +68,6 @@ jobs:
 workflows:
   main:
     jobs:
-      - test-win
-      - test-macos
-      - test-linux
+      - integration-test-win
+      - integration-test-macos
+      - integration-test-linux

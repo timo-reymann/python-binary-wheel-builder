@@ -1,6 +1,6 @@
+import sys
 from argparse import ArgumentParser, Namespace
 from pathlib import Path
-import sys
 
 from binary_wheel_builder.api import build_wheel
 

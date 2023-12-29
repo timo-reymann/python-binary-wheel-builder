@@ -14,4 +14,3 @@ class StaticLocalWheelSource(WheelSource):
                 content=self.file.read_bytes()
             )
         ]
-

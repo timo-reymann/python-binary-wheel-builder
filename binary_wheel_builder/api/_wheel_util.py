@@ -1,7 +1,8 @@
 import os
+
 from binary_wheel_builder.api.meta import WheelFileEntry
-from binary_wheel_builder.wheel.util import generate_metafile_content
 from binary_wheel_builder.wheel.reproducible import ReproducibleWheelFile
+from binary_wheel_builder.wheel.util import generate_metafile_content
 
 
 def _write_wheel(

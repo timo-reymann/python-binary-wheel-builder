@@ -2,11 +2,11 @@ import hashlib
 from typing import Generator
 from zipfile import Path
 
+from binary_wheel_builder.api._wheel_util import _write_wheel
 from binary_wheel_builder.api.meta import (WheelSource,
                                            WheelPlatformIdentifier,
                                            WheelPlatformBuildResult, Wheel,
                                            WheelFileEntry)
-from binary_wheel_builder.api._wheel_util import _write_wheel
 
 
 def _write_platform_wheel(out_dir: str, wheel_info: Wheel, platform: WheelPlatformIdentifier, source: WheelSource):

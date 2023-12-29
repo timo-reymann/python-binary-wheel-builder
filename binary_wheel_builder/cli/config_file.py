@@ -1,9 +1,9 @@
 from pathlib import Path
 
-from pydantic import ValidationError
 import yaml
+from pydantic import ValidationError
 
-from binary_wheel_builder import Wheel, WheelSource, WheelPlatformIdentifier
+from binary_wheel_builder import Wheel
 from binary_wheel_builder.cli.yaml import load_file
 
 

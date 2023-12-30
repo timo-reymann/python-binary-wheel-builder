@@ -1,3 +1,10 @@
+## [1.1.0](https://github.com/timo-reymann/python-binary-wheel-builder/compare/1.0.1...1.1.0) (2023-12-30)
+
+
+### Features
+
+* Add exec util wrapper to README ([878e42a](https://github.com/timo-reymann/python-binary-wheel-builder/commit/878e42a84525b262f607ac592e6d70d4a1bc5bdb))
+
 ## [1.0.1](https://github.com/timo-reymann/python-binary-wheel-builder/compare/1.0.0...1.0.1) (2023-12-30)
 
 

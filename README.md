@@ -37,7 +37,7 @@ pip install binary_wheel_builder
 
 ## Usage
 
-#### With CLI
+### Build with CLI
 
 1. Create your config file e. g. `my-cli-wheel.yaml`:
    ```yaml
@@ -88,7 +88,7 @@ pip install binary_wheel_builder
    ```
 4. Enjoy and consume your CLI as a package
 
-#### With Python code
+### Build with Python code
 
 If you prefer to write Python Code you use almost the same structure:
 
@@ -148,6 +148,44 @@ for result in build_wheel(
 ):
     print(f" > {result.file_path} [{result.checksum}]")
 ````
+
+Afterwards upload with twine:
+Upload your wheel files using [twine](https://twine.readthedocs.io/en/stable/):
+```sh
+twine upload -r pypi dist/*
+```
+
+### Using the generated wheel
+
+#### With python module call
+
+```sh
+python -m my_cli
+```
+
+#### Using wrapper in path
+
+````sh
+my-cli
+````
+
+#### Using in Python code using exec utils
+
+```python
+import subprocess
+
+from my_cli import exec
+
+# Run process and prefix stdout and stderr
+exec.exec_with_templated_output(["--help"])
+
+# Create a subprocess, specifying how to handle stdout, stderr
+exec.create_subprocess(["--help"], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+
+# Perform command with suppressed output and return finished proces instance,
+# on that one can also check if the call was successfully
+exec.exec_silently(["--version"])
+```
 
 ## Motivation
 

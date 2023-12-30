@@ -1,0 +1,143 @@
+version: "2.1"
+
+orbs:
+  win: circleci/windows@5.0.0
+  python: circleci/python@2.1.1
+  codecov: codecov/codecov@3.3.0
+  semantic-release: trustedshops-public/semantic-release@6.0.0
+  github-utils: trustedshops-public/github-utils@1.1.2
+
+executors:
+  node:
+    docker:
+      - image: cimg/python:3.10-node
+
+
+jobs:
+  integration-test-win:
+    executor:
+      name: win/default
+      size: medium
+    steps:
+      - checkout
+      - run:
+          name: Show system info
+          command: systeminfo /fo csv | ConvertFrom-Csv | select OS*, System*, Hotfix* | Format-List
+      - run:
+          name: Install python and poetry
+          command: |
+            choco install python -y --version=3.12.1
+            pip install pipx
+            pipx install poetry
+            pipx ensurepath
+      - run:
+          name: Install packages
+          command: C:\Users\circleci\.local\bin\poetry.exe install --all-extras
+      - run:
+          name: Run tests
+          command: |
+            C:\Users\circleci\.local\bin\poetry.exe run pytest --capture=no integration_tests/
+  integration-test-macos:
+    macos:
+      xcode: "15.1.0"
+    steps:
+      - checkout
+      - run:
+          name: Show system info
+          command: uname -a
+      - run:
+          name: Install python and poetry
+          command: |
+            brew install python@3.12
+            pip install pipx
+            pipx install poetry
+            pipx ensurepath
+      - python/install-packages:
+          pkg-manager: poetry
+          args: --all-extras
+      - run:
+          name: Run tests
+          command: |
+            poetry run pytest --capture=no integration_tests/
+  integration-test-linux:
+    docker:
+      - image: cimg/python:3.12
+    steps:
+      - checkout
+      - run:
+          name: Show system info
+          command: uname -a
+      - python/install-packages:
+          pkg-manager: poetry
+          args: --all-extras
+      - run:
+          name: Run tests
+          command: |
+            poetry run pytest --capture=no integration_tests/
+  unit-test:
+    docker:
+      - image: cimg/python:3.12
+    steps:
+      - checkout
+      - run:
+          name: Show system info
+          command: uname -a
+      - python/install-packages:
+          pkg-manager: poetry
+          args: --all-extras
+      - run:
+          name: Run tests
+          command: |
+            poetry run coverage run -m pytest --junit-xml test-results/junit.xml --capture=no binary_wheel_builder/
+            poetry run coverage report
+            poetry run coverage html
+            poetry run coverage xml -i
+      - store_artifacts:
+          path: htmlcov
+      - store_test_results:
+          path: test-results
+      - codecov/upload
+  build-gh-pages:
+    executor: node
+    steps:
+      - checkout
+      - python/install-packages:
+          pkg-manager: poetry
+          args: --all-extras
+      - run:
+          name: Build html documentation
+          command: |
+            rm **/*_test.py
+            rm -rf integration_tests/
+            rm -rf dev/
+            mkdir gh-pages
+            poetry run pdoc3 binary_wheel_builder -o gh-pages --html --force
+            echo '<meta http-equiv="refresh" content="0; URL=https://timo-reymann.github.io/python-binary-wheel-builder/binary_wheel_builder">' > gh-pages/index.html
+
+      - github-utils/publish_github_pages:
+          folder: gh-pages/
+          git_commit_author_email: "no-reply@timo-reymann.de"
+          git_commit_author_name: "CircleCI"
+workflows:
+  main:
+    jobs:
+      - build-gh-pages:
+          filters:
+            branches:
+              only:
+                - main
+          requires:
+            - unit-test
+            - integration-test-win
+            - integration-test-linux
+            - integration-test-macos
+      - integration-test-win:
+          requires:
+            - unit-test
+      - integration-test-macos:
+          requires:
+            - unit-test
+      - integration-test-linux:
+          requires:
+            - unit-test
+      - unit-test

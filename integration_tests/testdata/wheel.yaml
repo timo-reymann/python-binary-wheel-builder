@@ -1,0 +1,35 @@
+.custom_platforms:
+  python2_libc3_platform: &python3_libc3_linux_platform !WheelPlatform
+    platform: manylinux_3_0_i686
+    python_tag: py3
+
+package: deterministic_zip
+executable: deterministic-zip
+name: deterministic-zip
+version: 0.0.1
+summary: deterministic-zip wrapped for usage with pip and/or python.
+description: !FileContent README.md
+license: MIT
+requires_python: ">=3.8"
+classifier:
+  - "License :: OSI Approved :: MIT License"
+project_urls:
+  "Homepage": "https://github.com/timo-reymann/deterministic-zip"
+  "Source Code": "https://github.com/examle/example"
+  "Bug Tracker": "https://github.com/example/example/issues"
+source: !WheelSource
+  implementation: binary_wheel_builder.api.wheel_sources.GithubReleaseBinarySource
+  project_slug: timo-reymann/deterministic-zip
+  version: "2.1.0"
+  tag_prefix: ""
+  binary_path: deterministic_zip/deterministic-zip
+  asset_name_mapping:
+    !WellknownPlatform MAC_SILICONE: "deterministic-zip_darwin-arm64"
+    !WellknownPlatform MAC_INTEL: "deterministic-zip_darwin-amd64"
+    !WellknownPlatform LINUX_GENERIC_x84_64: "deterministic-zip_linux-amd64"
+    *python3_libc3_linux_platform: "deterministic-zip_linux-amd64"
+platforms:
+  - !WellknownPlatform MAC_INTEL
+  - !WellknownPlatform MAC_SILICONE
+  - !WellknownPlatform LINUX_GENERIC_x84_64
+  - *python3_libc3_linux_platform

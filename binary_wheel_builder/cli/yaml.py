@@ -47,7 +47,6 @@ def _construct_wheel_source(loader: yaml.SafeLoader, node: yaml.nodes.MappingNod
         module = importlib.import_module(module_name)
         source_impl = getattr(module, class_name)
     except:
-        traceback.print_exc()
         raise yaml.constructor.ConstructorError(None, None,
                                                 "Wheel source implementation for tag %r could not be instantiated" % node.tag,
                                                 node.start_mark)
@@ -93,5 +92,9 @@ def _yaml_loader(file_path):
 
 def load_file(file_path: Path) -> dict:
     with file_path.open("r") as file:
-        data = yaml.load(file, Loader=_yaml_loader(file_path))
+        data = load_stream(file, file_path)
     return data
+
+
+def load_stream(stream, file_path: Path) -> dict:
+    return yaml.load(stream, Loader=_yaml_loader(file_path))

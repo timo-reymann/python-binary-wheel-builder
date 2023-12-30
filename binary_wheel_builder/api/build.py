@@ -1,5 +1,6 @@
 import hashlib
 import os
+from operator import attrgetter
 from typing import Generator
 from zipfile import Path
 
@@ -34,7 +35,7 @@ def _write_wheel(
     ]
 
     with ReproducibleWheelFile(wheel_file_path, 'w') as wheel_file:
-        for wheel_entry in entries:
+        for wheel_entry in sorted(entries,key=attrgetter('path')):
             wheel_file.write_content_file(wheel_entry)
 
     return wheel_file_path

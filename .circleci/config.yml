@@ -27,7 +27,7 @@ jobs:
       - run:
           name: Run tests
           command: |
-            C:\Users\circleci\.local\bin\poetry.exe run pytest --capture=no
+            C:\Users\circleci\.local\bin\poetry.exe run pytest --capture=no integration_tests/
   integration-test-macos:
     macos:
       xcode: "15.1.0"
@@ -49,7 +49,7 @@ jobs:
       - run:
           name: Run tests
           command: |
-            poetry run pytest --capture=no
+            poetry run pytest --capture=no integration_tests/
   integration-test-linux:
     docker:
       - image: cimg/python:3.12
@@ -64,10 +64,39 @@ jobs:
       - run:
           name: Run tests
           command: |
-            poetry run pytest --capture=no
+            poetry run pytest --capture=no integration_tests/
+  unit-test:
+    docker:
+      - image: cimg/python:3.12
+    steps:
+      - checkout
+      - run:
+          name: Show system info
+          command: uname -a
+      - python/install-packages:
+          pkg-manager: poetry
+          args: --all-extras
+      - run:
+          name: Run tests
+          command: |
+            poetry run coverage run -m pytest --junit-xml test-results/junit.xml --capture=no binary_wheel_builder/
+            poetry run coverage report
+            poetry run coverage html
+            poetry run coverage xml -i
+      - store_artifacts:
+          path: htmlcov
+      - store_test_results:
+          path: test-results
 workflows:
   main:
     jobs:
-      - integration-test-win
-      - integration-test-macos
-      - integration-test-linux
+      - integration-test-win:
+          requires:
+            - unit-test
+      - integration-test-macos:
+          requires:
+            - unit-test
+      - integration-test-linux:
+          requires:
+            - unit-test
+      - unit-test

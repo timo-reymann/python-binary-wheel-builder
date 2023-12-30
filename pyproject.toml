@@ -22,6 +22,12 @@ include = [
     "wheel.schema.json",
     "LICENSE"
 ]
+repository = "https://github.com/timo-reymann/python-binary-wheel-builder"
+
+[tool.poetry.urls]
+"Bug Tracker" = "https://github.com/timo-reymann/python-binary-wheel-builder/issues"
+
+
 [tool.poetry.dependencies]
 python = "> 3.8"
 wheel = "> 0.30.0"

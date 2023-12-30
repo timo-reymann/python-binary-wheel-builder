@@ -1,3 +1,10 @@
+## [1.0.1](https://github.com/timo-reymann/python-binary-wheel-builder/compare/1.0.0...1.0.1) (2023-12-30)
+
+
+### Bug Fixes
+
+* Fix README name for package ([56d2c77](https://github.com/timo-reymann/python-binary-wheel-builder/commit/56d2c7776998fd600b115549b321c8aa5f095216))
+
 ## 1.0.0 (2023-12-30)
 
 

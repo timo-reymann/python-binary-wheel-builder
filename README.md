@@ -32,7 +32,7 @@ binary-wheel-builder
 ## Installation
 
 ```
-pip install binary-wheel-builder
+pip install binary_wheel_builder
 ```
 
 ## Usage

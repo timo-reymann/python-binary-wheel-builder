@@ -28,7 +28,13 @@ cli = ["pyyaml"]
 binary-wheel-builder = "binary_wheel_builder.cli.main:main"
 
 [tool.coverage.run]
-omit = [".*", "*/site-packages/*", "*/*_test.py", "integration_test/*"]
+omit = [
+    ".*",
+    "*/site-packages/*",
+    "*/*_test.py",
+    "integration_test/*",
+    "dev/*"
+]
 
 [tool.coverage.report]
 fail_under = 70

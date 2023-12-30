@@ -1,5 +1,6 @@
 import platform
 import subprocess
+import tempfile
 from pathlib import Path
 import os
 import zipfile
@@ -46,7 +47,7 @@ def verify_wheel_structure(wheel_path: Path | str, files_present: Sequence[Tuple
             file_name, expected_permissions = file_info
             assert file_name in zip_file.namelist()
 
-            extracted_path = zip_file.extract(file_name)
+            extracted_path = zip_file.extract(file_name, tempfile.mkdtemp())
 
             actual_permissions = stat.S_IMODE(os.stat(extracted_path).st_mode)
             if platform.system() != "Windows":

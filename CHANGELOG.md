@@ -1,3 +1,10 @@
+## [1.3.0](https://github.com/timo-reymann/python-binary-wheel-builder/compare/1.2.1...1.3.0) (2024-01-01)
+
+
+### Features
+
+* Add platform based executable path ([7f16e40](https://github.com/timo-reymann/python-binary-wheel-builder/commit/7f16e40e328308a4e1cf0381159f89cf3e6f02dd))
+
 ## [1.2.1](https://github.com/timo-reymann/python-binary-wheel-builder/compare/1.2.0...1.2.1) (2024-01-01)
 
 

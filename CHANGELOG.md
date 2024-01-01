@@ -1,3 +1,12 @@
+## [1.2.0](https://github.com/timo-reymann/python-binary-wheel-builder/compare/1.1.0...1.2.0) (2024-01-01)
+
+
+### Features
+
+* Add platform based wheel source ([45bf55b](https://github.com/timo-reymann/python-binary-wheel-builder/commit/45bf55baf16c86712ee24f51472eabcbdcf7a131))
+* Add wheel source specific exceptions ([fc14b8f](https://github.com/timo-reymann/python-binary-wheel-builder/commit/fc14b8fb10061cea2de3d31b1f404b87c52263c2))
+* Harden github release source ([d324031](https://github.com/timo-reymann/python-binary-wheel-builder/commit/d32403162fdc13fe479f1d77faf5daeafe5e2bcc))
+
 ## [1.1.0](https://github.com/timo-reymann/python-binary-wheel-builder/compare/1.0.1...1.1.0) (2023-12-30)
 
 

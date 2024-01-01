@@ -20,7 +20,7 @@ class BufGithubReleaseSource(GithubReleaseBinarySource):
                              well_known_platforms.LINUX_GENERIC_aarch64: "buf-Linux-aarch64",
                              well_known_platforms.LINUX_GENERIC_armv7a: "buf-Linux-aarch64",
                          },
-                         "buf/buf")
+                         "buf")
 
 
 class DeterministicZipGitHubReleaseSource(GithubReleaseBinarySource):
@@ -34,7 +34,7 @@ class DeterministicZipGitHubReleaseSource(GithubReleaseBinarySource):
                              well_known_platforms.LINUX_GENERIC_aarch64: "deterministic-zip_linux-arm",
                              well_known_platforms.LINUX_GENERIC_armv7a: "deterministic-zip_linux-arm",
                          },
-                         "deterministic_zip/deterministic-zip",
+                         "deterministic-zip",
                          "")
 
 

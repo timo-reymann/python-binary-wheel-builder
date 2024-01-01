@@ -35,7 +35,7 @@ def _write_wheel(
     ]
 
     with ReproducibleWheelFile(wheel_file_path, 'w') as wheel_file:
-        for wheel_entry in sorted(entries,key=attrgetter('path')):
+        for wheel_entry in sorted(entries, key=attrgetter('path')):
             wheel_file.write_content_file(wheel_entry)
 
     return wheel_file_path
@@ -77,7 +77,13 @@ def _write_platform_wheel_with_wrappers(
             'Project-URL': wheel_info.project_urls,
             'Requires-Python': wheel_info.requires_python,
         },
-        wheel_file_entries=[*contents, *source.generate_fileset(platform)],
+        wheel_file_entries=[
+            *contents,
+            # we append the package prefix to all generated files to make sure that they are in scope and reachable
+            *[
+                f.model_copy(update={'path': wheel_info.package + "/" + f.path})
+                for f in source.generate_fileset(platform)]
+        ],
     )
 
 

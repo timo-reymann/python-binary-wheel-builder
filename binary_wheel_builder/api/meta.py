@@ -3,7 +3,7 @@ from abc import abstractmethod, ABC
 from pathlib import Path
 from typing import Sequence, Any, Callable
 
-from pydantic import dataclasses, ConfigDict, Field, GetJsonSchemaHandler
+from pydantic import dataclasses, ConfigDict, Field, GetJsonSchemaHandler, BaseModel
 from pydantic.json_schema import JsonSchemaValue
 from pydantic_core import core_schema
 
@@ -32,8 +32,7 @@ class WheelPlatformIdentifier:
         ])
 
 
-@dataclasses.dataclass(frozen=True)
-class WheelFileEntry:
+class WheelFileEntry(BaseModel):
     path: str = Field(description="Path of the file in the wheel")
     content: bytes = Field(description="Binary content for the file")
     permissions: int = Field(0o644, description="Permissions for the file in the archive")
@@ -79,8 +78,9 @@ class Wheel:
     model_config = ConfigDict(arbitrary_types_allowed=True, extra="forbid")
 
     package: str = Field(description="Name of the generated package")
-    executable: str = Field(description="Relative path of the executable")
-    name: str = Field(description="Name of the pypi package")
+    executable: str = Field(description="Path of the executable, relative to the package folder. It must match one of "
+                                        "the file names from the wheel sources in order to work")
+    name: str = Field(description="Name of the wheel package")
     version: str = Field(description="Version of the package")
     source: WheelSource = Field(description="Source to fetch files from")
     platforms: Sequence[WheelPlatformIdentifier] = Field(description="Platforms supported by the wheel")
@@ -108,7 +108,7 @@ class Wheel:
         """
         return f'{self.normalized_name}-{self.version}.dist-info'
 
-    def wheel_filename(self, tag : str):
+    def wheel_filename(self, tag: str):
         """
         Build wheel filename for given wheel tag
         :param tag: Tag to append to file name

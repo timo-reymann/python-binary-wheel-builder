@@ -34,12 +34,12 @@
          "type": "string"
       },
       "executable": {
-         "description": "Relative path of the executable",
+         "description": "Path of the executable, relative to the package folder. It must match one of the file names from the wheel sources in order to work",
          "title": "Executable",
          "type": "string"
       },
       "name": {
-         "description": "Name of the pypi package",
+         "description": "Name of the wheel package",
          "title": "Name",
          "type": "string"
       },

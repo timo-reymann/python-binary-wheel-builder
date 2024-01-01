@@ -22,7 +22,7 @@ source: !WheelSource
   project_slug: timo-reymann/deterministic-zip
   version: "2.1.0"
   tag_prefix: ""
-  binary_path: deterministic_zip/deterministic-zip
+  binary_path: deterministic-zip
   asset_name_mapping:
     !WellknownPlatform MAC_SILICONE: "deterministic-zip_darwin-arm64"
     !WellknownPlatform MAC_INTEL: "deterministic-zip_darwin-amd64"

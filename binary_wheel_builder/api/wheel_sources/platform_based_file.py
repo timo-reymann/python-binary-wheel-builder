@@ -5,7 +5,8 @@ from binary_wheel_builder.api.wheel_sources.exceptions import UnsupportedWheelPl
 
 
 class PlatformBasedFileSource(WheelSource):
-    def __init__(self, file_name_mapping: dict[WheelPlatformIdentifier, Path | str]):
+    def __init__(self, executable_path : str, file_name_mapping: dict[WheelPlatformIdentifier, Path | str]):
+        self.executable_path = executable_path
         self.file_name_mapping = file_name_mapping
 
     def generate_fileset(self, wheel_platform: WheelPlatformIdentifier) -> list[WheelFileEntry]:
@@ -22,7 +23,7 @@ class PlatformBasedFileSource(WheelSource):
 
         return [
             WheelFileEntry(
-                path=file.name,
+                path=self.executable_path,
                 content=file.read_bytes(),
                 permissions=0o755
             )

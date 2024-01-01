@@ -9,7 +9,7 @@ from binary_wheel_builder.api.wheel_sources.platform_based_file import PlatformB
 
 
 def test_platform_based_file_invalid():
-    source = PlatformBasedFileSource({
+    source = PlatformBasedFileSource("package/test", {
         well_known_platforms.LINUX_GENERIC_i386: Path("linux-x86"),
     })
 
@@ -22,7 +22,7 @@ def test_platform_based_file_valid():
         f.write("test")
         f.flush()
 
-        source = PlatformBasedFileSource({
+        source = PlatformBasedFileSource("package/test", {
             well_known_platforms.LINUX_GENERIC_i386: Path(f.name),
         })
 

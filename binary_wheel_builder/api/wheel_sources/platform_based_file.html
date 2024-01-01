@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
 <meta name="generator" content="pdoc 0.10.0" />
-<title>binary_wheel_builder.api.wheel_sources API documentation</title>
+<title>binary_wheel_builder.api.wheel_sources.platform_based_file API documentation</title>
 <meta name="description" content="" />
 <link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/sanitize.min.css" integrity="sha256-PK9q560IAAa6WVRRh76LtCaI8pjTJ2z11v0miyNNjrs=" crossorigin>
 <link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/typography.min.css" integrity="sha256-7l/o7C8jubJiy74VsKTidCy1yBkRtiUGbVkYBylBqUg=" crossorigin>
@@ -19,52 +19,97 @@
 <main>
 <article id="content">
 <header>
-<h1 class="title">Module <code>binary_wheel_builder.api.wheel_sources</code></h1>
+<h1 class="title">Module <code>binary_wheel_builder.api.wheel_sources.platform_based_file</code></h1>
 </header>
 <section id="section-intro">
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">from binary_wheel_builder.api.wheel_sources.github import GithubReleaseBinarySource
-from binary_wheel_builder.api.wheel_sources.static import StaticLocalWheelSource
-import binary_wheel_builder.api.wheel_sources.exceptions</code></pre>
+<pre><code class="python">from pathlib import Path
+
+from binary_wheel_builder.api.meta import WheelSource, WheelPlatformIdentifier, WheelFileEntry
+from binary_wheel_builder.api.wheel_sources.exceptions import UnsupportedWheelPlatformException, SourceFileRequestFailed
+
+
+class PlatformBasedFileSource(WheelSource):
+    def __init__(self, file_name_mapping: dict[WheelPlatformIdentifier, Path]):
+        self.file_name_mapping = file_name_mapping
+
+    def generate_fileset(self, wheel_platform: WheelPlatformIdentifier) -&gt; list[WheelFileEntry]:
+        if wheel_platform not in self.file_name_mapping:
+            raise UnsupportedWheelPlatformException(wheel_platform)
+
+        file = self.file_name_mapping[wheel_platform]
+
+        if not file.exists() or not file.is_file():
+            raise SourceFileRequestFailed(f&#34;File {file} does not resolve to a valid file&#34;)
+
+        return [
+            WheelFileEntry(
+                path=file.name,
+                content=file.read_bytes(),
+                permissions=0o755
+            )
+        ]</code></pre>
 </details>
 </section>
 <section>
-<h2 class="section-title" id="header-submodules">Sub-modules</h2>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+<h2 class="section-title" id="header-classes">Classes</h2>
 <dl>
-<dt><code class="name"><a title="binary_wheel_builder.api.wheel_sources.exceptions" href="exceptions.html">binary_wheel_builder.api.wheel_sources.exceptions</a></code></dt>
+<dt id="binary_wheel_builder.api.wheel_sources.platform_based_file.PlatformBasedFileSource"><code class="flex name class">
+<span>class <span class="ident">PlatformBasedFileSource</span></span>
+<span>(</span><span>file_name_mapping: dict[<a title="binary_wheel_builder.api.meta.WheelPlatformIdentifier" href="../meta.html#binary_wheel_builder.api.meta.WheelPlatformIdentifier">WheelPlatformIdentifier</a>, pathlib.Path])</span>
+</code></dt>
 <dd>
-<div class="desc"></div>
-</dd>
-<dt><code class="name"><a title="binary_wheel_builder.api.wheel_sources.github" href="github.html">binary_wheel_builder.api.wheel_sources.github</a></code></dt>
-<dd>
-<div class="desc"></div>
-</dd>
-<dt><code class="name"><a title="binary_wheel_builder.api.wheel_sources.github_test" href="github_test.html">binary_wheel_builder.api.wheel_sources.github_test</a></code></dt>
-<dd>
-<div class="desc"></div>
-</dd>
-<dt><code class="name"><a title="binary_wheel_builder.api.wheel_sources.platform_based_file" href="platform_based_file.html">binary_wheel_builder.api.wheel_sources.platform_based_file</a></code></dt>
-<dd>
-<div class="desc"></div>
-</dd>
-<dt><code class="name"><a title="binary_wheel_builder.api.wheel_sources.platform_based_file_test" href="platform_based_file_test.html">binary_wheel_builder.api.wheel_sources.platform_based_file_test</a></code></dt>
-<dd>
-<div class="desc"></div>
-</dd>
-<dt><code class="name"><a title="binary_wheel_builder.api.wheel_sources.static" href="static.html">binary_wheel_builder.api.wheel_sources.static</a></code></dt>
-<dd>
-<div class="desc"></div>
+<div class="desc"><p>Helper class that provides a standard way to create an ABC using
+inheritance.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class PlatformBasedFileSource(WheelSource):
+    def __init__(self, file_name_mapping: dict[WheelPlatformIdentifier, Path]):
+        self.file_name_mapping = file_name_mapping
+
+    def generate_fileset(self, wheel_platform: WheelPlatformIdentifier) -&gt; list[WheelFileEntry]:
+        if wheel_platform not in self.file_name_mapping:
+            raise UnsupportedWheelPlatformException(wheel_platform)
+
+        file = self.file_name_mapping[wheel_platform]
+
+        if not file.exists() or not file.is_file():
+            raise SourceFileRequestFailed(f&#34;File {file} does not resolve to a valid file&#34;)
+
+        return [
+            WheelFileEntry(
+                path=file.name,
+                content=file.read_bytes(),
+                permissions=0o755
+            )
+        ]</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="binary_wheel_builder.api.meta.WheelSource" href="../meta.html#binary_wheel_builder.api.meta.WheelSource">WheelSource</a></li>
+<li>abc.ABC</li>
+</ul>
+<h3>Inherited members</h3>
+<ul class="hlist">
+<li><code><b><a title="binary_wheel_builder.api.meta.WheelSource" href="../meta.html#binary_wheel_builder.api.meta.WheelSource">WheelSource</a></b></code>:
+<ul class="hlist">
+<li><code><a title="binary_wheel_builder.api.meta.WheelSource.generate_fileset" href="../meta.html#binary_wheel_builder.api.meta.WheelSource.generate_fileset">generate_fileset</a></code></li>
+</ul>
+</li>
+</ul>
 </dd>
 </dl>
-</section>
-<section>
-</section>
-<section>
-</section>
-<section>
 </section>
 </article>
 <nav id="sidebar">
@@ -75,17 +120,14 @@ import binary_wheel_builder.api.wheel_sources.exceptions</code></pre>
 <ul id="index">
 <li><h3>Super-module</h3>
 <ul>
-<li><code><a title="binary_wheel_builder.api" href="../index.html">binary_wheel_builder.api</a></code></li>
+<li><code><a title="binary_wheel_builder.api.wheel_sources" href="index.html">binary_wheel_builder.api.wheel_sources</a></code></li>
 </ul>
 </li>
-<li><h3><a href="#header-submodules">Sub-modules</a></h3>
+<li><h3><a href="#header-classes">Classes</a></h3>
 <ul>
-<li><code><a title="binary_wheel_builder.api.wheel_sources.exceptions" href="exceptions.html">binary_wheel_builder.api.wheel_sources.exceptions</a></code></li>
-<li><code><a title="binary_wheel_builder.api.wheel_sources.github" href="github.html">binary_wheel_builder.api.wheel_sources.github</a></code></li>
-<li><code><a title="binary_wheel_builder.api.wheel_sources.github_test" href="github_test.html">binary_wheel_builder.api.wheel_sources.github_test</a></code></li>
-<li><code><a title="binary_wheel_builder.api.wheel_sources.platform_based_file" href="platform_based_file.html">binary_wheel_builder.api.wheel_sources.platform_based_file</a></code></li>
-<li><code><a title="binary_wheel_builder.api.wheel_sources.platform_based_file_test" href="platform_based_file_test.html">binary_wheel_builder.api.wheel_sources.platform_based_file_test</a></code></li>
-<li><code><a title="binary_wheel_builder.api.wheel_sources.static" href="static.html">binary_wheel_builder.api.wheel_sources.static</a></code></li>
+<li>
+<h4><code><a title="binary_wheel_builder.api.wheel_sources.platform_based_file.PlatformBasedFileSource" href="#binary_wheel_builder.api.wheel_sources.platform_based_file.PlatformBasedFileSource">PlatformBasedFileSource</a></code></h4>
+</li>
 </ul>
 </li>
 </ul>

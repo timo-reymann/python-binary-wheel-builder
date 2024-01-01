@@ -33,7 +33,7 @@ from binary_wheel_builder.api.wheel_sources.exceptions import UnsupportedWheelPl
 
 
 class PlatformBasedFileSource(WheelSource):
-    def __init__(self, file_name_mapping: dict[WheelPlatformIdentifier, Path]):
+    def __init__(self, file_name_mapping: dict[WheelPlatformIdentifier, Path | str]):
         self.file_name_mapping = file_name_mapping
 
     def generate_fileset(self, wheel_platform: WheelPlatformIdentifier) -&gt; list[WheelFileEntry]:
@@ -41,6 +41,9 @@ class PlatformBasedFileSource(WheelSource):
             raise UnsupportedWheelPlatformException(wheel_platform)
 
         file = self.file_name_mapping[wheel_platform]
+
+        if isinstance(file, str):
+            file = Path(file)
 
         if not file.exists() or not file.is_file():
             raise SourceFileRequestFailed(f&#34;File {file} does not resolve to a valid file&#34;)
@@ -65,7 +68,7 @@ class PlatformBasedFileSource(WheelSource):
 <dl>
 <dt id="binary_wheel_builder.api.wheel_sources.platform_based_file.PlatformBasedFileSource"><code class="flex name class">
 <span>class <span class="ident">PlatformBasedFileSource</span></span>
-<span>(</span><span>file_name_mapping: dict[<a title="binary_wheel_builder.api.meta.WheelPlatformIdentifier" href="../meta.html#binary_wheel_builder.api.meta.WheelPlatformIdentifier">WheelPlatformIdentifier</a>, pathlib.Path])</span>
+<span>(</span><span>file_name_mapping: dict[<a title="binary_wheel_builder.api.meta.WheelPlatformIdentifier" href="../meta.html#binary_wheel_builder.api.meta.WheelPlatformIdentifier">WheelPlatformIdentifier</a>, pathlib.Path | str])</span>
 </code></dt>
 <dd>
 <div class="desc"><p>Helper class that provides a standard way to create an ABC using
@@ -75,7 +78,7 @@ inheritance.</p></div>
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">class PlatformBasedFileSource(WheelSource):
-    def __init__(self, file_name_mapping: dict[WheelPlatformIdentifier, Path]):
+    def __init__(self, file_name_mapping: dict[WheelPlatformIdentifier, Path | str]):
         self.file_name_mapping = file_name_mapping
 
     def generate_fileset(self, wheel_platform: WheelPlatformIdentifier) -&gt; list[WheelFileEntry]:
@@ -83,6 +86,9 @@ inheritance.</p></div>
             raise UnsupportedWheelPlatformException(wheel_platform)
 
         file = self.file_name_mapping[wheel_platform]
+
+        if isinstance(file, str):
+            file = Path(file)
 
         if not file.exists() or not file.is_file():
             raise SourceFileRequestFailed(f&#34;File {file} does not resolve to a valid file&#34;)

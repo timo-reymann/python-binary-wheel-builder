@@ -33,7 +33,8 @@ from binary_wheel_builder.api.wheel_sources.exceptions import UnsupportedWheelPl
 
 
 class PlatformBasedFileSource(WheelSource):
-    def __init__(self, file_name_mapping: dict[WheelPlatformIdentifier, Path | str]):
+    def __init__(self, executable_path : str, file_name_mapping: dict[WheelPlatformIdentifier, Path | str]):
+        self.executable_path = executable_path
         self.file_name_mapping = file_name_mapping
 
     def generate_fileset(self, wheel_platform: WheelPlatformIdentifier) -&gt; list[WheelFileEntry]:
@@ -50,7 +51,7 @@ class PlatformBasedFileSource(WheelSource):
 
         return [
             WheelFileEntry(
-                path=file.name,
+                path=self.executable_path,
                 content=file.read_bytes(),
                 permissions=0o755
             )
@@ -68,7 +69,7 @@ class PlatformBasedFileSource(WheelSource):
 <dl>
 <dt id="binary_wheel_builder.api.wheel_sources.platform_based_file.PlatformBasedFileSource"><code class="flex name class">
 <span>class <span class="ident">PlatformBasedFileSource</span></span>
-<span>(</span><span>file_name_mapping: dict[<a title="binary_wheel_builder.api.meta.WheelPlatformIdentifier" href="../meta.html#binary_wheel_builder.api.meta.WheelPlatformIdentifier">WheelPlatformIdentifier</a>, pathlib.Path | str])</span>
+<span>(</span><span>executable_path: str, file_name_mapping: dict[<a title="binary_wheel_builder.api.meta.WheelPlatformIdentifier" href="../meta.html#binary_wheel_builder.api.meta.WheelPlatformIdentifier">WheelPlatformIdentifier</a>, pathlib.Path | str])</span>
 </code></dt>
 <dd>
 <div class="desc"><p>Helper class that provides a standard way to create an ABC using
@@ -78,7 +79,8 @@ inheritance.</p></div>
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">class PlatformBasedFileSource(WheelSource):
-    def __init__(self, file_name_mapping: dict[WheelPlatformIdentifier, Path | str]):
+    def __init__(self, executable_path : str, file_name_mapping: dict[WheelPlatformIdentifier, Path | str]):
+        self.executable_path = executable_path
         self.file_name_mapping = file_name_mapping
 
     def generate_fileset(self, wheel_platform: WheelPlatformIdentifier) -&gt; list[WheelFileEntry]:
@@ -95,7 +97,7 @@ inheritance.</p></div>
 
         return [
             WheelFileEntry(
-                path=file.name,
+                path=self.executable_path,
                 content=file.read_bytes(),
                 permissions=0o755
             )

@@ -1,3 +1,11 @@
+## [1.3.2](https://github.com/timo-reymann/python-binary-wheel-builder/compare/1.3.1...1.3.2) (2024-01-01)
+
+
+### Bug Fixes
+
+* Fix dist info folder for entry points txt ([6c8fc5e](https://github.com/timo-reymann/python-binary-wheel-builder/commit/6c8fc5ef2b7d167d1efc9276a19574a9b8dedd33))
+* Make sure entrypoint list txt always resolves to valid dist info folder ([ea30da2](https://github.com/timo-reymann/python-binary-wheel-builder/commit/ea30da232d134e933dfaf178e1a8d2b9cc8e644c))
+
 ## [1.3.1](https://github.com/timo-reymann/python-binary-wheel-builder/compare/1.3.0...1.3.1) (2024-01-01)
 
 

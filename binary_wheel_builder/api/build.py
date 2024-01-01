@@ -61,7 +61,7 @@ def _write_platform_wheel_with_wrappers(
 
     if wheel_info.add_to_path:
         contents.append(WheelFileEntry(
-            path=f'{wheel_info.package}-{wheel_info.version}.dist-info/entry_points.txt',
+            path=f'{wheel_info.dist_info_folder}.dist-info/entry_points.txt',
             content=wrapper_templates.entry_points_txt(wheel_info))
         )
 

@@ -1,3 +1,10 @@
+## [1.3.1](https://github.com/timo-reymann/python-binary-wheel-builder/compare/1.3.0...1.3.1) (2024-01-01)
+
+
+### Bug Fixes
+
+* Use executable for package executable name ([cf628e9](https://github.com/timo-reymann/python-binary-wheel-builder/commit/cf628e9239273ca976e32dc7efc2f2e3d450858e))
+
 ## [1.3.0](https://github.com/timo-reymann/python-binary-wheel-builder/compare/1.2.1...1.3.0) (2024-01-01)
 
 

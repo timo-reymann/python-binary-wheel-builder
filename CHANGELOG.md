@@ -1,3 +1,11 @@
+## [1.2.1](https://github.com/timo-reymann/python-binary-wheel-builder/compare/1.2.0...1.2.1) (2024-01-01)
+
+
+### Bug Fixes
+
+* Add API import for platform based file source ([5952378](https://github.com/timo-reymann/python-binary-wheel-builder/commit/5952378964e9993390fc8492f800ae34d54c8f6e))
+* Allow string mapping to make platform based resolver work with yaml files ([bb0fed7](https://github.com/timo-reymann/python-binary-wheel-builder/commit/bb0fed7421dac68a98df9199e135968cd1745721))
+
 ## [1.2.0](https://github.com/timo-reymann/python-binary-wheel-builder/compare/1.1.0...1.2.0) (2024-01-01)
 
 

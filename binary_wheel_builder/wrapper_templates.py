@@ -132,6 +132,6 @@ def entry_points_txt(wheel: Wheel):
     return _preprocess(
         f'''\
         [console_scripts]
-        {wheel.name}={wheel.package}:__main__
+        {wheel.executable}={wheel.package}:__main__
         '''
     )

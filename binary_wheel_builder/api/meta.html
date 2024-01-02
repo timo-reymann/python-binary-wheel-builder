@@ -31,7 +31,7 @@ from abc import abstractmethod, ABC
 from pathlib import Path
 from typing import Sequence, Any, Callable
 
-from pydantic import dataclasses, ConfigDict, Field, GetJsonSchemaHandler
+from pydantic import dataclasses, ConfigDict, Field, GetJsonSchemaHandler, BaseModel
 from pydantic.json_schema import JsonSchemaValue
 from pydantic_core import core_schema
 
@@ -60,8 +60,7 @@ class WheelPlatformIdentifier:
         ])
 
 
-@dataclasses.dataclass(frozen=True)
-class WheelFileEntry:
+class WheelFileEntry(BaseModel):
     path: str = Field(description=&#34;Path of the file in the wheel&#34;)
     content: bytes = Field(description=&#34;Binary content for the file&#34;)
     permissions: int = Field(0o644, description=&#34;Permissions for the file in the archive&#34;)
@@ -107,8 +106,9 @@ class Wheel:
     model_config = ConfigDict(arbitrary_types_allowed=True, extra=&#34;forbid&#34;)
 
     package: str = Field(description=&#34;Name of the generated package&#34;)
-    executable: str = Field(description=&#34;Relative path of the executable&#34;)
-    name: str = Field(description=&#34;Name of the pypi package&#34;)
+    executable: str = Field(description=&#34;Path of the executable, relative to the package folder. It must match one of &#34;
+                                        &#34;the file names from the wheel sources in order to work&#34;)
+    name: str = Field(description=&#34;Name of the wheel package&#34;)
     version: str = Field(description=&#34;Version of the package&#34;)
     source: WheelSource = Field(description=&#34;Source to fetch files from&#34;)
     platforms: Sequence[WheelPlatformIdentifier] = Field(description=&#34;Platforms supported by the wheel&#34;)
@@ -136,7 +136,7 @@ class Wheel:
         &#34;&#34;&#34;
         return f&#39;{self.normalized_name}-{self.version}.dist-info&#39;
 
-    def wheel_filename(self, tag : str):
+    def wheel_filename(self, tag: str):
         &#34;&#34;&#34;
         Build wheel filename for given wheel tag
         :param tag: Tag to append to file name
@@ -169,8 +169,9 @@ class Wheel:
     model_config = ConfigDict(arbitrary_types_allowed=True, extra=&#34;forbid&#34;)
 
     package: str = Field(description=&#34;Name of the generated package&#34;)
-    executable: str = Field(description=&#34;Relative path of the executable&#34;)
-    name: str = Field(description=&#34;Name of the pypi package&#34;)
+    executable: str = Field(description=&#34;Path of the executable, relative to the package folder. It must match one of &#34;
+                                        &#34;the file names from the wheel sources in order to work&#34;)
+    name: str = Field(description=&#34;Name of the wheel package&#34;)
     version: str = Field(description=&#34;Version of the package&#34;)
     source: WheelSource = Field(description=&#34;Source to fetch files from&#34;)
     platforms: Sequence[WheelPlatformIdentifier] = Field(description=&#34;Platforms supported by the wheel&#34;)
@@ -198,7 +199,7 @@ class Wheel:
         &#34;&#34;&#34;
         return f&#39;{self.normalized_name}-{self.version}.dist-info&#39;
 
-    def wheel_filename(self, tag : str):
+    def wheel_filename(self, tag: str):
         &#34;&#34;&#34;
         Build wheel filename for given wheel tag
         :param tag: Tag to append to file name
@@ -361,7 +362,7 @@ class Wheel:
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def wheel_filename(self, tag : str):
+<pre><code class="python">def wheel_filename(self, tag: str):
     &#34;&#34;&#34;
     Build wheel filename for given wheel tag
     :param tag: Tag to append to file name
@@ -374,23 +375,78 @@ class Wheel:
 </dd>
 <dt id="binary_wheel_builder.api.meta.WheelFileEntry"><code class="flex name class">
 <span>class <span class="ident">WheelFileEntry</span></span>
-<span>(</span><span>*args: Any, **kwargs: Any)</span>
+<span>(</span><span>**data: Any)</span>
 </code></dt>
 <dd>
-<div class="desc"></div>
+<div class="desc"><p>Usage docs: <a href="https://docs.pydantic.dev/2.5/concepts/models/">https://docs.pydantic.dev/2.5/concepts/models/</a></p>
+<p>A base class for creating Pydantic models.</p>
+<h2 id="attributes">Attributes</h2>
+<dl>
+<dt><strong><code>__class_vars__</code></strong></dt>
+<dd>The names of classvars defined on the model.</dd>
+<dt><strong><code>__private_attributes__</code></strong></dt>
+<dd>Metadata about the private attributes of the model.</dd>
+<dt><strong><code>__signature__</code></strong></dt>
+<dd>The signature for instantiating the model.</dd>
+<dt><strong><code>__pydantic_complete__</code></strong></dt>
+<dd>Whether model building is completed, or if there are still undefined fields.</dd>
+<dt><strong><code>__pydantic_core_schema__</code></strong></dt>
+<dd>The pydantic-core schema used to build the SchemaValidator and SchemaSerializer.</dd>
+<dt><strong><code>__pydantic_custom_init__</code></strong></dt>
+<dd>Whether the model has a custom <code>__init__</code> function.</dd>
+<dt><strong><code>__pydantic_decorators__</code></strong></dt>
+<dd>Metadata containing the decorators defined on the model.
+This replaces <code>Model.__validators__</code> and <code>Model.__root_validators__</code> from Pydantic V1.</dd>
+<dt><strong><code>__pydantic_generic_metadata__</code></strong></dt>
+<dd>Metadata for generic models; contains data used for a similar purpose to
+<strong>args</strong>, <strong>origin</strong>, <strong>parameters</strong> in typing-module generics. May eventually be replaced by these.</dd>
+<dt><strong><code>__pydantic_parent_namespace__</code></strong></dt>
+<dd>Parent namespace of the model, used for automatic rebuilding of models.</dd>
+<dt><strong><code>__pydantic_post_init__</code></strong></dt>
+<dd>The name of the post-init method for the model, if defined.</dd>
+<dt><strong><code>__pydantic_root_model__</code></strong></dt>
+<dd>Whether the model is a <code>RootModel</code>.</dd>
+<dt><strong><code>__pydantic_serializer__</code></strong></dt>
+<dd>The pydantic-core SchemaSerializer used to dump instances of the model.</dd>
+<dt><strong><code>__pydantic_validator__</code></strong></dt>
+<dd>The pydantic-core SchemaValidator used to validate instances of the model.</dd>
+<dt><strong><code>__pydantic_extra__</code></strong></dt>
+<dd>An instance attribute with the values of extra fields from validation when
+<code>model_config['extra'] == 'allow'</code>.</dd>
+<dt><strong><code>__pydantic_fields_set__</code></strong></dt>
+<dd>An instance attribute with the names of fields explicitly set.</dd>
+<dt><strong><code>__pydantic_private__</code></strong></dt>
+<dd>Instance attribute with the values of private attributes set on the model instance.</dd>
+</dl>
+<p>Create a new model by parsing and validating input data from keyword arguments.</p>
+<p>Raises [<code>ValidationError</code>][pydantic_core.ValidationError] if the input data cannot be
+validated to form a valid model.</p>
+<p><code>__init__</code> uses <code>__pydantic_self__</code> instead of the more common <code>self</code> for the first arg to
+allow <code>self</code> as a field name.</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">@dataclasses.dataclass(frozen=True)
-class WheelFileEntry:
+<pre><code class="python">class WheelFileEntry(BaseModel):
     path: str = Field(description=&#34;Path of the file in the wheel&#34;)
     content: bytes = Field(description=&#34;Binary content for the file&#34;)
     permissions: int = Field(0o644, description=&#34;Permissions for the file in the archive&#34;)</code></pre>
 </details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li>pydantic.main.BaseModel</li>
+</ul>
 <h3>Class variables</h3>
 <dl>
 <dt id="binary_wheel_builder.api.meta.WheelFileEntry.content"><code class="name">var <span class="ident">content</span> : bytes</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="binary_wheel_builder.api.meta.WheelFileEntry.model_config"><code class="name">var <span class="ident">model_config</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="binary_wheel_builder.api.meta.WheelFileEntry.model_fields"><code class="name">var <span class="ident">model_fields</span></code></dt>
 <dd>
 <div class="desc"></div>
 </dd>
@@ -637,6 +693,8 @@ def generate_fileset(self, wheel_platform: WheelPlatformIdentifier) -&gt; list[W
 <h4><code><a title="binary_wheel_builder.api.meta.WheelFileEntry" href="#binary_wheel_builder.api.meta.WheelFileEntry">WheelFileEntry</a></code></h4>
 <ul class="">
 <li><code><a title="binary_wheel_builder.api.meta.WheelFileEntry.content" href="#binary_wheel_builder.api.meta.WheelFileEntry.content">content</a></code></li>
+<li><code><a title="binary_wheel_builder.api.meta.WheelFileEntry.model_config" href="#binary_wheel_builder.api.meta.WheelFileEntry.model_config">model_config</a></code></li>
+<li><code><a title="binary_wheel_builder.api.meta.WheelFileEntry.model_fields" href="#binary_wheel_builder.api.meta.WheelFileEntry.model_fields">model_fields</a></code></li>
 <li><code><a title="binary_wheel_builder.api.meta.WheelFileEntry.path" href="#binary_wheel_builder.api.meta.WheelFileEntry.path">path</a></code></li>
 <li><code><a title="binary_wheel_builder.api.meta.WheelFileEntry.permissions" href="#binary_wheel_builder.api.meta.WheelFileEntry.permissions">permissions</a></code></li>
 </ul>

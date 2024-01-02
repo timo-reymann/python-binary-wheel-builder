@@ -1,3 +1,14 @@
+## [2.0.0](https://github.com/timo-reymann/python-binary-wheel-builder/compare/1.3.2...2.0.0) (2024-01-02)
+
+
+### ⚠ BREAKING CHANGES
+
+* Add automatic prefixing of package name to file set
+
+### Features
+
+* Add automatic prefixing of package name to file set ([f887cf0](https://github.com/timo-reymann/python-binary-wheel-builder/commit/f887cf0e4cd2288375f38fa22efdfdda3a9cacf7))
+
 ## [1.3.2](https://github.com/timo-reymann/python-binary-wheel-builder/compare/1.3.1...1.3.2) (2024-01-01)
 
 

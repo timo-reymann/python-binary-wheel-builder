@@ -1,6 +1,6 @@
 import importlib
 from pathlib import Path
-from typing import Generator, Tuple
+from collections.abc import Generator
 
 import yaml
 
@@ -11,7 +11,7 @@ from binary_wheel_builder.api import well_known_platforms
 def _iterate_mapping_node(
         loader: yaml.SafeLoader,
         node: yaml.nodes.MappingNode
-) -> Generator[Tuple[str, any], None, None]:
+) -> Generator[tuple[str, any], None, None]:
     for mapping_node in node.value:
         key_node, value_node = mapping_node
         yield key_node.value, loader.construct_object(value_node, True)

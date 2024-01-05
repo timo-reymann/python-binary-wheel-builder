@@ -5,7 +5,7 @@ from pathlib import Path
 import os
 import zipfile
 import stat
-from typing import Tuple, Sequence
+from collections.abc import Sequence
 
 
 def install_wheel(path: Path | str, name: str):
@@ -23,7 +23,7 @@ def verify_install(package: str, args: str = "--version"):
     assert output != ""
 
 
-def verify_wheel_structure(wheel_path: Path | str, files_present: Sequence[Tuple[str, int]], files_absent=None):
+def verify_wheel_structure(wheel_path: Path | str, files_present: Sequence[tuple[str, int]], files_absent=None):
     class ZipFileWithPermissions(zipfile.ZipFile):
         def _extract_member(self, member, target_path, pwd):
             if not isinstance(member, zipfile.ZipInfo):

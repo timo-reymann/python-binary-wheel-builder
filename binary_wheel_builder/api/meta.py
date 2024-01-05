@@ -1,7 +1,8 @@
 import functools
 from abc import abstractmethod, ABC
 from pathlib import Path
-from typing import Sequence, Any, Callable
+from collections.abc import Sequence
+from typing import Any, Callable
 
 from pydantic import dataclasses, ConfigDict, Field, GetJsonSchemaHandler, BaseModel
 from pydantic.json_schema import JsonSchemaValue

@@ -1,7 +1,7 @@
 import hashlib
 import os
 from operator import attrgetter
-from typing import Generator
+from collections.abc import Generator
 from zipfile import Path
 
 from binary_wheel_builder import wrapper_templates

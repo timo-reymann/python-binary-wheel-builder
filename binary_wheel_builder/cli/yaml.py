@@ -87,6 +87,7 @@ def _construct_env_var_content(_: YamlSafeLoaderWithFileContext, node: yaml.node
         raise yaml.constructor.ConstructorError(None, None,
                                                 "Environment variable %s not set" % env_var,
                                                 node.start_mark)
+    return val
 
 
 def _yaml_loader(file_path):

@@ -27,6 +27,7 @@
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">import io
+import os
 import tempfile
 from pathlib import Path
 
@@ -136,7 +137,23 @@ def test_tag_wheel_source_empty():
             implementation: &#34;&#34;
         &#39;&#39;&#39;)
     assert (&#34;No wheel source implementation specified in tag &#39;!WheelSource&#39;\n&#34;
-            &#39;  in &#34;&lt;file&gt;&#34;, line 1, column 9&#39;) == str(exc.value)</code></pre>
+            &#39;  in &#34;&lt;file&gt;&#34;, line 1, column 9&#39;) == str(exc.value)
+
+
+def test_tag_env_var_exists():
+    val = os.environ[&#39;FOO&#39;] = &#39;bar&#39;
+    _parse_string(&#39;&#39;&#39;\
+    !Env FOO
+    &#39;&#39;&#39;)
+    assert &#34;bar&#34; == val
+
+
+def test_tag_env_var_not_set():
+    with pytest.raises(yaml.constructor.ConstructorError) as exc:
+        _parse_string(&#39;&#39;&#39;\
+        !Env FOO123
+        &#39;&#39;&#39;)
+    assert &#39;Environment variable FOO123 not set\n  in &#34;&lt;file&gt;&#34;, line 1, column 9&#39; == str(exc.value)</code></pre>
 </details>
 </section>
 <section>
@@ -146,6 +163,40 @@ def test_tag_wheel_source_empty():
 <section>
 <h2 class="section-title" id="header-functions">Functions</h2>
 <dl>
+<dt id="binary_wheel_builder.cli.yaml_test.test_tag_env_var_exists"><code class="name flex">
+<span>def <span class="ident">test_tag_env_var_exists</span></span>(<span>)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def test_tag_env_var_exists():
+    val = os.environ[&#39;FOO&#39;] = &#39;bar&#39;
+    _parse_string(&#39;&#39;&#39;\
+    !Env FOO
+    &#39;&#39;&#39;)
+    assert &#34;bar&#34; == val</code></pre>
+</details>
+</dd>
+<dt id="binary_wheel_builder.cli.yaml_test.test_tag_env_var_not_set"><code class="name flex">
+<span>def <span class="ident">test_tag_env_var_not_set</span></span>(<span>)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def test_tag_env_var_not_set():
+    with pytest.raises(yaml.constructor.ConstructorError) as exc:
+        _parse_string(&#39;&#39;&#39;\
+        !Env FOO123
+        &#39;&#39;&#39;)
+    assert &#39;Environment variable FOO123 not set\n  in &#34;&lt;file&gt;&#34;, line 1, column 9&#39; == str(exc.value)</code></pre>
+</details>
+</dd>
 <dt id="binary_wheel_builder.cli.yaml_test.test_tag_file_content_not_found"><code class="name flex">
 <span>def <span class="ident">test_tag_file_content_not_found</span></span>(<span>)</span>
 </code></dt>
@@ -341,6 +392,8 @@ platform: !WellknownPlatform MAC_SILICONE
 </li>
 <li><h3><a href="#header-functions">Functions</a></h3>
 <ul class="">
+<li><code><a title="binary_wheel_builder.cli.yaml_test.test_tag_env_var_exists" href="#binary_wheel_builder.cli.yaml_test.test_tag_env_var_exists">test_tag_env_var_exists</a></code></li>
+<li><code><a title="binary_wheel_builder.cli.yaml_test.test_tag_env_var_not_set" href="#binary_wheel_builder.cli.yaml_test.test_tag_env_var_not_set">test_tag_env_var_not_set</a></code></li>
 <li><code><a title="binary_wheel_builder.cli.yaml_test.test_tag_file_content_not_found" href="#binary_wheel_builder.cli.yaml_test.test_tag_file_content_not_found">test_tag_file_content_not_found</a></code></li>
 <li><code><a title="binary_wheel_builder.cli.yaml_test.test_tag_file_content_valid" href="#binary_wheel_builder.cli.yaml_test.test_tag_file_content_valid">test_tag_file_content_valid</a></code></li>
 <li><code><a title="binary_wheel_builder.cli.yaml_test.test_tag_platform_identifier" href="#binary_wheel_builder.cli.yaml_test.test_tag_platform_identifier">test_tag_platform_identifier</a></code></li>

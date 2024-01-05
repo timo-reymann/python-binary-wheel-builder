@@ -27,7 +27,6 @@
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">import importlib
-import traceback
 from pathlib import Path
 from typing import Generator, Tuple
 
@@ -108,12 +107,23 @@ def _construct_file_content(loader: YamlSafeLoaderWithFileContext, node: yaml.no
     return file_path.read_text()
 
 
+def _construct_env_var_content(_: YamlSafeLoaderWithFileContext, node: yaml.nodes.ScalarNode) -&gt; str:
+    from os import environ
+    env_var = node.value
+    val = environ.get(env_var, None)
+    if val is None:
+        raise yaml.constructor.ConstructorError(None, None,
+                                                &#34;Environment variable %s not set&#34; % env_var,
+                                                node.start_mark)
+
+
 def _yaml_loader(file_path):
     loader = YamlSafeLoaderWithFileContext
     loader.add_constructor(&#34;!WellknownPlatform&#34;, _construct_well_known_platform)
     loader.add_constructor(&#34;!WheelSource&#34;, _construct_wheel_source)
     loader.add_constructor(&#34;!WheelPlatform&#34;, _construct_wheel_platform_identifier)
     loader.add_constructor(&#34;!FileContent&#34;, _construct_file_content)
+    loader.add_constructor(&#34;!Env&#34;, _construct_env_var_content)
     loader.file_path = file_path
     return loader
 

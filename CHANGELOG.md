@@ -1,3 +1,10 @@
+## [2.1.1](https://github.com/timo-reymann/python-binary-wheel-builder/compare/2.1.0...2.1.1) (2024-01-05)
+
+
+### Bug Fixes
+
+* Env yaml tag ([dbe4f93](https://github.com/timo-reymann/python-binary-wheel-builder/commit/dbe4f931e981444c32840041aa32aebbfc77fe48))
+
 ## [2.1.0](https://github.com/timo-reymann/python-binary-wheel-builder/compare/2.0.0...2.1.0) (2024-01-05)
 
 

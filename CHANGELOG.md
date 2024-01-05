@@ -1,3 +1,10 @@
+## [2.1.0](https://github.com/timo-reymann/python-binary-wheel-builder/compare/2.0.0...2.1.0) (2024-01-05)
+
+
+### Features
+
+* Support `Env` yaml tag ([a5cd230](https://github.com/timo-reymann/python-binary-wheel-builder/commit/a5cd2308ff29211a96f22e9d6ff78ffebca4ad13))
+
 ## [2.0.0](https://github.com/timo-reymann/python-binary-wheel-builder/compare/1.3.2...2.0.0) (2024-01-02)
 
 

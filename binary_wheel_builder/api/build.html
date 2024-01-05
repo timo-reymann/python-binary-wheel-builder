@@ -29,7 +29,7 @@
 <pre><code class="python">import hashlib
 import os
 from operator import attrgetter
-from typing import Generator
+from collections.abc import Generator
 from zipfile import Path
 
 from binary_wheel_builder import wrapper_templates
@@ -148,7 +148,7 @@ def build_wheel(wheel_meta: Wheel, dist_folder: Path) -&gt; Generator[WheelPlatf
 <h2 class="section-title" id="header-functions">Functions</h2>
 <dl>
 <dt id="binary_wheel_builder.api.build.build_wheel"><code class="name flex">
-<span>def <span class="ident">build_wheel</span></span>(<span>wheel_meta: <a title="binary_wheel_builder.api.meta.Wheel" href="meta.html#binary_wheel_builder.api.meta.Wheel">Wheel</a>, dist_folder: zipfile.Path) ‑> Generator[<a title="binary_wheel_builder.api.meta.WheelPlatformBuildResult" href="meta.html#binary_wheel_builder.api.meta.WheelPlatformBuildResult">WheelPlatformBuildResult</a>, None, None]</span>
+<span>def <span class="ident">build_wheel</span></span>(<span>wheel_meta: <a title="binary_wheel_builder.api.meta.Wheel" href="meta.html#binary_wheel_builder.api.meta.Wheel">Wheel</a>, dist_folder: zipfile.Path) ‑> collections.abc.Generator[<a title="binary_wheel_builder.api.meta.WheelPlatformBuildResult" href="meta.html#binary_wheel_builder.api.meta.WheelPlatformBuildResult">WheelPlatformBuildResult</a>, None, None]</span>
 </code></dt>
 <dd>
 <div class="desc"><p>Build a given wheel based on metadata and write all wheels to the dist folder.</p>

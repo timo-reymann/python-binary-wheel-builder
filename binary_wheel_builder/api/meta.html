@@ -29,7 +29,8 @@
 <pre><code class="python">import functools
 from abc import abstractmethod, ABC
 from pathlib import Path
-from typing import Sequence, Any, Callable
+from collections.abc import Sequence
+from typing import Any, Callable
 
 from pydantic import dataclasses, ConfigDict, Field, GetJsonSchemaHandler, BaseModel
 from pydantic.json_schema import JsonSchemaValue
@@ -213,7 +214,7 @@ class Wheel:
 <dd>
 <div class="desc"></div>
 </dd>
-<dt id="binary_wheel_builder.api.meta.Wheel.classifier"><code class="name">var <span class="ident">classifier</span> : Optional[Sequence[str]]</code></dt>
+<dt id="binary_wheel_builder.api.meta.Wheel.classifier"><code class="name">var <span class="ident">classifier</span> : collections.abc.Sequence[str] | None</code></dt>
 <dd>
 <div class="desc"></div>
 </dd>
@@ -241,7 +242,7 @@ class Wheel:
 <dd>
 <div class="desc"></div>
 </dd>
-<dt id="binary_wheel_builder.api.meta.Wheel.platforms"><code class="name">var <span class="ident">platforms</span> : Sequence[<a title="binary_wheel_builder.api.meta.WheelPlatformIdentifier" href="#binary_wheel_builder.api.meta.WheelPlatformIdentifier">WheelPlatformIdentifier</a>]</code></dt>
+<dt id="binary_wheel_builder.api.meta.Wheel.platforms"><code class="name">var <span class="ident">platforms</span> : collections.abc.Sequence[<a title="binary_wheel_builder.api.meta.WheelPlatformIdentifier" href="#binary_wheel_builder.api.meta.WheelPlatformIdentifier">WheelPlatformIdentifier</a>]</code></dt>
 <dd>
 <div class="desc"></div>
 </dd>

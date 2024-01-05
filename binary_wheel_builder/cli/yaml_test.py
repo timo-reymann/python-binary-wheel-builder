@@ -1,4 +1,5 @@
 import io
+import os
 import tempfile
 from pathlib import Path
 
@@ -109,3 +110,19 @@ def test_tag_wheel_source_empty():
         ''')
     assert ("No wheel source implementation specified in tag '!WheelSource'\n"
             '  in "<file>", line 1, column 9') == str(exc.value)
+
+
+def test_tag_env_var_exists():
+    val = os.environ['FOO'] = 'bar'
+    _parse_string('''\
+    !Env FOO
+    ''')
+    assert "bar" == val
+
+
+def test_tag_env_var_not_set():
+    with pytest.raises(yaml.constructor.ConstructorError) as exc:
+        _parse_string('''\
+        !Env FOO123
+        ''')
+    assert 'Environment variable FOO123 not set\n  in "<file>", line 1, column 9' == str(exc.value)

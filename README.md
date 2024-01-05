@@ -1,5 +1,6 @@
 binary-wheel-builder
 ===
+[![PyPI version](https://badge.fury.io/py/binary_wheel_builder.svg)](https://pypi.org/project/binary_wheel_builder)
 [![LICENSE](https://img.shields.io/github/license/timo-reymann/python-binary-wheel-builder)](https://github.com/timo-reymann/binary-wheel-builder/blob/main/LICENSE)
 [![CircleCI](https://circleci.com/gh/timo-reymann/python-binary-wheel-builder.svg?style=shield)](https://app.circleci.com/pipelines/github/timo-reymann/python-binary-wheel-builder)
 [![codecov](https://codecov.io/gh/timo-reymann/python-binary-wheel-builder/graph/badge.svg?token=LFBPaleiaO)](https://codecov.io/gh/timo-reymann/python-binary-wheel-builder)

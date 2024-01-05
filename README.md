@@ -31,9 +31,21 @@ binary-wheel-builder
 
 ## Installation
 
-```
+### ... with pip
+
+```sh
+# with CLI dependencies
+pip install binary_wheel_builder[cli]
+
+# as SDK
 pip install binary_wheel_builder
 ```
+
+### ... with pipx
+
+````sh
+pipx install binary_wheel_builder[cli]
+````
 
 ## Usage
 
@@ -151,6 +163,7 @@ for result in build_wheel(
 
 Afterwards upload with twine:
 Upload your wheel files using [twine](https://twine.readthedocs.io/en/stable/):
+
 ```sh
 twine upload -r pypi dist/*
 ```

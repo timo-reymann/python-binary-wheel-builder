@@ -1,3 +1,14 @@
+## [3.0.0](https://github.com/timo-reymann/python-binary-wheel-builder/compare/2.1.1...3.0.0) (2024-01-09)
+
+
+### ⚠ BREAKING CHANGES
+
+* Fix name for macos silicon
+
+### Bug Fixes
+
+* Fix name for macos silicon ([240ae49](https://github.com/timo-reymann/python-binary-wheel-builder/commit/240ae49e1b92fcb54f18be7179db860ea4afc9c9))
+
 ## [2.1.1](https://github.com/timo-reymann/python-binary-wheel-builder/compare/2.1.0...2.1.1) (2024-01-05)
 
 

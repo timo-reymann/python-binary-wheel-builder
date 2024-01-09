@@ -46,10 +46,10 @@ def _parse_string(content: str):
 
 def test_tag_well_known_platform_valid():
     parsed = _parse_string(&#34;&#34;&#34;\
-platform: !WellknownPlatform MAC_SILICONE
+platform: !WellknownPlatform MAC_SILICON
     &#34;&#34;&#34;)
     assert &#39;platform&#39; in parsed
-    assert parsed[&#39;platform&#39;] == well_known_platforms.MAC_SILICONE
+    assert parsed[&#39;platform&#39;] == well_known_platforms.MAC_SILICON
 
 
 def test_tag_well_known_platform_invalid():
@@ -306,10 +306,10 @@ def test_tag_env_var_not_set():
 </summary>
 <pre><code class="python">def test_tag_well_known_platform_valid():
     parsed = _parse_string(&#34;&#34;&#34;\
-platform: !WellknownPlatform MAC_SILICONE
+platform: !WellknownPlatform MAC_SILICON
     &#34;&#34;&#34;)
     assert &#39;platform&#39; in parsed
-    assert parsed[&#39;platform&#39;] == well_known_platforms.MAC_SILICONE</code></pre>
+    assert parsed[&#39;platform&#39;] == well_known_platforms.MAC_SILICON</code></pre>
 </details>
 </dd>
 <dt id="binary_wheel_builder.cli.yaml_test.test_tag_wheel_source"><code class="name flex">

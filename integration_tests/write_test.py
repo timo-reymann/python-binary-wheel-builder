@@ -48,7 +48,7 @@ class WriteTest(unittest.TestCase):
                     well_known_platforms.WINDOWS_i386,
                     well_known_platforms.WINDOWS_x86_64,
                     well_known_platforms.MAC_INTEL,
-                    well_known_platforms.MAC_SILICONE,
+                    well_known_platforms.MAC_SILICON,
                     well_known_platforms.LINUX_GENERIC_i386,
                     well_known_platforms.LINUX_GENERIC_x84_64,
                     well_known_platforms.LINUX_GENERIC_armv7a,

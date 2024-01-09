@@ -18,10 +18,10 @@ def _parse_string(content: str):
 
 def test_tag_well_known_platform_valid():
     parsed = _parse_string("""\
-platform: !WellknownPlatform MAC_SILICONE
+platform: !WellknownPlatform MAC_SILICON
     """)
     assert 'platform' in parsed
-    assert parsed['platform'] == well_known_platforms.MAC_SILICONE
+    assert parsed['platform'] == well_known_platforms.MAC_SILICON
 
 
 def test_tag_well_known_platform_invalid():

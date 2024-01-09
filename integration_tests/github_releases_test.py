@@ -13,7 +13,7 @@ class BufGithubReleaseSource(GithubReleaseBinarySource):
         super().__init__("bufbuild/buf",
                          version,
                          {
-                             well_known_platforms.MAC_SILICONE: "buf-Darwin-arm64",
+                             well_known_platforms.MAC_SILICON: "buf-Darwin-arm64",
                              well_known_platforms.MAC_INTEL: "buf-Darwin-x86_64",
                              well_known_platforms.WINDOWS_x86_64: "buf-Windows-x86_64.exe",
                              well_known_platforms.LINUX_GENERIC_x84_64: "buf-Linux-x86_64",
@@ -28,7 +28,7 @@ class DeterministicZipGitHubReleaseSource(GithubReleaseBinarySource):
         super().__init__("timo-reymann/deterministic-zip",
                          version,
                          {
-                             well_known_platforms.MAC_SILICONE: "deterministic-zip_darwin-arm64",
+                             well_known_platforms.MAC_SILICON: "deterministic-zip_darwin-arm64",
                              well_known_platforms.MAC_INTEL: "deterministic-zip_darwin-amd64",
                              well_known_platforms.LINUX_GENERIC_x84_64: "deterministic-zip_linux-amd64",
                              well_known_platforms.LINUX_GENERIC_aarch64: "deterministic-zip_linux-arm",
@@ -63,7 +63,7 @@ class GitHubReleasesTest(TestCase):
                     platforms=[
                         well_known_platforms.MAC_INTEL,
                         well_known_platforms.WINDOWS_x86_64,
-                        well_known_platforms.MAC_SILICONE,
+                        well_known_platforms.MAC_SILICON,
                         well_known_platforms.LINUX_GENERIC_x84_64,
                     ]
                 ),
@@ -107,7 +107,7 @@ class GitHubReleasesTest(TestCase):
                     source=DeterministicZipGitHubReleaseSource("2.1.0"),
                     platforms=[
                         well_known_platforms.MAC_INTEL,
-                        well_known_platforms.MAC_SILICONE,
+                        well_known_platforms.MAC_SILICON,
                         well_known_platforms.LINUX_GENERIC_x84_64,
                     ]
                 ),

@@ -1,3 +1,10 @@
+## [3.1.0](https://github.com/timo-reymann/python-binary-wheel-builder/compare/3.0.0...3.1.0) (2024-01-29)
+
+
+### Features
+
+* Add MIT license ([96a1161](https://github.com/timo-reymann/python-binary-wheel-builder/commit/96a11610a71f93548802ec042f4a3d3264d38692))
+
 ## [3.0.0](https://github.com/timo-reymann/python-binary-wheel-builder/compare/2.1.1...3.0.0) (2024-01-09)
 
 

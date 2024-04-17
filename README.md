@@ -82,13 +82,13 @@ pipx install binary_wheel_builder[cli]
      asset_name_mapping:
        !WellknownPlatform MAC_SILICON: "mycli-darwin-arm64"
        !WellknownPlatform MAC_INTEL: "mycli-darwin-amd64"
-       !WellknownPlatform LINUX_GENERIC_x84_64: "my-cli-linux-amd64"
+       !WellknownPlatform LINUX_GENERIC_x86_64: "my-cli-linux-amd64"
        !WellKnownPlatform LINUX_GENERIC_aarch64: "my-cli-linux-arm"
      # Supported platforms by the wheel
      platforms:
        - !WellknownPlatform MAC_INTEL
        - !WellknownPlatform MAC_SILICON
-       - !WellknownPlatform LINUX_GENERIC_x84_64
+       - !WellknownPlatform LINUX_GENERIC_x86_64
        - !WellKnownPlatform LINUX_GENERIC_aarch64
    ```
 2. Build your wheel for all platforms
@@ -121,7 +121,7 @@ class MyCliGithubReleaseSource(GithubReleaseBinarySource):
             {
                 well_known_platforms.MAC_SILICON: "mycli-darwin-arm64",
                 well_known_platforms.MAC_INTEL: "mycli-darwin-amd64",
-                well_known_platforms.LINUX_GENERIC_x84_64: "my-cli-linux-amd64",
+                well_known_platforms.LINUX_GENERIC_x86_64: "my-cli-linux-amd64",
                 well_known_platforms.LINUX_GENERIC_aarch64: "my-cli-linux-arm",
             },
             "my_cli/my-cli-bin"
@@ -153,7 +153,7 @@ for result in build_wheel(
             platforms=[
                 well_known_platforms.MAC_INTEL,
                 well_known_platforms.MAC_SILICON,
-                well_known_platforms.LINUX_GENERIC_x84_64,
+                well_known_platforms.LINUX_GENERIC_x86_64,
                 well_known_platforms.LINUX_GENERIC_aarch64
             ]
         ),

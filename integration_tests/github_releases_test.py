@@ -16,7 +16,7 @@ class BufGithubReleaseSource(GithubReleaseBinarySource):
                              well_known_platforms.MAC_SILICON: "buf-Darwin-arm64",
                              well_known_platforms.MAC_INTEL: "buf-Darwin-x86_64",
                              well_known_platforms.WINDOWS_x86_64: "buf-Windows-x86_64.exe",
-                             well_known_platforms.LINUX_GENERIC_x84_64: "buf-Linux-x86_64",
+                             well_known_platforms.LINUX_GENERIC_x86_64: "buf-Linux-x86_64",
                              well_known_platforms.LINUX_GENERIC_aarch64: "buf-Linux-aarch64",
                              well_known_platforms.LINUX_GENERIC_armv7a: "buf-Linux-aarch64",
                          },
@@ -30,7 +30,7 @@ class DeterministicZipGitHubReleaseSource(GithubReleaseBinarySource):
                          {
                              well_known_platforms.MAC_SILICON: "deterministic-zip_darwin-arm64",
                              well_known_platforms.MAC_INTEL: "deterministic-zip_darwin-amd64",
-                             well_known_platforms.LINUX_GENERIC_x84_64: "deterministic-zip_linux-amd64",
+                             well_known_platforms.LINUX_GENERIC_x86_64: "deterministic-zip_linux-amd64",
                              well_known_platforms.LINUX_GENERIC_aarch64: "deterministic-zip_linux-arm",
                              well_known_platforms.LINUX_GENERIC_armv7a: "deterministic-zip_linux-arm",
                          },
@@ -64,7 +64,7 @@ class GitHubReleasesTest(TestCase):
                         well_known_platforms.MAC_INTEL,
                         well_known_platforms.WINDOWS_x86_64,
                         well_known_platforms.MAC_SILICON,
-                        well_known_platforms.LINUX_GENERIC_x84_64,
+                        well_known_platforms.LINUX_GENERIC_x86_64,
                     ]
                 ),
                 dist_folder
@@ -108,7 +108,7 @@ class GitHubReleasesTest(TestCase):
                     platforms=[
                         well_known_platforms.MAC_INTEL,
                         well_known_platforms.MAC_SILICON,
-                        well_known_platforms.LINUX_GENERIC_x84_64,
+                        well_known_platforms.LINUX_GENERIC_x86_64,
                     ]
                 ),
                 dist_folder

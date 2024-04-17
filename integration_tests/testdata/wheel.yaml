@@ -26,10 +26,10 @@ source: !WheelSource
   asset_name_mapping:
     !WellknownPlatform MAC_SILICON: "deterministic-zip_darwin-arm64"
     !WellknownPlatform MAC_INTEL: "deterministic-zip_darwin-amd64"
-    !WellknownPlatform LINUX_GENERIC_x84_64: "deterministic-zip_linux-amd64"
+    !WellknownPlatform LINUX_GENERIC_x86_64: "deterministic-zip_linux-amd64"
     *python3_libc3_linux_platform: "deterministic-zip_linux-amd64"
 platforms:
   - !WellknownPlatform MAC_INTEL
   - !WellknownPlatform MAC_SILICON
-  - !WellknownPlatform LINUX_GENERIC_x84_64
+  - !WellknownPlatform LINUX_GENERIC_x86_64
   - *python3_libc3_linux_platform

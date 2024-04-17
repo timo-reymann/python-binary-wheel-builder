@@ -1,3 +1,10 @@
+## [3.1.1](https://github.com/timo-reymann/python-binary-wheel-builder/compare/3.1.0...3.1.1) (2024-04-17)
+
+
+### Bug Fixes
+
+* update name typo of linux x86_64 well known platform, keeping backwards compatibility ([#13](https://github.com/timo-reymann/python-binary-wheel-builder/issues/13)) ([f0d8b7c](https://github.com/timo-reymann/python-binary-wheel-builder/commit/f0d8b7c9a706657165dd52d7158bffbb2a6a098f))
+
 ## [3.1.0](https://github.com/timo-reymann/python-binary-wheel-builder/compare/3.0.0...3.1.0) (2024-01-29)
 
 

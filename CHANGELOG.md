@@ -1,3 +1,11 @@
+## [3.2.0](https://github.com/timo-reymann/python-binary-wheel-builder/compare/3.1.1...3.2.0) (2024-04-20)
+
+
+### Features
+
+* Add gitlab generic package registry source ([204256d](https://github.com/timo-reymann/python-binary-wheel-builder/commit/204256d676c7c0a14f802aad060808fad5989b7e))
+* Add support for private GitHub releases ([d4277f8](https://github.com/timo-reymann/python-binary-wheel-builder/commit/d4277f892f8ab371d9778311ab277232b3a38168))
+
 ## [3.1.1](https://github.com/timo-reymann/python-binary-wheel-builder/compare/3.1.0...3.1.1) (2024-04-17)
 
 

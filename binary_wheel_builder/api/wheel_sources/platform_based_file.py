@@ -1,11 +1,16 @@
 from pathlib import Path
 
-from binary_wheel_builder.api.meta import WheelSource, WheelPlatformIdentifier, WheelFileEntry
-from binary_wheel_builder.api.wheel_sources.exceptions import UnsupportedWheelPlatformException, SourceFileRequestFailed
+from binary_wheel_builder.api.meta import WheelFileEntry, WheelPlatformIdentifier, WheelSource
+from binary_wheel_builder.api.wheel_sources.exceptions import SourceFileRequestFailed, UnsupportedWheelPlatformException
 
 
 class PlatformBasedFileSource(WheelSource):
-    def __init__(self, executable_path : str, file_name_mapping: dict[WheelPlatformIdentifier, Path | str]):
+    def __init__(self, executable_path: str, file_name_mapping: dict[WheelPlatformIdentifier, Path | str]):
+        """
+
+        :param executable_path: Path to the executable that will be used in the generated wheel
+        :param file_name_mapping: Map wheel platform identifiers to the local binary file names.
+        """
         self.executable_path = executable_path
         self.file_name_mapping = file_name_mapping
 

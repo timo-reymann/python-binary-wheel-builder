@@ -20,7 +20,7 @@ binary-wheel-builder
 
 - deterministic wheel file output
 - Use with Python Code or as CLI
-- Prebuilt data sources for your binaries
+- [Prebuilt data sources](https://timo-reymann.github.io/python-binary-wheel-builder/binary_wheel_builder/api/wheel_sources/index.html) for your binaries
 - Ready to release and ship your binaries
 - Wrapper for cli calls inside Python
 - Exposes wheel as module entrypoint (`python -m your_cli`) and adds to path (`your-cli`)

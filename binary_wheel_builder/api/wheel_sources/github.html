@@ -28,34 +28,50 @@
 </summary>
 <pre><code class="python">from urllib.error import HTTPError
 
-from binary_wheel_builder.api.meta import WheelSource, WheelPlatformIdentifier, WheelFileEntry
-from binary_wheel_builder.api.wheel_sources.exceptions import UnsupportedWheelPlatformException, SourceFileRequestFailed
+from binary_wheel_builder.api.meta import WheelFileEntry, WheelPlatformIdentifier, WheelSource
+from binary_wheel_builder.api.wheel_sources.exceptions import SourceFileRequestFailed, UnsupportedWheelPlatformException
 
 
 class GithubReleaseBinarySource(WheelSource):
-    def __init__(self,
-                 project_slug: str,
-                 version: str,
-                 asset_name_mapping: dict[WheelPlatformIdentifier, str],
-                 binary_path: str,
-                 tag_prefix=&#34;v&#34;):
+    def __init__(
+            self,
+            project_slug: str,
+            version: str,
+            asset_name_mapping: dict[WheelPlatformIdentifier, str],
+            binary_path: str,
+            tag_prefix: str = &#34;v&#34;,
+            token: str | None = None,
+    ):
+        &#34;&#34;&#34;
+        :param project_slug: Full name of the project e.g. user/project or org/project
+        :param version: Version of the release
+        :param asset_name_mapping: Mapping of GitHub Release assets to the corresponding wheel platform
+        :param binary_path: Path to the binary file in the generated wheel
+        :param tag_prefix: Prefix for release tag which will be prepended to version for the version
+        :param token: Optional token in case you want to access a private repository
+        &#34;&#34;&#34;
         self.project_slug = project_slug
         self.version = version
-        self.tag_prefix = tag_prefix
         self.asset_name_mapping = asset_name_mapping
         self.binary_path = binary_path
+        self.tag_prefix = tag_prefix
+        self.token = token
 
     def generate_fileset(self, wheel_platform: WheelPlatformIdentifier) -&gt; list[WheelFileEntry]:
-        from urllib.request import urlopen
+        from urllib.request import urlopen, Request
 
         if wheel_platform not in self.asset_name_mapping:
             raise UnsupportedWheelPlatformException(wheel_platform)
 
         url = (f&#34;https://github.com/{self.project_slug}&#34;
                f&#34;/releases/download/{self.tag_prefix}{self.version}/{self.asset_name_mapping[wheel_platform]}&#34;)
+        request = Request(url)
+
+        if self.token is not None:
+            request.add_header(&#34;Authorization&#34;, f&#34;token {self.token}&#34;)
 
         try:
-            with urlopen(url) as response:
+            with urlopen(request) as response:
                 file_content = response.read()
         except HTTPError as e:
             raise SourceFileRequestFailed(&#34;Failed to fetch file: &#34; + str(e)) from e
@@ -80,39 +96,61 @@ class GithubReleaseBinarySource(WheelSource):
 <dl>
 <dt id="binary_wheel_builder.api.wheel_sources.github.GithubReleaseBinarySource"><code class="flex name class">
 <span>class <span class="ident">GithubReleaseBinarySource</span></span>
-<span>(</span><span>project_slug: str, version: str, asset_name_mapping: dict[<a title="binary_wheel_builder.api.meta.WheelPlatformIdentifier" href="../meta.html#binary_wheel_builder.api.meta.WheelPlatformIdentifier">WheelPlatformIdentifier</a>, str], binary_path: str, tag_prefix='v')</span>
+<span>(</span><span>project_slug: str, version: str, asset_name_mapping: dict[<a title="binary_wheel_builder.api.meta.WheelPlatformIdentifier" href="../meta.html#binary_wheel_builder.api.meta.WheelPlatformIdentifier">WheelPlatformIdentifier</a>, str], binary_path: str, tag_prefix: str = 'v', token: str | None = None)</span>
 </code></dt>
 <dd>
 <div class="desc"><p>Helper class that provides a standard way to create an ABC using
-inheritance.</p></div>
+inheritance.</p>
+<p>:param project_slug: Full name of the project e.g. user/project or org/project
+:param version: Version of the release
+:param asset_name_mapping: Mapping of GitHub Release assets to the corresponding wheel platform
+:param binary_path: Path to the binary file in the generated wheel
+:param tag_prefix: Prefix for release tag which will be prepended to version for the version
+:param token: Optional token in case you want to access a private repository</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">class GithubReleaseBinarySource(WheelSource):
-    def __init__(self,
-                 project_slug: str,
-                 version: str,
-                 asset_name_mapping: dict[WheelPlatformIdentifier, str],
-                 binary_path: str,
-                 tag_prefix=&#34;v&#34;):
+    def __init__(
+            self,
+            project_slug: str,
+            version: str,
+            asset_name_mapping: dict[WheelPlatformIdentifier, str],
+            binary_path: str,
+            tag_prefix: str = &#34;v&#34;,
+            token: str | None = None,
+    ):
+        &#34;&#34;&#34;
+        :param project_slug: Full name of the project e.g. user/project or org/project
+        :param version: Version of the release
+        :param asset_name_mapping: Mapping of GitHub Release assets to the corresponding wheel platform
+        :param binary_path: Path to the binary file in the generated wheel
+        :param tag_prefix: Prefix for release tag which will be prepended to version for the version
+        :param token: Optional token in case you want to access a private repository
+        &#34;&#34;&#34;
         self.project_slug = project_slug
         self.version = version
-        self.tag_prefix = tag_prefix
         self.asset_name_mapping = asset_name_mapping
         self.binary_path = binary_path
+        self.tag_prefix = tag_prefix
+        self.token = token
 
     def generate_fileset(self, wheel_platform: WheelPlatformIdentifier) -&gt; list[WheelFileEntry]:
-        from urllib.request import urlopen
+        from urllib.request import urlopen, Request
 
         if wheel_platform not in self.asset_name_mapping:
             raise UnsupportedWheelPlatformException(wheel_platform)
 
         url = (f&#34;https://github.com/{self.project_slug}&#34;
                f&#34;/releases/download/{self.tag_prefix}{self.version}/{self.asset_name_mapping[wheel_platform]}&#34;)
+        request = Request(url)
+
+        if self.token is not None:
+            request.add_header(&#34;Authorization&#34;, f&#34;token {self.token}&#34;)
 
         try:
-            with urlopen(url) as response:
+            with urlopen(request) as response:
                 file_content = response.read()
         except HTTPError as e:
             raise SourceFileRequestFailed(&#34;Failed to fetch file: &#34; + str(e)) from e

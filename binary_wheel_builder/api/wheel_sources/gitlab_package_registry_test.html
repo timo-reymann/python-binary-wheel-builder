@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
 <meta name="generator" content="pdoc 0.10.0" />
-<title>binary_wheel_builder.api.wheel_sources.platform_based_file API documentation</title>
+<title>binary_wheel_builder.api.wheel_sources.gitlab_package_registry_test API documentation</title>
 <meta name="description" content="" />
 <link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/sanitize.min.css" integrity="sha256-PK9q560IAAa6WVRRh76LtCaI8pjTJ2z11v0miyNNjrs=" crossorigin>
 <link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/typography.min.css" integrity="sha256-7l/o7C8jubJiy74VsKTidCy1yBkRtiUGbVkYBylBqUg=" crossorigin>
@@ -19,48 +19,61 @@
 <main>
 <article id="content">
 <header>
-<h1 class="title">Module <code>binary_wheel_builder.api.wheel_sources.platform_based_file</code></h1>
+<h1 class="title">Module <code>binary_wheel_builder.api.wheel_sources.gitlab_package_registry_test</code></h1>
 </header>
 <section id="section-intro">
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">from pathlib import Path
+<pre><code class="python">from unittest import mock
+from unittest.mock import MagicMock
+from urllib.error import HTTPError
 
-from binary_wheel_builder.api.meta import WheelFileEntry, WheelPlatformIdentifier, WheelSource
-from binary_wheel_builder.api.wheel_sources.exceptions import SourceFileRequestFailed, UnsupportedWheelPlatformException
+import pytest
+
+from binary_wheel_builder.api import well_known_platforms
+from binary_wheel_builder.api.wheel_sources.exceptions import WheelSourceException
+from binary_wheel_builder.api.wheel_sources.gitlab_package_registry import GitlabGenericPackageRegistrySource
 
 
-class PlatformBasedFileSource(WheelSource):
-    def __init__(self, executable_path: str, file_name_mapping: dict[WheelPlatformIdentifier, Path | str]):
-        &#34;&#34;&#34;
+@pytest.mark.parametrize(
+    [
+        &#34;tag_prefix&#34;,
+        &#34;status_code&#34;,
+    ], [
+        [&#34;v&#34;, 404],
+        [&#34;&#34;, 404]
+    ]
+)
+def test_gitlab_package_registry_binary_wheel_source(tag_prefix: str, status_code: int):
+    request_fail = True if status_code &lt; 200 or status_code &gt; 300 else False
+    with mock.patch(
+            &#34;urllib.request.urlopen&#34;,
+            return_value=MagicMock(return_value=None),
+            side_effect=HTTPError(
+                &#39;http://example.com&#39;, status_code, &#39;status&#39;, {},
+                None
+                ) if request_fail else None
+            ) as urlopen_mock:
+        source = GitlabGenericPackageRegistrySource(
+            {
+                well_known_platforms.LINUX_GENERIC_i386: &#34;foo-bar&#34;
+            },
+            &#34;foo-bar&#34;,
+            &#34;org/project&#34;,
+            &#34;0.0.1&#34;,
+            &#34;foo-bar&#34;
+        )
 
-        :param executable_path: Path to the executable that will be used in the generated wheel
-        :param file_name_mapping: Map wheel platform identifiers to the local binary file names.
-        &#34;&#34;&#34;
-        self.executable_path = executable_path
-        self.file_name_mapping = file_name_mapping
+        if request_fail:
+            with pytest.raises(WheelSourceException):
+                source.generate_fileset(well_known_platforms.LINUX_GENERIC_i386)
+        else:
+            source.generate_fileset(well_known_platforms.LINUX_GENERIC_i386)
+            urlopen_mock.read.assert_called_once()
 
-    def generate_fileset(self, wheel_platform: WheelPlatformIdentifier) -&gt; list[WheelFileEntry]:
-        if wheel_platform not in self.file_name_mapping:
-            raise UnsupportedWheelPlatformException(wheel_platform)
-
-        file = self.file_name_mapping[wheel_platform]
-
-        if isinstance(file, str):
-            file = Path(file)
-
-        if not file.exists() or not file.is_file():
-            raise SourceFileRequestFailed(f&#34;File {file} does not resolve to a valid file&#34;)
-
-        return [
-            WheelFileEntry(
-                path=self.executable_path,
-                content=file.read_bytes(),
-                permissions=0o755
-            )
-        ]</code></pre>
+        urlopen_mock.assert_called_once()</code></pre>
 </details>
 </section>
 <section>
@@ -68,68 +81,59 @@ class PlatformBasedFileSource(WheelSource):
 <section>
 </section>
 <section>
-</section>
-<section>
-<h2 class="section-title" id="header-classes">Classes</h2>
+<h2 class="section-title" id="header-functions">Functions</h2>
 <dl>
-<dt id="binary_wheel_builder.api.wheel_sources.platform_based_file.PlatformBasedFileSource"><code class="flex name class">
-<span>class <span class="ident">PlatformBasedFileSource</span></span>
-<span>(</span><span>executable_path: str, file_name_mapping: dict[<a title="binary_wheel_builder.api.meta.WheelPlatformIdentifier" href="../meta.html#binary_wheel_builder.api.meta.WheelPlatformIdentifier">WheelPlatformIdentifier</a>, pathlib.Path | str])</span>
+<dt id="binary_wheel_builder.api.wheel_sources.gitlab_package_registry_test.test_gitlab_package_registry_binary_wheel_source"><code class="name flex">
+<span>def <span class="ident">test_gitlab_package_registry_binary_wheel_source</span></span>(<span>tag_prefix: str, status_code: int)</span>
 </code></dt>
 <dd>
-<div class="desc"><p>Helper class that provides a standard way to create an ABC using
-inheritance.</p>
-<p>:param executable_path: Path to the executable that will be used in the generated wheel
-:param file_name_mapping: Map wheel platform identifiers to the local binary file names.</p></div>
+<div class="desc"></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">class PlatformBasedFileSource(WheelSource):
-    def __init__(self, executable_path: str, file_name_mapping: dict[WheelPlatformIdentifier, Path | str]):
-        &#34;&#34;&#34;
+<pre><code class="python">@pytest.mark.parametrize(
+    [
+        &#34;tag_prefix&#34;,
+        &#34;status_code&#34;,
+    ], [
+        [&#34;v&#34;, 404],
+        [&#34;&#34;, 404]
+    ]
+)
+def test_gitlab_package_registry_binary_wheel_source(tag_prefix: str, status_code: int):
+    request_fail = True if status_code &lt; 200 or status_code &gt; 300 else False
+    with mock.patch(
+            &#34;urllib.request.urlopen&#34;,
+            return_value=MagicMock(return_value=None),
+            side_effect=HTTPError(
+                &#39;http://example.com&#39;, status_code, &#39;status&#39;, {},
+                None
+                ) if request_fail else None
+            ) as urlopen_mock:
+        source = GitlabGenericPackageRegistrySource(
+            {
+                well_known_platforms.LINUX_GENERIC_i386: &#34;foo-bar&#34;
+            },
+            &#34;foo-bar&#34;,
+            &#34;org/project&#34;,
+            &#34;0.0.1&#34;,
+            &#34;foo-bar&#34;
+        )
 
-        :param executable_path: Path to the executable that will be used in the generated wheel
-        :param file_name_mapping: Map wheel platform identifiers to the local binary file names.
-        &#34;&#34;&#34;
-        self.executable_path = executable_path
-        self.file_name_mapping = file_name_mapping
+        if request_fail:
+            with pytest.raises(WheelSourceException):
+                source.generate_fileset(well_known_platforms.LINUX_GENERIC_i386)
+        else:
+            source.generate_fileset(well_known_platforms.LINUX_GENERIC_i386)
+            urlopen_mock.read.assert_called_once()
 
-    def generate_fileset(self, wheel_platform: WheelPlatformIdentifier) -&gt; list[WheelFileEntry]:
-        if wheel_platform not in self.file_name_mapping:
-            raise UnsupportedWheelPlatformException(wheel_platform)
-
-        file = self.file_name_mapping[wheel_platform]
-
-        if isinstance(file, str):
-            file = Path(file)
-
-        if not file.exists() or not file.is_file():
-            raise SourceFileRequestFailed(f&#34;File {file} does not resolve to a valid file&#34;)
-
-        return [
-            WheelFileEntry(
-                path=self.executable_path,
-                content=file.read_bytes(),
-                permissions=0o755
-            )
-        ]</code></pre>
+        urlopen_mock.assert_called_once()</code></pre>
 </details>
-<h3>Ancestors</h3>
-<ul class="hlist">
-<li><a title="binary_wheel_builder.api.meta.WheelSource" href="../meta.html#binary_wheel_builder.api.meta.WheelSource">WheelSource</a></li>
-<li>abc.ABC</li>
-</ul>
-<h3>Inherited members</h3>
-<ul class="hlist">
-<li><code><b><a title="binary_wheel_builder.api.meta.WheelSource" href="../meta.html#binary_wheel_builder.api.meta.WheelSource">WheelSource</a></b></code>:
-<ul class="hlist">
-<li><code><a title="binary_wheel_builder.api.meta.WheelSource.generate_fileset" href="../meta.html#binary_wheel_builder.api.meta.WheelSource.generate_fileset">generate_fileset</a></code></li>
-</ul>
-</li>
-</ul>
 </dd>
 </dl>
+</section>
+<section>
 </section>
 </article>
 <nav id="sidebar">
@@ -143,11 +147,9 @@ inheritance.</p>
 <li><code><a title="binary_wheel_builder.api.wheel_sources" href="index.html">binary_wheel_builder.api.wheel_sources</a></code></li>
 </ul>
 </li>
-<li><h3><a href="#header-classes">Classes</a></h3>
-<ul>
-<li>
-<h4><code><a title="binary_wheel_builder.api.wheel_sources.platform_based_file.PlatformBasedFileSource" href="#binary_wheel_builder.api.wheel_sources.platform_based_file.PlatformBasedFileSource">PlatformBasedFileSource</a></code></h4>
-</li>
+<li><h3><a href="#header-functions">Functions</a></h3>
+<ul class="">
+<li><code><a title="binary_wheel_builder.api.wheel_sources.gitlab_package_registry_test.test_gitlab_package_registry_binary_wheel_source" href="#binary_wheel_builder.api.wheel_sources.gitlab_package_registry_test.test_gitlab_package_registry_binary_wheel_source">test_gitlab_package_registry_binary_wheel_source</a></code></li>
 </ul>
 </li>
 </ul>

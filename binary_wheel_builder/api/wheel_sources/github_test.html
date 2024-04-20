@@ -26,8 +26,7 @@
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">import urllib.request
-from unittest import mock
+<pre><code class="python">from unittest import mock
 from unittest.mock import patch, MagicMock
 from urllib.error import HTTPError
 
@@ -49,7 +48,7 @@ def test_github_release_binary_wheel_source(tag_prefix: str, status_code: int):
     request_fail = True if status_code &lt; 200 or status_code &gt; 300 else False
     with mock.patch(&#34;urllib.request.urlopen&#34;,
                     return_value=MagicMock(return_value=None),
-                    side_effect=HTTPError(&#39;http://example.com&#39;, 500, &#39;Internal Error&#39;, {},
+                    side_effect=HTTPError(&#39;http://example.com&#39;, status_code, &#39;status&#39;, {},
                                           None) if request_fail else None) as urlopen_mock:
         source = GithubReleaseBinarySource(
             &#34;org/project&#34;,
@@ -97,7 +96,7 @@ def test_github_release_binary_wheel_source(tag_prefix: str, status_code: int):
     request_fail = True if status_code &lt; 200 or status_code &gt; 300 else False
     with mock.patch(&#34;urllib.request.urlopen&#34;,
                     return_value=MagicMock(return_value=None),
-                    side_effect=HTTPError(&#39;http://example.com&#39;, 500, &#39;Internal Error&#39;, {},
+                    side_effect=HTTPError(&#39;http://example.com&#39;, status_code, &#39;status&#39;, {},
                                           None) if request_fail else None) as urlopen_mock:
         source = GithubReleaseBinarySource(
             &#34;org/project&#34;,

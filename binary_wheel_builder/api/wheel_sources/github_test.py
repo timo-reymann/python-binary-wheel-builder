@@ -1,4 +1,3 @@
-import urllib.request
 from unittest import mock
 from unittest.mock import patch, MagicMock
 from urllib.error import HTTPError
@@ -21,7 +20,7 @@ def test_github_release_binary_wheel_source(tag_prefix: str, status_code: int):
     request_fail = True if status_code < 200 or status_code > 300 else False
     with mock.patch("urllib.request.urlopen",
                     return_value=MagicMock(return_value=None),
-                    side_effect=HTTPError('http://example.com', 500, 'Internal Error', {},
+                    side_effect=HTTPError('http://example.com', status_code, 'status', {},
                                           None) if request_fail else None) as urlopen_mock:
         source = GithubReleaseBinarySource(
             "org/project",

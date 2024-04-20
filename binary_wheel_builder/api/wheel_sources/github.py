@@ -14,6 +14,14 @@ class GithubReleaseBinarySource(WheelSource):
             tag_prefix: str = "v",
             token: str | None = None,
     ):
+        """
+        :param project_slug: Full name of the project e.g. user/project or org/project
+        :param version: Version of the release
+        :param asset_name_mapping: Mapping of GitHub Release assets to the corresponding wheel platform
+        :param binary_path: Path to the binary file in the generated wheel
+        :param tag_prefix: Prefix for release tag which will be prepended to version for the version
+        :param token: Optional token in case you want to access a private repository
+        """
         self.project_slug = project_slug
         self.version = version
         self.asset_name_mapping = asset_name_mapping

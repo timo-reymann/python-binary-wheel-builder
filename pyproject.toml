@@ -29,7 +29,7 @@ repository = "https://github.com/timo-reymann/python-binary-wheel-builder"
 
 
 [tool.poetry.dependencies]
-python = "> 3.8"
+python = "> 3.9"
 wheel = "> 0.30.0"
 pyyaml = { version = "^6.0.1", optional = true }
 pydantic = "^2.5.3"
@@ -38,6 +38,7 @@ pydantic = "^2.5.3"
 pytest = "^7.4.3"
 coverage = "^7.4.0"
 pdoc3 = "^0.10.0"
+pydoctor = "^24.3.3"
 
 [tool.poetry.extras]
 cli = ["pyyaml"]
@@ -60,3 +61,23 @@ fail_under = 70
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
+
+[tool.pydoctor]
+verbose = 0
+warnings-as-errors = true
+
+intersphinx = ["https://docs.python.org/3/objects.inv"]
+docformat = "restructuredtext"
+html-output = "gh-pages"
+
+add-package = ["binary_wheel_builder.api"]
+project-name = "binary_wheel_builder"
+project-url = "https://github.com/timo-reymann/python-binary-wheel-builder"
+privacy = [
+    "HIDDEN:binary_wheel_builder.**.*_test",
+    "HIDDEN:binary_wheel_builder.*_test",
+    "HIDDEN:binary_wheel_builder.conftest"
+]
+
+theme = "base"
+template-dir = "pydoctor-theme"

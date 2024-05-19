@@ -70,7 +70,7 @@ intersphinx = ["https://docs.python.org/3/objects.inv"]
 docformat = "restructuredtext"
 html-output = "gh-pages"
 
-add-package = ["binary_wheel_builder.api"]
+add-package = ["binary_wheel_builder/api"]
 project-name = "binary_wheel_builder"
 project-url = "https://github.com/timo-reymann/python-binary-wheel-builder"
 privacy = [

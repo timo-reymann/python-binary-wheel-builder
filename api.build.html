@@ -6,7 +6,7 @@
 
   <head>
     
-    <title>api</title>
+    <title>api.build</title>
     <meta name="generator" content="pydoctor 24.3.3"> 
         
     </meta>
@@ -140,8 +140,70 @@
   <div>
 
       <div class="thingTitle">
+        <span>Module</span>
+        <code class="thisobject"><a href="api.build.html" class="internal-link" title="This module">build</a></code> 
+      </div>
+      
+      <div>
+        
+
+        
+         
+
+        
+        
+
+        <div class="childrenKindTitle">Functions</div>
+        <ul>
+    
+    <li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="#build_wheel" class="internal-link" title="api.build.build_wheel">build<wbr></wbr>_wheel</a></code>
+            </div>
+        
+
+    </li><li class="private">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="#_write_platform_wheel_with_wrappers" class="internal-link" title="api.build._write_platform_wheel_with_wrappers">_write<wbr></wbr>_platform<wbr></wbr>_wheel<wbr></wbr>_with<wbr></wbr>_wrappers</a></code>
+            </div>
+        
+
+    </li><li class="private">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="#_write_wheel" class="internal-link" title="api.build._write_wheel">_write<wbr></wbr>_wheel</a></code>
+            </div>
+        
+
+    </li>
+</ul> 
+
+        
+         
+
+        
+         
+
+        
+         
+        
+      </div>
+  </div><div>
+
+      <div class="thingTitle">
         <span>Package</span>
-        <code class="thisobject"><a href="index.html" class="internal-link" title="This package">api</a></code> 
+        <code><a href="index.html" class="internal-link" title="The parent of this module">api</a></code> 
       </div>
       
       <div>
@@ -150,7 +212,7 @@
         <div class="childrenKindTitle">Modules</div>
         <ul>
     
-    <li class="">
+    <li class=" thisobject">
         
         
         
@@ -227,14 +289,14 @@
         
 
         <div class="page-header">
-          <h1 class="package"><code><code><a href="index.html" class="internal-link">api</a></code></code></h1>
+          <h1 class="module"><code><code><a href="index.html" class="internal-link">api</a></code><wbr></wbr>.<code><a href="api.build.html" class="internal-link" title="api.build">build</a></code></code></h1>
           <div id="showPrivate">
             <button class="btn btn-link" onclick="togglePrivate()">Toggle Private API</button>
           </div>
         </div>
 
         <div class="categoryHeader">
-          package documentation
+          module documentation
         </div>
 
         <div class="extrasDocstring">
@@ -243,33 +305,28 @@
         </div>
 
         <div class="moduleDocstring">
-          <div><p>API surface for using the package with python code</p></div>
+          <div><p>Infrastructure to build deterministic wheels</p></div>
         </div>
 
         <div id="splitTables">
-          <table class="children sortable" id="id1">
+          <table class="children sortable" id="id2">
   
   
-  <tr class="module">
+  <tr class="function">
     
-    <td>Module</td>
-    <td><code><a href="api.build.html" class="internal-link" title="api.build">build</a></code></td>
-    <td>Infrastructure to build deterministic wheels</td>
-  </tr><tr class="module">
+    <td>Function</td>
+    <td><code><a href="#build_wheel" class="internal-link" title="api.build.build_wheel">build<wbr></wbr>_wheel</a></code></td>
+    <td>Build a given wheel based on metadata and write all wheels to the dist folder.</td>
+  </tr><tr class="function private">
     
-    <td>Module</td>
-    <td><code><a href="api.meta.html" class="internal-link" title="api.meta">meta</a></code></td>
-    <td>Meta data around wheels</td>
-  </tr><tr class="module">
+    <td>Function</td>
+    <td><code><a href="#_write_platform_wheel_with_wrappers" class="internal-link" title="api.build._write_platform_wheel_with_wrappers">_write<wbr></wbr>_platform<wbr></wbr>_wheel<wbr></wbr>_with<wbr></wbr>_wrappers</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr><tr class="function private">
     
-    <td>Module</td>
-    <td><code><a href="api.well_known_platforms.html" class="internal-link" title="api.well_known_platforms">well<wbr></wbr>_known<wbr></wbr>_platforms</a></code></td>
-    <td>Contains the well known platforms for python wheel one might want to target to simplify usage</td>
-  </tr><tr class="package">
-    
-    <td>Package</td>
-    <td><code><a href="api.wheel_sources.html" class="internal-link" title="api.wheel_sources">wheel<wbr></wbr>_sources</a></code></td>
-    <td>Contains a curated list of supported wheel sources</td>
+    <td>Function</td>
+    <td><code><a href="#_write_wheel" class="internal-link" title="api.build._write_wheel">_write<wbr></wbr>_wheel</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
   </tr>
 </table>
           
@@ -278,7 +335,81 @@
         </div>
 
         <div id="childList">
-          
+          <div class="basefunction">
+  
+  
+  <a name="api.build.build_wheel">
+    
+  </a>
+  <a name="build_wheel">
+    
+  </a>
+  <div class="functionHeader">
+    
+    
+    <span class="py-keyword">def</span> <span class="py-defname">build_wheel</span><span class="function-signature">(wheel_meta: <code>Wheel</code>, dist_folder: <code><a href="https://docs.python.org/3/library/zipfile.html#zipfile.Path" class="intersphinx-link">Path</a></code>) -&gt; <code><a href="https://docs.python.org/3/library/collections.abc.html#collections.abc.Generator" class="intersphinx-link">Generator</a>[<wbr></wbr>WheelPlatformBuildResult, <wbr></wbr><a href="https://docs.python.org/3/library/constants.html#None" class="intersphinx-link">None</a>, <wbr></wbr><a href="https://docs.python.org/3/library/constants.html#None" class="intersphinx-link">None</a>]</code></span>:
+    
+    <a class="headerLink" href="#build_wheel" title="api.build.build_wheel">
+      
+      
+      ¶
+    </a>
+  </div>
+  <div class="docstring functionBody">
+    
+    <div><p>Build a given wheel based on metadata and write all wheels to the dist folder.</p>
+<p>As this is a generator, make sure to consume all results to ensure all wheels are built properly.</p>
+<table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">wheel<wbr></wbr>_meta:</span><code>Wheel</code></td><td class="fieldArgDesc">Metadata about wheel, used to construct the wheel archive for each platform.</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">dist<wbr></wbr>_folder:</span><code><a href="https://docs.python.org/3/library/zipfile.html#zipfile.Path" class="intersphinx-link">Path</a></code></td><td class="fieldArgDesc">Path where all wheel files will be created</td></tr><tr class="fieldStart"><td class="fieldName" colspan="2">Returns</td></tr><tr><td class="fieldArgContainer"><code><a href="https://docs.python.org/3/library/collections.abc.html#collections.abc.Generator" class="intersphinx-link">Generator</a>[<wbr></wbr>WheelPlatformBuildResult, <wbr></wbr><a href="https://docs.python.org/3/library/constants.html#None" class="intersphinx-link">None</a>, <wbr></wbr><a href="https://docs.python.org/3/library/constants.html#None" class="intersphinx-link">None</a>]</code></td><td class="fieldArgDesc">Yields for each generated platform wheel</td></tr></table></div>
+  </div>
+</div><div class="basefunction private">
+  
+  
+  <a name="api.build._write_platform_wheel_with_wrappers">
+    
+  </a>
+  <a name="_write_platform_wheel_with_wrappers">
+    
+  </a>
+  <div class="functionHeader">
+    
+    
+    <span class="py-keyword">def</span> <span class="py-defname">_write_platform_wheel_with_wrappers</span><span class="function-signature">(out_dir: <code><a href="https://docs.python.org/3/library/stdtypes.html#str" class="intersphinx-link">str</a></code>, wheel_info: <code>Wheel</code>, platform: <code>WheelPlatformIdentifier</code>, source: <code>WheelSource</code>)</span>:
+    
+    <a class="headerLink" href="#_write_platform_wheel_with_wrappers" title="api.build._write_platform_wheel_with_wrappers">
+      
+      
+      ¶
+    </a>
+  </div>
+  <div class="docstring functionBody">
+    
+    <div><p class="undocumented">Undocumented</p></div>
+  </div>
+</div><div class="basefunction private">
+  
+  
+  <a name="api.build._write_wheel">
+    
+  </a>
+  <a name="_write_wheel">
+    
+  </a>
+  <div class="functionHeader">
+    
+    
+    <span class="py-keyword">def</span> <span class="py-defname">_write_wheel</span><span class="function-signature">(out_dir: <code><a href="https://docs.python.org/3/library/stdtypes.html#str" class="intersphinx-link">str</a></code>, wheel: <code>Wheel</code>, tag: <code><a href="https://docs.python.org/3/library/stdtypes.html#str" class="intersphinx-link">str</a></code>, metadata: <code><a href="https://docs.python.org/3/library/stdtypes.html#dict" class="intersphinx-link">dict</a></code>, wheel_file_entries: <code><a href="https://docs.python.org/3/library/stdtypes.html#list" class="intersphinx-link">list</a>[<wbr></wbr>WheelFileEntry]</code>)</span>:
+    
+    <a class="headerLink" href="#_write_wheel" title="api.build._write_wheel">
+      
+      
+      ¶
+    </a>
+  </div>
+  <div class="docstring functionBody">
+    
+    <div><p class="undocumented">Undocumented</p></div>
+  </div>
+</div>
         </div>
       
       </div>

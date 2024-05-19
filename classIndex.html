@@ -3,10 +3,10 @@
           "DTD/xhtml1-strict.dtd">
 <html>
   
-
+  
   <head>
     
-    <title>api</title>
+    <title>Class Hierarchy</title>
     <meta name="generator" content="pydoctor 24.3.3"> 
         
     </meta>
@@ -128,160 +128,19 @@
 
   </div>
 </nav>
-    
+
     <div class="container-fluid">
 
-      <!-- Side navigation -->
-      <div class="sidebarcontainer" style="display: none;">
-        
-        <div class="sidebar"><nav class="sidebar">
-  
-
-  <div>
-
-      <div class="thingTitle">
-        <span>Package</span>
-        <code class="thisobject"><a href="index.html" class="internal-link" title="This package">api</a></code> 
-      </div>
-      
-      <div>
-        
-
-        <div class="childrenKindTitle">Modules</div>
-        <ul>
-    
-    <li class="">
-        
-        
-        
-
-        
-            <div class="itemName"><code><a href="api.build.html" class="internal-link" title="api.build">build</a></code>
-            </div>
-        
-
-    </li><li class="">
-        
-        
-        
-
-        
-            <div class="itemName"><code><a href="api.meta.html" class="internal-link" title="api.meta">meta</a></code>
-            </div>
-        
-
-    </li><li class="">
-        
-        
-        
-
-        
-            <div class="itemName"><code><a href="api.well_known_platforms.html" class="internal-link" title="api.well_known_platforms">well<wbr></wbr>_known<wbr></wbr>_platforms</a></code>
-            </div>
-        
-
-    </li><li class="">
-        
-        
-        
-
-        
-            <div class="itemName"><code><a href="api.wheel_sources.html" class="internal-link" title="api.wheel_sources">wheel<wbr></wbr>_sources</a></code>
-            </div>
-        
-
-    </li>
-</ul> 
-
-        
-        
-
-        
-         
-
-        
-         
-
-        
-         
-
-        
-         
-        
-      </div>
-  </div>
-
-</nav>
+      <div class="page-header">
+        <h1>Class Hierarchy</h1>
+        <div id="showPrivate">
+          <button class="btn btn-link" onclick="togglePrivate()">Toggle Private API</button>
         </div>
-        <div id="collapseSideBar">
-          <a class="btn btn-link" onclick="toggleSideBarCollapse()" title="Toggle Sidebar Collapse">
-          </a>
-        </div> 
-        <script src="sidebartoggle.js" type="text/javascript"></script>
-       
       </div>
 
-      <div id="main" class="">
-        
+      <ul id="summaryTree">
+      <li><code><a href="https://docs.python.org/3/library/abc.html#abc.ABC" class="intersphinx-link">abc.ABC</a></code><ul><li><a name="api.meta.WheelSource"></a><div><code><a href="api.meta.WheelSource.html" class="internal-link">api.meta.WheelSource</a></code> - Represents a source that can be used to build a wheel around</div></li></ul></li><li><a name="api.meta.Wheel"></a><div><code><a href="api.meta.Wheel.html" class="internal-link">api.meta.Wheel</a></code> - Metadata about a wheel to generate</div></li><li><a name="api.meta.WheelPlatformBuildResult"></a><div><code><a href="api.meta.WheelPlatformBuildResult.html" class="internal-link">api.meta.WheelPlatformBuildResult</a></code> - Result of a wheel file build</div></li><li><a name="api.meta.WheelPlatformIdentifier"></a><div><code><a href="api.meta.WheelPlatformIdentifier.html" class="internal-link">api.meta.WheelPlatformIdentifier</a></code> - Identifies a wheel target platform</div></li><li><code>binary_wheel_builder.api.meta.WheelSource</code><ul><li><a name="api.wheel_sources.github.GithubReleaseBinarySource"></a><div><code><a href="api.wheel_sources.github.GithubReleaseBinarySource.html" class="internal-link">api.wheel_sources.github.GithubReleaseBinarySource</a></code> - Provide source from GitHub Release API</div></li><li><a name="api.wheel_sources.platform_based_file.PlatformBasedFileSource"></a><div><code><a href="api.wheel_sources.platform_based_file.PlatformBasedFileSource.html" class="internal-link">api.wheel_sources.platform_based_file.PlatformBasedFileSource</a></code> - Provide source from a local file, the name depending on the target platform</div></li><li><a name="api.wheel_sources.static.StaticLocalWheelSource"></a><div><code><a href="api.wheel_sources.static.StaticLocalWheelSource.html" class="internal-link">api.wheel_sources.static.StaticLocalWheelSource</a></code> - Provide source from a static local executable</div></li></ul></li><li><code>binary_wheel_builder.WheelSource</code><ul><li><a name="api.wheel_sources.gitlab_package_registry.GitlabGenericPackageRegistrySource"></a><div><code><a href="api.wheel_sources.gitlab_package_registry.GitlabGenericPackageRegistrySource.html" class="internal-link">api.wheel_sources.gitlab_package_registry.GitlabGenericPackageRegistrySource</a></code> - Provide source from Gitlab Generic Package Registry</div></li></ul></li><li><code><a href="https://docs.python.org/3/library/exceptions.html#Exception" class="intersphinx-link">Exception</a></code><ul><li><a name="api.wheel_sources.exceptions.WheelSourceException"></a><div><code><a href="api.wheel_sources.exceptions.WheelSourceException.html" class="internal-link">api.wheel_sources.exceptions.WheelSourceException</a></code> - <span class="undocumented">Undocumented</span></div><ul><li><a name="api.wheel_sources.exceptions.SourceFileRequestFailed"></a><div><code><a href="api.wheel_sources.exceptions.SourceFileRequestFailed.html" class="internal-link">api.wheel_sources.exceptions.SourceFileRequestFailed</a></code> - Is raised when loading the source for the wheel is failing</div></li><li><a name="api.wheel_sources.exceptions.UnsupportedWheelPlatformException"></a><div><code><a href="api.wheel_sources.exceptions.UnsupportedWheelPlatformException.html" class="internal-link">api.wheel_sources.exceptions.UnsupportedWheelPlatformException</a></code> - Is raised when the request wheel platform is not supported by the source</div></li></ul></li></ul></li><li><code>pydantic.BaseModel</code><ul><li><a name="api.meta.WheelFileEntry"></a><div><code><a href="api.meta.WheelFileEntry.html" class="internal-link">api.meta.WheelFileEntry</a></code> - Source entry for a wheel</div></li></ul></li></ul>
 
-        
-
-        <div class="page-header">
-          <h1 class="package"><code><code><a href="index.html" class="internal-link">api</a></code></code></h1>
-          <div id="showPrivate">
-            <button class="btn btn-link" onclick="togglePrivate()">Toggle Private API</button>
-          </div>
-        </div>
-
-        <div class="categoryHeader">
-          package documentation
-        </div>
-
-        <div class="extrasDocstring">
-          
-          <p></p>
-        </div>
-
-        <div class="moduleDocstring">
-          <div><p>API surface for using the package with python code</p></div>
-        </div>
-
-        <div id="splitTables">
-          <table class="children sortable" id="id1">
-  
-  
-  <tr class="module">
-    
-    <td>Module</td>
-    <td><code><a href="api.build.html" class="internal-link" title="api.build">build</a></code></td>
-    <td>Infrastructure to build deterministic wheels</td>
-  </tr><tr class="module">
-    
-    <td>Module</td>
-    <td><code><a href="api.meta.html" class="internal-link" title="api.meta">meta</a></code></td>
-    <td>Meta data around wheels</td>
-  </tr><tr class="module">
-    
-    <td>Module</td>
-    <td><code><a href="api.well_known_platforms.html" class="internal-link" title="api.well_known_platforms">well<wbr></wbr>_known<wbr></wbr>_platforms</a></code></td>
-    <td>Contains the well known platforms for python wheel one might want to target to simplify usage</td>
-  </tr><tr class="package">
-    
-    <td>Package</td>
-    <td><code><a href="api.wheel_sources.html" class="internal-link" title="api.wheel_sources">wheel<wbr></wbr>_sources</a></code></td>
-    <td>Contains a curated list of supported wheel sources</td>
-  </tr>
-</table>
-          
-
-            
-        </div>
-
-        <div id="childList">
-          
-        </div>
-      
-      </div>
     </div>
 
     <footer class="navbar navbar-default">
@@ -300,7 +159,7 @@
   <script src="search.js" type="text/javascript"></script>
 
 </footer>
-  
+
     <script src="pydoctor.js" type="text/javascript"></script>
 
   </body>

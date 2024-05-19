@@ -1,3 +1,6 @@
+"""
+Wrapper templates for generating packages
+"""
 import textwrap
 
 from binary_wheel_builder.api.meta import Wheel

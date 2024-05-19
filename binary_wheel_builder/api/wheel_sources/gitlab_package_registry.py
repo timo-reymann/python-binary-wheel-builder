@@ -1,8 +1,14 @@
+"""
+Sources for GitLab
+"""
 from binary_wheel_builder import WheelFileEntry, WheelPlatformIdentifier, WheelSource
 from binary_wheel_builder.api.wheel_sources.exceptions import SourceFileRequestFailed
 
 
 class GitlabGenericPackageRegistrySource(WheelSource):
+    """
+    Provide source from Gitlab Generic Package Registry
+    """
     def __init__(
             self,
             asset_name_mapping: dict[WheelPlatformIdentifier, str],

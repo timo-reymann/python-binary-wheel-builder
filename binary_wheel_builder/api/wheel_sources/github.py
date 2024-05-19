@@ -1,3 +1,6 @@
+"""
+Sources for GitHub
+"""
 from urllib.error import HTTPError
 
 from binary_wheel_builder.api.meta import WheelFileEntry, WheelPlatformIdentifier, WheelSource
@@ -5,6 +8,9 @@ from binary_wheel_builder.api.wheel_sources.exceptions import SourceFileRequestF
 
 
 class GithubReleaseBinarySource(WheelSource):
+    """
+    Provide source from GitHub Release API
+    """
     def __init__(
             self,
             project_slug: str,

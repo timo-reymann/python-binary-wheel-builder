@@ -1,3 +1,6 @@
+"""
+Source for local binaries, which differ based on the target platform
+"""
 from pathlib import Path
 
 from binary_wheel_builder.api.meta import WheelFileEntry, WheelPlatformIdentifier, WheelSource
@@ -5,6 +8,9 @@ from binary_wheel_builder.api.wheel_sources.exceptions import SourceFileRequestF
 
 
 class PlatformBasedFileSource(WheelSource):
+    """
+    Provide source from a local file, the name depending on the target platform
+    """
     def __init__(self, executable_path: str, file_name_mapping: dict[WheelPlatformIdentifier, Path | str]):
         """
 

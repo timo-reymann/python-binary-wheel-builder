@@ -1,3 +1,6 @@
+"""
+Infrastructure to build deterministic wheels
+"""
 import hashlib
 import os
 from operator import attrgetter

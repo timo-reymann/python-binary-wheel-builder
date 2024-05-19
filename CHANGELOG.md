@@ -1,3 +1,10 @@
+## [3.3.0](https://github.com/timo-reymann/python-binary-wheel-builder/compare/3.2.0...3.3.0) (2024-05-19)
+
+
+### Features
+
+* Ensure important APIs are all documented ([57a0bd4](https://github.com/timo-reymann/python-binary-wheel-builder/commit/57a0bd4debfea353b5cd51796ed908f65ab6709c))
+
 ## [3.2.0](https://github.com/timo-reymann/python-binary-wheel-builder/compare/3.1.1...3.2.0) (2024-04-20)
 
 

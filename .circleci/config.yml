@@ -103,18 +103,18 @@ jobs:
     executor: node
     steps:
       - checkout
+      - run:
+          name: Checkout pydoctor-theme submodule
+          command: |
+            git submodule sync
+            git submodule update --init --recursive
       - python/install-packages:
           pkg-manager: poetry
           args: --all-extras
       - run:
           name: Build html documentation
           command: |
-            rm **/*_test.py
-            rm -rf integration_tests/
-            rm -rf dev/
-            mkdir gh-pages
-            poetry run pdoc3 binary_wheel_builder -o gh-pages --html --force
-            echo '<meta http-equiv="refresh" content="0; URL=https://timo-reymann.github.io/python-binary-wheel-builder/binary_wheel_builder">' > gh-pages/index.html
+            poetry run pydoctor
 
       - github-utils/publish_github_pages:
           folder: gh-pages/

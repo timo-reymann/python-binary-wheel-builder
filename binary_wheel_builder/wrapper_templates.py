@@ -40,13 +40,15 @@ def exec_util(wheel: Wheel):
             stdout_buffer: str | None
 
 
-        def create_subprocess(args: list[str], stdout: int, stderr: int) -> subprocess.Popen:
+        def create_subprocess(args: list[str], stdout: int, stderr: int, cwd=None, env=None) -> subprocess.Popen:
             """
             Create subprocess for {wheel.executable} with the specified arguments
 
             :param args: Arguments to pass to {wheel.executable}
             :param stdout: Stdout channel
             :param stderr: Stderr channel
+            :param cwd: PWD for subprocess
+            :param env: Environment variables for subprocess
             """
             return subprocess.Popen([os.path.join(os.path.dirname(__file__), "{wheel.executable}"), *args], stdout=stdout, stderr=stderr, text=True)
 

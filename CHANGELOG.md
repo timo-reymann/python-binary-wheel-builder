@@ -1,3 +1,10 @@
+## [3.5.3](https://github.com/timo-reymann/python-binary-wheel-builder/compare/3.5.2...3.5.3) (2024-09-27)
+
+
+### Bug Fixes
+
+* **deps:** update dependency pyyaml to v6.0.2 ([#15](https://github.com/timo-reymann/python-binary-wheel-builder/issues/15)) ([60df91e](https://github.com/timo-reymann/python-binary-wheel-builder/commit/60df91e3a3982a9d671baafd2d551cde406ca526))
+
 ## [3.5.2](https://github.com/timo-reymann/python-binary-wheel-builder/compare/3.5.1...3.5.2) (2024-09-27)
 
 

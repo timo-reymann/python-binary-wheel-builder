@@ -1,3 +1,10 @@
+## [3.5.0](https://github.com/timo-reymann/python-binary-wheel-builder/compare/3.4.0...3.5.0) (2024-09-27)
+
+
+### Features
+
+* Add support to specify stdin ([a2522b4](https://github.com/timo-reymann/python-binary-wheel-builder/commit/a2522b46efb98a638525c64288929fa4e29cbe78))
+
 ## [3.4.0](https://github.com/timo-reymann/python-binary-wheel-builder/compare/3.3.0...3.4.0) (2024-09-27)
 
 

@@ -35,7 +35,7 @@ pyyaml = { version = "^6.0.1", optional = true }
 pydantic = "^2.5.3"
 
 [tool.poetry.group.dev.dependencies]
-pytest = "^7.4.3"
+pytest = "^8.0.0"
 coverage = "^7.4.0"
 pdoc3 = "^0.10.0"
 pydoctor = "^24.3.3"

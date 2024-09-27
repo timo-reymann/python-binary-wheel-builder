@@ -50,7 +50,7 @@ def exec_util(wheel: Wheel):
             :param cwd: PWD for subprocess
             :param env: Environment variables for subprocess
             """
-            return subprocess.Popen([os.path.join(os.path.dirname(__file__), "{wheel.executable}"), *args], stdout=stdout, stderr=stderr, stdin=stdin, text=True)
+            return subprocess.Popen([os.path.join(os.path.dirname(__file__), "{wheel.executable}"), *args], stdout=stdout, stderr=stderr, stdin=stdin, cwd=cwd, text=True)
 
 
         def exec_silently(args: list[str], timeout: int = -1) -> subprocess.Popen:

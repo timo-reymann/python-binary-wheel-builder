@@ -1,3 +1,10 @@
+## [3.5.1](https://github.com/timo-reymann/python-binary-wheel-builder/compare/3.5.0...3.5.1) (2024-09-27)
+
+
+### Bug Fixes
+
+* Fix cwd passing in create_subprocess ([10a1724](https://github.com/timo-reymann/python-binary-wheel-builder/commit/10a172476679fff083c8d1620705ba7892698f3e))
+
 ## [3.5.0](https://github.com/timo-reymann/python-binary-wheel-builder/compare/3.4.0...3.5.0) (2024-09-27)
 
 

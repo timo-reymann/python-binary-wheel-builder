@@ -12,14 +12,14 @@ from integration_tests.util import verify_wheel_structure, install_wheel
 
 class WriteTest(unittest.TestCase):
     expected_checksums = {
-        'dummy-0.0.1-py3-none-win32.whl': '2562ad9dcb6c5e3b1342c0228e23b596727377f327b4f933f0a50e4bceb9b243',
-        'dummy-0.0.1-py3-none-win_amd64.whl': '97c5bd67ea3111ddd31bc857e5d9ce93844dc2b06cd90184cf170db6db2272f9',
-        'dummy-0.0.1-py3-none-macosx_10_9_x86_64.whl': '651c3bdd592e8bbd87ac7de4ee562cf1a4d9dc61cbb49811e031a61f5dfd4a19',
-        'dummy-0.0.1-py3-none-macosx_11_0_arm64.whl': 'e6d1d78686ffeb023b6d03d0470940e7fc04ab6eeadc55cc38e9e6fc2f5575ff',
-        'dummy-0.0.1-py3-none-manylinux_2_12_i686.manylinux2010_i686.whl': '68da8ae7633fe4e30da61b0f2c269fb824cd4272e5ad992c0269faca98116967',
-        'dummy-0.0.1-py3-none-manylinux_2_12_x86_64.manylinux2010_x86_64.whl': '426cd6e5fa6adb1ac6721d9883b3d3e0e7805389e3f850d32f93630cc8193ac2',
-        'dummy-0.0.1-py3-none-manylinux_2_17_armv7l.manylinux2014_armv7l.whl': '570de52180b7204254c08727fe05f7905b11c1a8ee2bb813edea2f55cba3fc60',
-        'dummy-0.0.1-py3-none-manylinux_2_17_aarch64.manylinux2014_aarch64.whl': '4181fe8f6d6f356e4af922dc68ac1789f2a2b4ca0100b788dae4d88f5c9a4ecd',
+        'dummy-0.0.1-py3-none-win32.whl': 'a5dc43ceac939523a837802e508447845cb0765905e8f0f7141cefe2adabc04c',
+        'dummy-0.0.1-py3-none-win_amd64.whl': '16343a7c35c4604f29c7a745a58e2ee4e8550e2785403fb52234f21bfbec19fd',
+        'dummy-0.0.1-py3-none-macosx_10_9_x86_64.whl': '4193d432e9c5ab3a39a466321419b13327c0c2e3ad0d19c92cf19c2346452332',
+        'dummy-0.0.1-py3-none-macosx_11_0_arm64.whl': 'e5f260de9ebcceebc7bc8030b1ef894a34508464bab9090ac662267d3aecb189',
+        'dummy-0.0.1-py3-none-manylinux_2_12_i686.manylinux2010_i686.whl': '03e9800eb4b97e9671755e486a3bbbe0e3f08f8ca85697be34182cea97adef64',
+        'dummy-0.0.1-py3-none-manylinux_2_12_x86_64.manylinux2010_x86_64.whl': '82a3bbb962f3e88c0120fdae30e2da104e9933ec56b6958523471036893eb2b9',
+        'dummy-0.0.1-py3-none-manylinux_2_17_armv7l.manylinux2014_armv7l.whl': '3f39946770e0a50d460475931199b24bb7d08f0c23f8dc078827a0d09511bb1e',
+        'dummy-0.0.1-py3-none-manylinux_2_17_aarch64.manylinux2014_aarch64.whl': 'd5b8df32d0ec839d2326f8c2d0609d220b57dbf6f9b99adc6ddbd50d89c7410f',
     }
 
     def test_idempotent_creation(self):

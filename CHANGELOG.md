@@ -1,3 +1,10 @@
+## [3.5.4](https://github.com/timo-reymann/python-binary-wheel-builder/compare/3.5.3...3.5.4) (2024-11-08)
+
+
+### Bug Fixes
+
+* **deps:** update dependency wheel to v0.45.0 ([#31](https://github.com/timo-reymann/python-binary-wheel-builder/issues/31)) ([64d3b67](https://github.com/timo-reymann/python-binary-wheel-builder/commit/64d3b67ea5ec280b2b36db6856783e8be430783a))
+
 ## [3.5.3](https://github.com/timo-reymann/python-binary-wheel-builder/compare/3.5.2...3.5.3) (2024-09-27)
 
 

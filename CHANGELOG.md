@@ -1,3 +1,10 @@
+## [3.6.1](https://github.com/timo-reymann/python-binary-wheel-builder/compare/3.6.0...3.6.1) (2024-11-13)
+
+
+### Bug Fixes
+
+* Set sanized version for manifest ([39a8932](https://github.com/timo-reymann/python-binary-wheel-builder/commit/39a893212ac7d341f9f127384d324b14cbfca1f8))
+
 ## [3.6.0](https://github.com/timo-reymann/python-binary-wheel-builder/compare/3.5.4...3.6.0) (2024-11-13)
 
 

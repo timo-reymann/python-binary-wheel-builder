@@ -161,12 +161,26 @@ class Wheel:
         return self.name.replace("-", "_")
 
     @functools.cached_property
+    def normalized_version(self):
+        """
+        Normalize the version, dropping common versioning prefixes, that are not valid for python versioning.
+
+        This comes in quite handy when, e.g. the upstream tool version is synced
+        by a dependency bot with the tag version provided, so no further string manipulation is required.
+
+        While, e.g., pip resolves the package with a v prefix, poetry or pdm do not. So sanitizing is a more proper way.
+
+        :return: Version with dropped v prefix
+        """
+        return self.version[1:] if self.version.startswith("v") else self.version
+
+    @functools.cached_property
     def dist_info_folder(self):
         """
         Get dist info folder inside wheel based on normalized name and version
         :return:
         """
-        return f'{self.normalized_name}-{self.version}.dist-info'
+        return f'{self.normalized_name}-{self.normalized_version}.dist-info'
 
     def wheel_filename(self, tag: str):
         """
@@ -174,4 +188,4 @@ class Wheel:
         :param tag: Tag to append to file name
         :return: File name without parent folder for wheel archive
         """
-        return f'{self.normalized_name}-{self.version}-{tag}.whl'
+        return f'{self.normalized_name}-{self.normalized_version}-{tag}.whl'

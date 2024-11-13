@@ -47,7 +47,7 @@ class GitHubReleasesTest(TestCase):
                     package="buf",
                     executable="buf",
                     name="buf",
-                    version="0.0.1",
+                    version="v0.0.1",
                     summary='Buf cli wrapped',
                     license='MIT',
                     requires_python=">=3.9",

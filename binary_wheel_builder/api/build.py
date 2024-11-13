@@ -29,7 +29,7 @@ def _write_wheel(
         *wheel_file_entries,
         WheelFileEntry(
             path=f'{wheel.dist_info_folder}/METADATA',
-            content=generate_metadata_file(wheel.name, wheel.version, wheel.description, **metadata)
+            content=generate_metadata_file(wheel.name, wheel.normalized_version, wheel.description, **metadata)
         ),
         WheelFileEntry(
             path=f'{wheel.dist_info_folder}/WHEEL',

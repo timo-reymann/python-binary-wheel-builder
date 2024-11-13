@@ -1,3 +1,10 @@
+## [3.6.0](https://github.com/timo-reymann/python-binary-wheel-builder/compare/3.5.4...3.6.0) (2024-11-13)
+
+
+### Features
+
+* Support v prefixed version for wheels ([d55c993](https://github.com/timo-reymann/python-binary-wheel-builder/commit/d55c9935e8a42e1b5021a45e6d0b517e13707521))
+
 ## [3.5.4](https://github.com/timo-reymann/python-binary-wheel-builder/compare/3.5.3...3.5.4) (2024-11-08)
 
 

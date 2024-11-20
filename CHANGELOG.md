@@ -1,3 +1,11 @@
+## [3.7.0](https://github.com/timo-reymann/python-binary-wheel-builder/compare/3.6.1...3.7.0) (2024-11-20)
+
+
+### Features
+
+* Add --max-workers flag for CLI ([43b72fb](https://github.com/timo-reymann/python-binary-wheel-builder/commit/43b72fb5d0fc6809d01de0890e5ece81f6bc03f7))
+* Add worker count to build_wheel ([a2f4289](https://github.com/timo-reymann/python-binary-wheel-builder/commit/a2f4289b5817c407d87dc770858a67de5057931a))
+
 ## [3.6.1](https://github.com/timo-reymann/python-binary-wheel-builder/compare/3.6.0...3.6.1) (2024-11-13)
 
 

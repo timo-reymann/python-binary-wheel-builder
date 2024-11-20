@@ -1,19 +1,18 @@
 """
 Infrastructure to build deterministic wheels
 """
+import concurrent.futures
 import hashlib
 import os
-from operator import attrgetter
 from collections.abc import Generator
+from operator import attrgetter
 from zipfile import Path
 
 from binary_wheel_builder import wrapper_templates
-from binary_wheel_builder.api.meta import (WheelSource,
-                                           WheelPlatformIdentifier,
-                                           WheelPlatformBuildResult, Wheel,
-                                           WheelFileEntry)
+from binary_wheel_builder.api.meta import (Wheel, WheelFileEntry, WheelPlatformBuildResult, WheelPlatformIdentifier,
+                                           WheelSource)
 from binary_wheel_builder.wheel.reproducible import ReproducibleWheelFile
-from binary_wheel_builder.wheel.util import generate_wheel_file, generate_metadata_file
+from binary_wheel_builder.wheel.util import generate_metadata_file, generate_wheel_file
 
 
 def _write_wheel(
@@ -53,19 +52,24 @@ def _write_platform_wheel_with_wrappers(
     contents = [
         WheelFileEntry(
             path=f'{wheel_info.package}/__init__.py',
-            content=b''),
+            content=b''
+        ),
         WheelFileEntry(
             path=f'{wheel_info.package}/__main__.py',
-            content=wrapper_templates.module_main(wheel_info)),
+            content=wrapper_templates.module_main(wheel_info)
+        ),
         WheelFileEntry(
             path=f'{wheel_info.package}/exec.py',
-            content=wrapper_templates.exec_util(wheel_info))
+            content=wrapper_templates.exec_util(wheel_info)
+        )
     ]
 
     if wheel_info.add_to_path:
-        contents.append(WheelFileEntry(
-            path=f'{wheel_info.dist_info_folder}/entry_points.txt',
-            content=wrapper_templates.entry_points_txt(wheel_info))
+        contents.append(
+            WheelFileEntry(
+                path=f'{wheel_info.dist_info_folder}/entry_points.txt',
+                content=wrapper_templates.entry_points_txt(wheel_info)
+            )
         )
 
     return _write_wheel(
@@ -90,7 +94,7 @@ def _write_platform_wheel_with_wrappers(
     )
 
 
-def build_wheel(wheel_meta: Wheel, dist_folder: Path) -> Generator[WheelPlatformBuildResult, None, None]:
+def build_wheel(wheel_meta: Wheel, dist_folder: Path, worker_count: int = 1) -> Generator[WheelPlatformBuildResult, None, None]:
     """
     Build a given wheel based on metadata and write all wheels to the dist folder.
 
@@ -98,18 +102,34 @@ def build_wheel(wheel_meta: Wheel, dist_folder: Path) -> Generator[WheelPlatform
 
     :param wheel_meta: Metadata about wheel, used to construct the wheel archive for each platform.
     :param dist_folder: Path where all wheel files will be created
+    :param worker_count: Amount of workers to run wheel builds in parallel
     :return: Yields for each generated platform wheel
     """
     dist_folder.mkdir(exist_ok=True)
-    for python_platform in wheel_meta.platforms:
-        wheel_path = _write_platform_wheel_with_wrappers(
-            dist_folder.__str__(),
-            wheel_meta,
-            python_platform,
-            wheel_meta.source,
-        )
-        with open(wheel_path, 'rb') as wheel:
-            yield WheelPlatformBuildResult(
-                checksum=hashlib.sha256(wheel.read()).hexdigest(),
-                file_path=wheel_path,
+    with concurrent.futures.ThreadPoolExecutor(max_workers=worker_count) as executor:
+        futures = [
+            executor.submit(
+                _build_wheel_for_platform,
+                dist_folder,
+                python_platform,
+                wheel_meta
             )
+            for python_platform in wheel_meta.platforms
+        ]
+        for future in concurrent.futures.as_completed(futures):
+            yield future.result()
+
+
+
+def _build_wheel_for_platform(dist_folder, python_platform, wheel_meta):
+    wheel_path = _write_platform_wheel_with_wrappers(
+        dist_folder.__str__(),
+        wheel_meta,
+        python_platform,
+        wheel_meta.source,
+    )
+    with open(wheel_path, 'rb') as wheel:
+        return WheelPlatformBuildResult(
+            checksum=hashlib.sha256(wheel.read()).hexdigest(),
+            file_path=wheel_path,
+        )

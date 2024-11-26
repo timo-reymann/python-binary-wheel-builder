@@ -610,13 +610,13 @@ files = [
 
 [[package]]
 name = "pdoc3"
-version = "0.11.2"
+version = "0.11.3"
 description = "Auto-generate API documentation for Python projects."
 optional = false
 python-versions = ">=3.9"
 files = [
-    {file = "pdoc3-0.11.2-py3-none-any.whl", hash = "sha256:db30f096c51cb623d5b0589d9c1b457a6f86ed8342caa6d3abd42b8b2aea1fd6"},
-    {file = "pdoc3-0.11.2.tar.gz", hash = "sha256:be8352c82440832a6d8ac5dba12726a1532b6480a1453fb61449c185980eae58"},
+    {file = "pdoc3-0.11.3-py3-none-any.whl", hash = "sha256:db2d713ed2b034af38a0f5e0004c88259873df8eb8e950ca8513ef991408bcc5"},
+    {file = "pdoc3-0.11.3.tar.gz", hash = "sha256:e90ac2f0570b11e7a0e83ae21f353d70c1d33046bd6d98604deb535187cade15"},
 ]
 
 [package.dependencies]

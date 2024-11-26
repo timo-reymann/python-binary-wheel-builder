@@ -1,3 +1,10 @@
+## [3.7.4](https://github.com/timo-reymann/python-binary-wheel-builder/compare/3.7.3...3.7.4) (2024-11-26)
+
+
+### Bug Fixes
+
+* **deps:** update dependency pydantic to v2.10.2 ([#40](https://github.com/timo-reymann/python-binary-wheel-builder/issues/40)) ([94f6f79](https://github.com/timo-reymann/python-binary-wheel-builder/commit/94f6f79d15e05fb1d30e36b315e6f71872a14339))
+
 ## [3.7.3](https://github.com/timo-reymann/python-binary-wheel-builder/compare/3.7.2...3.7.3) (2024-11-23)
 
 

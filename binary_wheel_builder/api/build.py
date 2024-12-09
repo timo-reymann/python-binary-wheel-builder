@@ -114,22 +114,31 @@ def build_wheel(wheel_meta: Wheel, dist_folder: Path, worker_count: int = 1) -> 
                 python_platform,
                 wheel_meta
             )
-            for python_platform in wheel_meta.platforms
-        ]
-        for future in concurrent.futures.as_completed(futures):
-            yield future.result()
-
+            for future in concurrent.futures.as_completed(futures):
+                if future.exception() is not None:
+                    print(f"Error in thread: {future.exception()}\n{traceback.format_exc()}")
+                else:
+                    try:
+                        yield future.result()
+                    except Exception as e:
+                        print(f"Error retrieving result from future: {e}\n{traceback.format_exc()}")
 
 
 def _build_wheel_for_platform(dist_folder, python_platform, wheel_meta):
-    wheel_path = _write_platform_wheel_with_wrappers(
-        dist_folder.__str__(),
-        wheel_meta,
-        python_platform,
-        wheel_meta.source,
-    )
-    with open(wheel_path, 'rb') as wheel:
-        return WheelPlatformBuildResult(
-            checksum=hashlib.sha256(wheel.read()).hexdigest(),
-            file_path=wheel_path,
+  try: 
+      wheel_path = _write_platform_wheel_with_wrappers(
+            dist_folder.__str__(),
+            wheel_meta,
+            python_platform,
+            wheel_meta.source,
         )
+        with open(wheel_path, 'rb') as wheel:
+            return WheelPlatformBuildResult(
+                checksum=hashlib.sha256(wheel.read()).hexdigest(),
+                file_path=wheel_path,
+            )
+  except (OSError, IOError) as e:
+        raise RuntimeError(f"File operation failed for platform {python_platform}: {e}")
+  except Exception as e:
+        print(f"Unhandled exception in _build_wheel_for_platform for platform {python_platform}: {e}\n{traceback.format_exc()}")
+        raise

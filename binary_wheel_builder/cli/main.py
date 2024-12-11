@@ -25,6 +25,11 @@ def _parse_args(args) -> Namespace:
         type=int,
         help="Number of parallel workers to use at most for building wheels"
     )
+    parser.add_argument(
+        '--version',
+        action='version',
+        version='Wheel Builder 1.0.0'
+    )
     return parser.parse_args(args)
 
 
@@ -40,9 +45,21 @@ def main(argv=None) -> None:
     args = _parse_args(argv)
 
     dist_path = Path(args.dist_folder)
-    dist_path.mkdir(exist_ok=True)
+    
+   try:
+        dist_path.mkdir(exist_ok=True)
+    except OSError as e:
+        raise SystemExit(f"Failed to create dist folder at '{dist_path}': {e}")
 
     from binary_wheel_builder.cli.config_file import load_wheel_spec_from_yaml
-    wheel = load_wheel_spec_from_yaml(Path(args.wheel_spec))
-    for result in build_wheel(wheel, dist_path, worker_count=args.max_workers):
-        print(f"> {result.checksum} - {result.file_path}")
+     
+    try:
+        wheel = load_wheel_spec_from_yaml(Path(args.wheel_spec))
+    except Exception as e:
+        raise SystemExit(f"Failed to load wheel spec from '{args.wheel_spec}': {e}")
+
+    try:
+        for result in build_wheel(wheel, dist_path, worker_count=args.max_workers):
+            print(f"> {result.checksum} - {result.file_path}")
+    except Exception as e:
+          raise SystemExit(f"Error occurred while building wheels: {e}")

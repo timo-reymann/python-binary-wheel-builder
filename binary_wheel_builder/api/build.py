@@ -14,6 +14,8 @@ from binary_wheel_builder.api.meta import (Wheel, WheelFileEntry, WheelPlatformB
 from binary_wheel_builder.wheel.reproducible import ReproducibleWheelFile
 from binary_wheel_builder.wheel.util import generate_metadata_file, generate_wheel_file
 
+logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+logger = logging.getLogger(__name__)
 
 def _write_wheel(
         out_dir: str,
@@ -22,7 +24,7 @@ def _write_wheel(
         metadata: dict,
         wheel_file_entries: list[WheelFileEntry]
 ):
-    wheel_file_path = os.path.join(out_dir, wheel.wheel_filename(tag))
+    wheel_file_path = Path(out_dir) / wheel.wheel_filename(tag))
 
     entries = [
         *wheel_file_entries,
@@ -106,7 +108,9 @@ def build_wheel(wheel_meta: Wheel, dist_folder: Path, worker_count: int = 1) -> 
     :return: Yields for each generated platform wheel
     """
     dist_folder.mkdir(exist_ok=True)
-    with concurrent.futures.ThreadPoolExecutor(max_workers=worker_count) as executor:
+  
+    worker_count = worker_count or os.cpu_count()
+    with concurrent.futures.ProcessPoolExecutor(max_workers=worker_count) as executor:
         futures = [
             executor.submit(
                 _build_wheel_for_platform,
@@ -114,22 +118,33 @@ def build_wheel(wheel_meta: Wheel, dist_folder: Path, worker_count: int = 1) -> 
                 python_platform,
                 wheel_meta
             )
-            for python_platform in wheel_meta.platforms
-        ]
-        for future in concurrent.futures.as_completed(futures):
-            yield future.result()
-
-
+            for future in concurrent.futures.as_completed(futures):
+                if future.exception() is not None:
+                   logger.error(f"Sorry, a problem has occurred :(. Ensure all data is correct 
+                   or configured. Exception: {future.exception()}", exc_info=True)
+                else:
+                    try:
+                        yield future.result()
+                    except Exception as e:
+                       logger.error(f"Unexpected result has ocurred", exc_info=True)
+                       
 
 def _build_wheel_for_platform(dist_folder, python_platform, wheel_meta):
-    wheel_path = _write_platform_wheel_with_wrappers(
-        dist_folder.__str__(),
-        wheel_meta,
-        python_platform,
-        wheel_meta.source,
-    )
-    with open(wheel_path, 'rb') as wheel:
-        return WheelPlatformBuildResult(
-            checksum=hashlib.sha256(wheel.read()).hexdigest(),
-            file_path=wheel_path,
+  try: 
+      wheel_path = _write_platform_wheel_with_wrappers(
+            dist_folder.__str__(),
+            wheel_meta,
+            python_platform,
+            wheel_meta.source,
         )
+        with open(wheel_path, 'rb') as wheel:
+            return WheelPlatformBuildResult(
+                checksum=hashlib.sha256(wheel.read()).hexdigest(),
+                file_path=wheel_path,
+            )
+  except (OSError, IOError) as e:
+        logger.error(f"File operation failed for platform {python_platform}: {e}", exc_info=True)
+        raise RuntimeError(f"File operation failed for platform {python_platform}: {e}")
+  except Exception as e:
+        logger.error(f"Unhandled exception in _build_wheel_for_platform for platform {python_platform}: {e}", exc_info=True)
+        raise

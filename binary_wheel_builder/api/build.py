@@ -14,6 +14,8 @@ from binary_wheel_builder.api.meta import (Wheel, WheelFileEntry, WheelPlatformB
 from binary_wheel_builder.wheel.reproducible import ReproducibleWheelFile
 from binary_wheel_builder.wheel.util import generate_metadata_file, generate_wheel_file
 
+logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+logger = logging.getLogger(__name__)
 
 def _write_wheel(
         out_dir: str,
@@ -22,7 +24,7 @@ def _write_wheel(
         metadata: dict,
         wheel_file_entries: list[WheelFileEntry]
 ):
-    wheel_file_path = os.path.join(out_dir, wheel.wheel_filename(tag))
+    wheel_file_path = Path(out_dir) / wheel.wheel_filename(tag))
 
     entries = [
         *wheel_file_entries,
@@ -106,7 +108,8 @@ def build_wheel(wheel_meta: Wheel, dist_folder: Path, worker_count: int = 1) -> 
     :return: Yields for each generated platform wheel
     """
     dist_folder.mkdir(exist_ok=True)
-    with concurrent.futures.ThreadPoolExecutor(max_workers=worker_count) as executor:
+    worker_count = worker_count or os.cpu_count()
+    with concurrent.futures.ProcessPoolExecutor(max_workers=worker_count) as executor:
         futures = [
             executor.submit(
                 _build_wheel_for_platform,

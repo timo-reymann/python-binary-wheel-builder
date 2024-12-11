@@ -108,6 +108,7 @@ def build_wheel(wheel_meta: Wheel, dist_folder: Path, worker_count: int = 1) -> 
     :return: Yields for each generated platform wheel
     """
     dist_folder.mkdir(exist_ok=True)
+  
     worker_count = worker_count or os.cpu_count()
     with concurrent.futures.ProcessPoolExecutor(max_workers=worker_count) as executor:
         futures = [
@@ -119,13 +120,14 @@ def build_wheel(wheel_meta: Wheel, dist_folder: Path, worker_count: int = 1) -> 
             )
             for future in concurrent.futures.as_completed(futures):
                 if future.exception() is not None:
-                    print(f"Error in thread: {future.exception()}\n{traceback.format_exc()}")
+                   logger.error(f"Sorry, a problem has occurred :(. Ensure all data is correct 
+                   or configured. Exception: {future.exception()}", exc_info=True)
                 else:
                     try:
                         yield future.result()
                     except Exception as e:
-                        print(f"Error retrieving result from future: {e}\n{traceback.format_exc()}")
-
+                       logger.error(f"Unexpected result has ocurred", exc_info=True)
+                       
 
 def _build_wheel_for_platform(dist_folder, python_platform, wheel_meta):
   try: 
@@ -141,7 +143,8 @@ def _build_wheel_for_platform(dist_folder, python_platform, wheel_meta):
                 file_path=wheel_path,
             )
   except (OSError, IOError) as e:
+        logger.error(f"File operation failed for platform {python_platform}: {e}", exc_info=True)
         raise RuntimeError(f"File operation failed for platform {python_platform}: {e}")
   except Exception as e:
-        print(f"Unhandled exception in _build_wheel_for_platform for platform {python_platform}: {e}\n{traceback.format_exc()}")
+        logger.error(f"Unhandled exception in _build_wheel_for_platform for platform {python_platform}: {e}", exc_info=True)
         raise

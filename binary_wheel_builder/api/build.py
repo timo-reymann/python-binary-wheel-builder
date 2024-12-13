@@ -8,6 +8,7 @@ from collections.abc import Generator
 from operator import attrgetter
 from zipfile import Path
 from pathlib import Path
+from logging import logger
 from binary_wheel_builder import wrapper_templates
 from binary_wheel_builder.api.meta import (Wheel, WheelFileEntry, WheelPlatformBuildResult, WheelPlatformIdentifier,
                                            WheelSource)
@@ -22,7 +23,7 @@ def _write_wheel(
         metadata: dict,
         wheel_file_entries: list[WheelFileEntry]
 ):
-    wheel_file_path = Path(out_dir) / wheel.wheel_filename(tag))
+    wheel_file_path = pathlib.Path(out_dir) / wheel.wheel_filename(tag))
 
     entries = [
         *wheel_file_entries,
@@ -118,7 +119,7 @@ def build_wheel(wheel_meta: Wheel, dist_folder: Path, worker_count: int = 1) -> 
             )
             for future in concurrent.futures.as_completed(futures):
                 if future.exception() is not None:
-                   logger.error(f"Sorry, a problem has occurred :(. Ensure all data is correct 
+                   logger.error(f"Sorry, a problem has occurred. Ensure all data is correct 
                                 or configured. Exception: {future.exception()}", exc_info=True)
                 else:
                     try:

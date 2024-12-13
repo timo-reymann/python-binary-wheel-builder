@@ -8,7 +8,7 @@ packages = [
     { include = "binary_wheel_builder" }
 ]
 classifiers = [
-    "Development Status :: 3 - Alpha",
+    "Development Status :: 5 - Production/Stable",
     "Intended Audience :: Developers",
     "Environment :: Console",
     "Environment :: MacOS X",

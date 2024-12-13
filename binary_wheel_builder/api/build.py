@@ -7,7 +7,7 @@ import os
 from collections.abc import Generator
 from operator import attrgetter
 from zipfile import Path
-
+from pathlib import Path
 from binary_wheel_builder import wrapper_templates
 from binary_wheel_builder.api.meta import (Wheel, WheelFileEntry, WheelPlatformBuildResult, WheelPlatformIdentifier,
                                            WheelSource)
@@ -119,7 +119,7 @@ def build_wheel(wheel_meta: Wheel, dist_folder: Path, worker_count: int = 1) -> 
             for future in concurrent.futures.as_completed(futures):
                 if future.exception() is not None:
                    logger.error(f"Sorry, a problem has occurred :(. Ensure all data is correct 
-                   or configured. Exception: {future.exception()}", exc_info=True)
+                                or configured. Exception: {future.exception()}", exc_info=True)
                 else:
                     try:
                         yield future.result()

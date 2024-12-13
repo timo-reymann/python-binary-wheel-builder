@@ -120,18 +120,18 @@ def build_wheel(wheel_meta: Wheel, dist_folder: Path, worker_count: int = 1) -> 
                 wheel_meta
             )
              for python_platform in wheel_meta.platforms
-+        ]
-+
-+        for future in concurrent.futures.as_completed(futures):
-+            if future.exception() is not None:
-+                raise WheelBuildException(
-+                    "Unexpected error has occurred. Ensure all data is correct or configured"
-+                ) from future.exception()
-+
-+            try:
-+                yield future.result()
-+            except Exception as e:
-+                raise WheelBuildException("Unexpected error has occurred") from e
+         ]
+
+         for future in concurrent.futures.as_completed(futures):
+            if future.exception() is not None:
+                  raise WheelBuildException(
+                     "Unexpected error has occurred. Ensure all data is correct or configured"
+                 ) from future.exception()
+
+             try:
+                 yield future.result()
+             except Exception as e:
+                 raise WheelBuildException("Unexpected error has occurred") from e
                        
 
 def _build_wheel_for_platform(dist_folder, python_platform, wheel_meta):
@@ -148,11 +148,6 @@ def _build_wheel_for_platform(dist_folder, python_platform, wheel_meta):
                 file_path=wheel_path,
             )
   except (OSError, IOError) as e:
-        logger.error(f"File operation failed for platform {python_platform}: {e}", exc_info=True)
-        raise RuntimeError(f"File operation failed for platform {python_platform}: {e}")
-
-  WheelBuildException(Exception):
-     pass
-
+        raise RuntimeError(f"File operation failed for platform {python_platform}: {e}") 
   except Exception as e:
       raise WheelBuildException("Unhandled exception in _build_wheel_for_platform for platform ...") from e

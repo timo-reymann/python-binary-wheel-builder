@@ -27,11 +27,6 @@ def _parse_args(args) -> Namespace:
         type=int,
         help="Number of parallel workers to use at most for building wheels"
     )
-    parser.add_argument(
-        '--version',
-        action='version',
-        version='Wheel Builder 1.0.0'
-    )
     return parser.parse_args(args)
 
 

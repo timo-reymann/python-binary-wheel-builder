@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "binary_wheel_builder"
-version = "3.7.5"
+version = "3.8.0"
 description = "Bundle CLI applications or other binary data as wheel to use them in code or as standalone binary"
 authors = ["Timo Reymann <mail@timo-reymann.de>"]
 readme = "README.md"
@@ -8,7 +8,7 @@ packages = [
     { include = "binary_wheel_builder" }
 ]
 classifiers = [
-    "Development Status :: 3 - Alpha",
+    "Development Status :: 5 - Production/Stable",
     "Intended Audience :: Developers",
     "Environment :: Console",
     "Environment :: MacOS X",

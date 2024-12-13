@@ -1,3 +1,10 @@
+## [3.8.0](https://github.com/timo-reymann/python-binary-wheel-builder/compare/3.7.5...3.8.0) (2024-12-13)
+
+
+### Features
+
+* Promote package to stable ([5ae3d39](https://github.com/timo-reymann/python-binary-wheel-builder/commit/5ae3d39fa8b1aa8b0aa61b765080ac286e7d70e3))
+
 ## [3.7.5](https://github.com/timo-reymann/python-binary-wheel-builder/compare/3.7.4...3.7.5) (2024-12-03)
 
 

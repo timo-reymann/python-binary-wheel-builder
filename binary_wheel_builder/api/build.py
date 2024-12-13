@@ -144,6 +144,9 @@ def _build_wheel_for_platform(dist_folder, python_platform, wheel_meta):
   except (OSError, IOError) as e:
         logger.error(f"File operation failed for platform {python_platform}: {e}", exc_info=True)
         raise RuntimeError(f"File operation failed for platform {python_platform}: {e}")
+
+  WheelBuildException(Exception):
+     pass
+
   except Exception as e:
-        logger.error(f"Unhandled exception in _build_wheel_for_platform for platform {python_platform}: {e}", exc_info=True)
-        raise
+      raise WheelBuildException("Unhandled exception in _build_wheel_for_platform for platform ...") from e

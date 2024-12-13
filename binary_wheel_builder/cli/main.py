@@ -1,9 +1,11 @@
 import sys
 from argparse import ArgumentParser, Namespace
 from pathlib import Path
-
+import logging
 from binary_wheel_builder.api import build_wheel
 
+logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+logger = logging.getLogger(__name__)
 
 def _parse_args(args) -> Namespace:
     parser = ArgumentParser("CLI Wheel Builder")

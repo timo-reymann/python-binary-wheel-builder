@@ -1,7 +1,7 @@
+import logging
 import sys
 from argparse import ArgumentParser, Namespace
 from pathlib import Path
-import logging
 from binary_wheel_builder.api import build_wheel
 
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
@@ -43,7 +43,7 @@ def main(argv=None) -> None:
 
     dist_path = Path(args.dist_folder)
     
-   try:
+    try:
         dist_path.mkdir(exist_ok=True)
     except OSError as e:
         raise SystemExit(f"Failed to create dist folder at '{dist_path}': {e}")
@@ -59,4 +59,4 @@ def main(argv=None) -> None:
         for result in build_wheel(wheel, dist_path, worker_count=args.max_workers):
             print(f"> {result.checksum} - {result.file_path}")
     except Exception as e:
-          raise SystemExit(f"Error occurred while building wheels: {e}")
+        raise SystemExit(f"Error occurred while building wheels: {e}")

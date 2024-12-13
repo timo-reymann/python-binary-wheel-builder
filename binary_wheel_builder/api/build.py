@@ -135,19 +135,19 @@ def build_wheel(wheel_meta: Wheel, dist_folder: Path, worker_count: int = 1) -> 
                        
 
 def _build_wheel_for_platform(dist_folder, python_platform, wheel_meta):
-  try: 
-      wheel_path = _write_platform_wheel_with_wrappers(
-            dist_folder.__str__(),
-            wheel_meta,
-            python_platform,
-            wheel_meta.source,
-        )
-        with open(wheel_path, 'rb') as wheel:
-            return WheelPlatformBuildResult(
-                checksum=hashlib.sha256(wheel.read()).hexdigest(),
-                file_path=wheel_path,
-            )
-  except (OSError, IOError) as e:
-        raise RuntimeError(f"File operation failed for platform {python_platform}: {e}") 
-  except Exception as e:
-      raise WheelBuildException("Unhandled exception in _build_wheel_for_platform for platform ...") from e
+    try: 
+        wheel_path = _write_platform_wheel_with_wrappers(
+              dist_folder.__str__(),
+              wheel_meta,
+              python_platform,
+              wheel_meta.source,
+          )
+          with open(wheel_path, 'rb') as wheel:
+              return WheelPlatformBuildResult(
+                  checksum=hashlib.sha256(wheel.read()).hexdigest(),
+                  file_path=wheel_path,
+              )
+    except (OSError, IOError) as e:
+          raise RuntimeError(f"File operation failed for platform {python_platform}: {e}") 
+    except Exception as e:
+        raise WheelBuildException("Unhandled exception in _build_wheel_for_platform for platform ...") from e

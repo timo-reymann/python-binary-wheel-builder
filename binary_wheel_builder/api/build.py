@@ -4,18 +4,19 @@ Infrastructure to build deterministic wheels
 import concurrent.futures
 import hashlib
 import os
+import pathlib
 from collections.abc import Generator
 from operator import attrgetter
-from zipfile import Path
 from pathlib import Path
-from logging import logger
 from binary_wheel_builder import wrapper_templates
 from binary_wheel_builder.api.meta import (Wheel, WheelFileEntry, WheelPlatformBuildResult, WheelPlatformIdentifier,
                                            WheelSource)
 from binary_wheel_builder.wheel.reproducible import ReproducibleWheelFile
 from binary_wheel_builder.wheel.util import generate_metadata_file, generate_wheel_file
 
-
+class WheelBuildException(Exception):
+    pass
+  
 def _write_wheel(
         out_dir: str,
         wheel: Wheel,
@@ -95,7 +96,8 @@ def _write_platform_wheel_with_wrappers(
     )
 
 
-def build_wheel(wheel_meta: Wheel, dist_folder: Path, worker_count: int = 1) -> Generator[WheelPlatformBuildResult, None, None]:
+def build_wheel(wheel_meta: Wheel, dist_folder: Path, worker_count: int = 1) -> Generator[
+                WheelPlatformBuildResult, None, None]:
     """
     Build a given wheel based on metadata and write all wheels to the dist folder.
 
@@ -117,15 +119,19 @@ def build_wheel(wheel_meta: Wheel, dist_folder: Path, worker_count: int = 1) -> 
                 python_platform,
                 wheel_meta
             )
-            for future in concurrent.futures.as_completed(futures):
-                if future.exception() is not None:
-                   logger.error(f"Sorry, a problem has occurred. Ensure all data is correct 
-                                or configured. Exception: {future.exception()}", exc_info=True)
-                else:
-                    try:
-                        yield future.result()
-                    except Exception as e:
-                       logger.error(f"Unexpected error has ocurred", exc_info=True)
+             for python_platform in wheel_meta.platforms
++        ]
++
++        for future in concurrent.futures.as_completed(futures):
++            if future.exception() is not None:
++                raise WheelBuildException(
++                    "Unexpected error has occurred. Ensure all data is correct or configured"
++                ) from future.exception()
++
++            try:
++                yield future.result()
++            except Exception as e:
++                raise WheelBuildException("Unexpected error has occurred") from e
                        
 
 def _build_wheel_for_platform(dist_folder, python_platform, wheel_meta):

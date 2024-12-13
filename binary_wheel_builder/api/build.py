@@ -14,8 +14,6 @@ from binary_wheel_builder.api.meta import (Wheel, WheelFileEntry, WheelPlatformB
 from binary_wheel_builder.wheel.reproducible import ReproducibleWheelFile
 from binary_wheel_builder.wheel.util import generate_metadata_file, generate_wheel_file
 
-logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
-logger = logging.getLogger(__name__)
 
 def _write_wheel(
         out_dir: str,

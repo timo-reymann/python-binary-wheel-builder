@@ -125,7 +125,7 @@ def build_wheel(wheel_meta: Wheel, dist_folder: Path, worker_count: int = 1) -> 
                     try:
                         yield future.result()
                     except Exception as e:
-                       logger.error(f"Unexpected result has ocurred", exc_info=True)
+                       logger.error(f"Unexpected error has ocurred", exc_info=True)
                        
 
 def _build_wheel_for_platform(dist_folder, python_platform, wheel_meta):

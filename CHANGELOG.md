@@ -1,3 +1,11 @@
+## [3.10.0](https://github.com/timo-reymann/python-binary-wheel-builder/compare/3.9.0...3.10.0) (2024-12-14)
+
+
+### Features
+
+* Add --version flag ([f7470f1](https://github.com/timo-reymann/python-binary-wheel-builder/commit/f7470f1c8655e6f73663dc2f07eb99b3467367fb)), closes [#48](https://github.com/timo-reymann/python-binary-wheel-builder/issues/48)
+* Add version attribute for binary_wheel_builder package ([36a7af1](https://github.com/timo-reymann/python-binary-wheel-builder/commit/36a7af12eb10618bdf956e6e46ec0f56d752e44d))
+
 ## [3.9.0](https://github.com/timo-reymann/python-binary-wheel-builder/compare/3.8.0...3.9.0) (2024-12-14)
 
 

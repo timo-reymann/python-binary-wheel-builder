@@ -2,6 +2,8 @@ import logging
 import sys
 from argparse import ArgumentParser, Namespace
 from pathlib import Path
+
+from binary_wheel_builder import __version__
 from binary_wheel_builder.api import build_wheel
 
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
@@ -26,6 +28,11 @@ def _parse_args(args) -> Namespace:
         default=4,
         type=int,
         help="Number of parallel workers to use at most for building wheels"
+    )
+    parser.add_argument(
+        "--version",
+        action="version",
+        version=__version__
     )
     return parser.parse_args(args)
 

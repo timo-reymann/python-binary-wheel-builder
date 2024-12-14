@@ -1,9 +1,11 @@
+import logging
 import sys
 from argparse import ArgumentParser, Namespace
 from pathlib import Path
-
 from binary_wheel_builder.api import build_wheel
 
+logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+logger = logging.getLogger(__name__)
 
 def _parse_args(args) -> Namespace:
     parser = ArgumentParser("CLI Wheel Builder")
@@ -40,9 +42,21 @@ def main(argv=None) -> None:
     args = _parse_args(argv)
 
     dist_path = Path(args.dist_folder)
-    dist_path.mkdir(exist_ok=True)
+    
+    try:
+        dist_path.mkdir(exist_ok=True)
+    except OSError as e:
+        raise SystemExit(f"Failed to create dist folder at '{dist_path}': {e}")
 
     from binary_wheel_builder.cli.config_file import load_wheel_spec_from_yaml
-    wheel = load_wheel_spec_from_yaml(Path(args.wheel_spec))
-    for result in build_wheel(wheel, dist_path, worker_count=args.max_workers):
-        print(f"> {result.checksum} - {result.file_path}")
+     
+    try:
+        wheel = load_wheel_spec_from_yaml(Path(args.wheel_spec))
+    except Exception as e:
+        raise SystemExit(f"Failed to load wheel spec from '{args.wheel_spec}': {e}")
+
+    try:
+        for result in build_wheel(wheel, dist_path, worker_count=args.max_workers):
+            print(f"> {result.checksum} - {result.file_path}")
+    except Exception as e:
+        raise SystemExit(f"Error occurred while building wheels: {e}")

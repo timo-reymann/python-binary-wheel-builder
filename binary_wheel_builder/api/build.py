@@ -4,17 +4,19 @@ Infrastructure to build deterministic wheels
 import concurrent.futures
 import hashlib
 import os
+import pathlib
 from collections.abc import Generator
 from operator import attrgetter
-from zipfile import Path
-
+from pathlib import Path
 from binary_wheel_builder import wrapper_templates
 from binary_wheel_builder.api.meta import (Wheel, WheelFileEntry, WheelPlatformBuildResult, WheelPlatformIdentifier,
                                            WheelSource)
 from binary_wheel_builder.wheel.reproducible import ReproducibleWheelFile
 from binary_wheel_builder.wheel.util import generate_metadata_file, generate_wheel_file
 
-
+class WheelBuildException(Exception):
+    pass
+  
 def _write_wheel(
         out_dir: str,
         wheel: Wheel,
@@ -22,7 +24,7 @@ def _write_wheel(
         metadata: dict,
         wheel_file_entries: list[WheelFileEntry]
 ):
-    wheel_file_path = os.path.join(out_dir, wheel.wheel_filename(tag))
+    wheel_file_path = pathlib.Path(out_dir) / wheel.wheel_filename(tag))
 
     entries = [
         *wheel_file_entries,
@@ -94,7 +96,8 @@ def _write_platform_wheel_with_wrappers(
     )
 
 
-def build_wheel(wheel_meta: Wheel, dist_folder: Path, worker_count: int = 1) -> Generator[WheelPlatformBuildResult, None, None]:
+def build_wheel(wheel_meta: Wheel, dist_folder: Path, worker_count: int = 1) -> Generator[
+                WheelPlatformBuildResult, None, None]:
     """
     Build a given wheel based on metadata and write all wheels to the dist folder.
 
@@ -106,7 +109,9 @@ def build_wheel(wheel_meta: Wheel, dist_folder: Path, worker_count: int = 1) -> 
     :return: Yields for each generated platform wheel
     """
     dist_folder.mkdir(exist_ok=True)
-    with concurrent.futures.ThreadPoolExecutor(max_workers=worker_count) as executor:
+  
+    worker_count = worker_count or os.cpu_count()
+    with concurrent.futures.ProcessPoolExecutor(max_workers=worker_count) as executor:
         futures = [
             executor.submit(
                 _build_wheel_for_platform,
@@ -114,22 +119,35 @@ def build_wheel(wheel_meta: Wheel, dist_folder: Path, worker_count: int = 1) -> 
                 python_platform,
                 wheel_meta
             )
-            for python_platform in wheel_meta.platforms
-        ]
-        for future in concurrent.futures.as_completed(futures):
-            yield future.result()
+             for python_platform in wheel_meta.platforms
+         ]
 
+         for future in concurrent.futures.as_completed(futures):
+            if future.exception() is not None:
+                  raise WheelBuildException(
+                     "Unexpected error has occurred. Ensure all data is correct or configured"
+                 ) from future.exception()
 
+             try:
+                 yield future.result()
+             except Exception as e:
+                 raise WheelBuildException("Unexpected error has occurred") from e
+                       
 
 def _build_wheel_for_platform(dist_folder, python_platform, wheel_meta):
-    wheel_path = _write_platform_wheel_with_wrappers(
-        dist_folder.__str__(),
-        wheel_meta,
-        python_platform,
-        wheel_meta.source,
-    )
-    with open(wheel_path, 'rb') as wheel:
-        return WheelPlatformBuildResult(
-            checksum=hashlib.sha256(wheel.read()).hexdigest(),
-            file_path=wheel_path,
-        )
+    try: 
+        wheel_path = _write_platform_wheel_with_wrappers(
+              dist_folder.__str__(),
+              wheel_meta,
+              python_platform,
+              wheel_meta.source,
+          )
+          with open(wheel_path, 'rb') as wheel:
+              return WheelPlatformBuildResult(
+                  checksum=hashlib.sha256(wheel.read()).hexdigest(),
+                  file_path=wheel_path,
+              )
+    except (OSError, IOError) as e:
+          raise RuntimeError(f"File operation failed for platform {python_platform}: {e}") 
+    except Exception as e:
+        raise WheelBuildException("Unhandled exception in _build_wheel_for_platform for platform ...") from e

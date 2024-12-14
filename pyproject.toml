@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "binary_wheel_builder"
-version = "3.8.0"
+version = "3.9.0"
 description = "Bundle CLI applications or other binary data as wheel to use them in code or as standalone binary"
 authors = ["Timo Reymann <mail@timo-reymann.de>"]
 readme = "README.md"

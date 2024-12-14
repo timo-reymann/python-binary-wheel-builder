@@ -1,3 +1,10 @@
+## [3.9.0](https://github.com/timo-reymann/python-binary-wheel-builder/compare/3.8.0...3.9.0) (2024-12-14)
+
+
+### Features
+
+* **#48:** Add improved error handling ([ec3ce86](https://github.com/timo-reymann/python-binary-wheel-builder/commit/ec3ce868a717792facccefe53eda6b68cb53babe)), closes [#48](https://github.com/timo-reymann/python-binary-wheel-builder/issues/48)
+
 ## [3.8.0](https://github.com/timo-reymann/python-binary-wheel-builder/compare/3.7.5...3.8.0) (2024-12-13)
 
 

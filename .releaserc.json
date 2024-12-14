@@ -37,6 +37,19 @@
                 "hasChanged": true
               }
             ]
+          },
+          {
+            "files": [
+              "binary_wheel_builder/__version__.py"
+            ],
+            "from": "__version__ = \"[0-9.]+\"",
+            "to": "__version__ = \"${nextRelease.version}\"",
+            "results": [
+              {
+                "file": "binary_wheel_builder/__version__.py",
+                "hasChanged": true
+              }
+            ]
           }
         ]
       }
@@ -46,7 +59,8 @@
       {
         "assets": [
           "CHANGELOG.md",
-          "pyproject.toml"
+          "pyproject.toml",
+          "binary_wheel_builder/__version__.py"
         ]
       }
     ],

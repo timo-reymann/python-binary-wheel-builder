@@ -17,6 +17,9 @@ executors:
   macos:
     macos:
       xcode: "15.1.0"
+  schema-nest-cli:
+    docker:
+      - image: timoreymann/schemanest-cli:v0.2.7
 
 jobs:
   integration-test-win:
@@ -134,6 +137,18 @@ jobs:
               --build \
               --username "$TWINE_USERNAME" \
               --password "$TWINE_PASSWORD"
+    upload-schema:
+      executor: schema-nest-cli
+      steps:
+        - checkout
+        - run:
+            name: Upload to Schemanest
+            command: |
+              schema-nest-cli \
+                --base-url https://schema-nest.timo-reymann.de \
+                --api-key "$SCHEMA_NEST_UPLOAD_KEY" \
+                --version "$CIRCLE_TAG" \
+                wheel.schema.json
 workflows:
   main:
     jobs:
@@ -159,6 +174,12 @@ workflows:
       - unit-test
       - pip-publish:
           name: publish-pypi
+          filters:
+            branches:
+              ignore: /.*/
+            tags:
+              only: /.*/
+      - upload-schema:
           filters:
             branches:
               ignore: /.*/

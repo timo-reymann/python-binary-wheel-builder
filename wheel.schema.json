@@ -1,4 +1,5 @@
 {
+   "$description": "Definition for binary-wheel-builder wheel yaml files",
    "$defs": {
       "WheelPlatformIdentifier": {
          "properties": {

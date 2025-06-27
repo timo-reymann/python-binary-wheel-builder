@@ -148,7 +148,8 @@ jobs:
               --base-url https://schema-nest.timo-reymann.de \
               --api-key "$SCHEMA_NEST_UPLOAD_KEY" \
               --version "$CIRCLE_TAG" \
-              wheel.schema.json
+              --path wheel.schema.json \
+              --identifier python-binary-wheel-builder
 workflows:
   main:
     jobs:

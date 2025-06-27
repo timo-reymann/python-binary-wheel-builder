@@ -1,3 +1,10 @@
+## [3.12.0](https://github.com/timo-reymann/python-binary-wheel-builder/compare/3.11.2...3.12.0) (2025-06-27)
+
+
+### Features
+
+* **schema:** Add description ([faa0b18](https://github.com/timo-reymann/python-binary-wheel-builder/commit/faa0b1894bfb572fea25e1ca9ac57d51add3f453))
+
 ## [3.11.2](https://github.com/timo-reymann/python-binary-wheel-builder/compare/3.11.1...3.11.2) (2025-06-27)
 
 

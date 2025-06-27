@@ -144,7 +144,7 @@ jobs:
       - run:
           name: Upload to Schemanest
           command: |
-            schema-nest-cli \
+            schema-nest-cli upload-json-schema \
               --base-url https://schema-nest.timo-reymann.de \
               --api-key "$SCHEMA_NEST_UPLOAD_KEY" \
               --version "$CIRCLE_TAG" \

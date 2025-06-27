@@ -1,3 +1,10 @@
+## [3.11.1](https://github.com/timo-reymann/python-binary-wheel-builder/compare/3.11.0...3.11.1) (2025-06-27)
+
+
+### Bug Fixes
+
+* Fix schema upload command ([85dd305](https://github.com/timo-reymann/python-binary-wheel-builder/commit/85dd3054db3c225551d02221f5d76a85847e1cee))
+
 ## [3.11.0](https://github.com/timo-reymann/python-binary-wheel-builder/compare/3.10.10...3.11.0) (2025-06-27)
 
 

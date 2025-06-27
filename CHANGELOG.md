@@ -1,3 +1,10 @@
+## [3.11.0](https://github.com/timo-reymann/python-binary-wheel-builder/compare/3.10.10...3.11.0) (2025-06-27)
+
+
+### Features
+
+* Add schema upload to SchemaNest ([943eb9e](https://github.com/timo-reymann/python-binary-wheel-builder/commit/943eb9ea683208b934f37268a1c693ccba50af6f))
+
 ## [3.10.10](https://github.com/timo-reymann/python-binary-wheel-builder/compare/3.10.9...3.10.10) (2025-06-14)
 
 

@@ -1,3 +1,10 @@
+## [3.12.2](https://github.com/timo-reymann/python-binary-wheel-builder/compare/3.12.1...3.12.2) (2025-06-30)
+
+
+### Bug Fixes
+
+* **deps:** update timoreymann/schemanest-cli docker tag to v0.4.0 ([#89](https://github.com/timo-reymann/python-binary-wheel-builder/issues/89)) ([efe1470](https://github.com/timo-reymann/python-binary-wheel-builder/commit/efe1470b1a885373a5eb89835b93219fc6b83b47))
+
 ## [3.12.1](https://github.com/timo-reymann/python-binary-wheel-builder/compare/3.12.0...3.12.1) (2025-06-30)
 
 

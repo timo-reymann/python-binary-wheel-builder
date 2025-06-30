@@ -104,9 +104,7 @@ pipx install binary_wheel_builder[cli]
    ```
 4. Enjoy and consume your CLI as a package
 
-> If you want to have auto complete and validation right in the IDE, you can use the `wheel.schema.json` JSON Schema.
-> 
-> [VSCode Guide](https://code.visualstudio.com/docs/languages/json#_json-schemas-and-settings) | [IntelliJ IDEA IDEs Guide](https://www.jetbrains.com/help/idea/json.html#ws_json_schema_add_custom)
+> If you want to have auto complete and validation right in the IDE, you can use the [JSON Schema](https://schema-nest.timo-reymann.de/schemas/json-schema/python-binary-wheel-builder/latest?tab=setup).
 
 ### Build with Python code
 

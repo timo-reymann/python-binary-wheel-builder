@@ -1,3 +1,10 @@
+## [3.12.1](https://github.com/timo-reymann/python-binary-wheel-builder/compare/3.12.0...3.12.1) (2025-06-30)
+
+
+### Bug Fixes
+
+* FIx json schema description field name ([488f092](https://github.com/timo-reymann/python-binary-wheel-builder/commit/488f09271503e90af85ef3eecde6d21558bc7b4c))
+
 ## [3.12.0](https://github.com/timo-reymann/python-binary-wheel-builder/compare/3.11.2...3.12.0) (2025-06-27)
 
 

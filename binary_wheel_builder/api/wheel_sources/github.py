@@ -1,24 +1,34 @@
 """
 Sources for GitHub
 """
+
+from string import Template
 from urllib.error import HTTPError
 
-from binary_wheel_builder.api.meta import WheelFileEntry, WheelPlatformIdentifier, WheelSource
-from binary_wheel_builder.api.wheel_sources.exceptions import SourceFileRequestFailed, UnsupportedWheelPlatformException
+from binary_wheel_builder.api.meta import (
+    WheelFileEntry,
+    WheelPlatformIdentifier,
+    WheelSource,
+)
+from binary_wheel_builder.api.wheel_sources.exceptions import (
+    SourceFileRequestFailed,
+    UnsupportedWheelPlatformException,
+)
 
 
 class GithubReleaseBinarySource(WheelSource):
     """
     Provide source from GitHub Release API
     """
+
     def __init__(
-            self,
-            project_slug: str,
-            version: str,
-            asset_name_mapping: dict[WheelPlatformIdentifier, str],
-            binary_path: str,
-            tag_prefix: str = "v",
-            token: str | None = None,
+        self,
+        project_slug: str,
+        version: str,
+        asset_name_mapping: dict[WheelPlatformIdentifier, str],
+        binary_path: str,
+        tag_prefix: str = "v",
+        token: str | None = None,
     ):
         """
         :param project_slug: Full name of the project e.g. user/project or org/project
@@ -35,14 +45,19 @@ class GithubReleaseBinarySource(WheelSource):
         self.tag_prefix = tag_prefix
         self.token = token
 
-    def generate_fileset(self, wheel_platform: WheelPlatformIdentifier) -> list[WheelFileEntry]:
+    def generate_fileset(
+        self, wheel_platform: WheelPlatformIdentifier
+    ) -> list[WheelFileEntry]:
         from urllib.request import urlopen, Request
 
         if wheel_platform not in self.asset_name_mapping:
             raise UnsupportedWheelPlatformException(wheel_platform)
 
-        url = (f"https://github.com/{self.project_slug}"
-               f"/releases/download/{self.tag_prefix}{self.version}/{self.asset_name_mapping[wheel_platform]}")
+        url = (
+            f"https://github.com/{self.project_slug}"
+            f"/releases/download/{self.tag_prefix}{self.version}"
+            f"/{Template(self.asset_name_mapping[wheel_platform]).substitute(version=self.version,tag_prefix=self.tag_prefix)}"
+        )
         request = Request(url)
 
         if self.token is not None:
@@ -56,8 +71,6 @@ class GithubReleaseBinarySource(WheelSource):
 
         return [
             WheelFileEntry(
-                path=self.binary_path,
-                content=file_content,
-                permissions=0o755
+                path=self.binary_path, content=file_content, permissions=0o755
             )
         ]

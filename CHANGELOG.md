@@ -1,3 +1,10 @@
+## [3.13.0](https://github.com/timo-reymann/python-binary-wheel-builder/compare/3.12.3...3.13.0) (2025-07-15)
+
+
+### Features
+
+* **github-wheel-source:** Support placeholder in asset name mapping ([5b0e7c8](https://github.com/timo-reymann/python-binary-wheel-builder/commit/5b0e7c8cf6c9c9e90ad4e46660dd959a0542b48f))
+
 ## [3.12.3](https://github.com/timo-reymann/python-binary-wheel-builder/compare/3.12.2...3.12.3) (2025-06-30)
 
 

@@ -19,7 +19,7 @@ executors:
       xcode: "15.1.0"
   schema-nest-cli:
     docker:
-      - image: timoreymann/schemanest-cli:v0.7.6
+      - image: timoreymann/schemanest-cli:v0.7.7
 
 jobs:
   integration-test-win:

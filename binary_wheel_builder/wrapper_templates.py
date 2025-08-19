@@ -53,15 +53,16 @@ def exec_util(wheel: Wheel):
             return subprocess.Popen([os.path.join(os.path.dirname(__file__), "{wheel.executable}"), *args], stdout=stdout, stderr=stderr, stdin=stdin, cwd=cwd, text=True)
 
 
-        def exec_silently(args: list[str], timeout: int = -1) -> subprocess.Popen:
+        def exec_silently(args: list[str], timeout: int = -1, cwd=None) -> subprocess.Popen:
             """
             Execute {wheel.executable} silently with given arguments
 
             :param args: Arguments to pass to {wheel.executable}
             :param timeout: Timeout in ms
+            :param cwd: PWD for subprocess
             :return: Completed Popen object
             """
-            process = create_subprocess(args, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+            process = create_subprocess(args, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, cwd=cwd)
             if timeout > 0:
                 process.wait(timeout)
             else:
@@ -72,7 +73,8 @@ def exec_util(wheel: Wheel):
         def exec_with_templated_output(args: list[str],
                                       capture_output: bool = False,
                                       stdout_format: str = "[STDOUT] $line",
-                                      stderr_format: str = "[STDERR] $line") -> ExecWithPrefixedOutputResult:
+                                      stderr_format: str = "[STDERR] $line",
+                                      cwd=None) -> ExecWithPrefixedOutputResult:
             """
             Run {wheel.executable} using the specified args with templated stdout and stderr.
 
@@ -89,13 +91,14 @@ def exec_util(wheel: Wheel):
             :param capture_output: Capture the output in the result instead of printing it to stdout
             :param stdout_format: Format string for the stdout
             :param stderr_format: Format string for the stderr.
+            :param cwd: PWD for subprocess
             :return:
             """
 
             stderr_buffer = ""
             stdout_buffer = ""
 
-            process = create_subprocess(args, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+            process = create_subprocess(args, stdout=subprocess.PIPE, stderr=subprocess.PIPE, cwd=cwd)
 
             stdout_template = Template(stdout_format)
             stderr_template = Template(stderr_format)

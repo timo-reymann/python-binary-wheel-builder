@@ -4,7 +4,7 @@ orbs:
   win: circleci/windows@5.1.1
   python: circleci/python@3.3.0
   codecov: codecov/codecov@5.4.3
-  semantic-release: trustedshops-public/semantic-release@6.0.0
+  semantic-release: trustedshops-public/semantic-release@6.1.0
   github-utils: trustedshops-public/github-utils@1.1.3
 
 executors:

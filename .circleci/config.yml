@@ -40,7 +40,9 @@ jobs:
             pipx ensurepath
       - run:
           name: Install packages
-          command: C:\Users\circleci\.local\bin\poetry.exe install --all-extras
+          command: |
+            C:\Users\circleci\.local\bin\poetry.exe install --all-extras
+            C:\Users\circleci\.local\bin\poetry.exe add certifi
       - run:
           name: Run tests
           command: |

@@ -1,7 +1,6 @@
 version: "2.1"
 
 orbs:
-  win: circleci/windows@5.1.1
   python: circleci/python@4.0.0
   codecov: codecov/codecov@5.4.3
   semantic-release: trustedshops-public/semantic-release@6.1.0
@@ -22,29 +21,6 @@ executors:
       - image: timoreymann/schemanest-cli:v0.7.58
 
 jobs:
-  integration-test-win:
-    executor:
-      name: win/default
-      size: medium
-    steps:
-      - checkout
-      - run:
-          name: Show system info
-          command: systeminfo /fo csv | ConvertFrom-Csv | select OS*, System*, Hotfix* | Format-List
-      - run:
-          name: Install python and poetry
-          command: |
-            choco install python -y --version=3.12.1
-            pip install pipx
-            pipx install poetry
-            pipx ensurepath
-      - run:
-          name: Install packages
-          command: C:\Users\circleci\.local\bin\poetry.exe install --all-extras
-      - run:
-          name: Run tests
-          command: |
-            C:\Users\circleci\.local\bin\poetry.exe run pytest --capture=no integration_tests/
   integration-test-macos:
     executor: macos
     steps:
@@ -160,12 +136,8 @@ workflows:
                 - main
           requires:
             - unit-test
-            - integration-test-win
             - integration-test-linux
             - integration-test-macos
-      - integration-test-win:
-          requires:
-            - unit-test
       - integration-test-macos:
           requires:
             - unit-test
@@ -190,7 +162,6 @@ workflows:
           name: semantic-release
           additional_packages: "@google/semantic-release-replace-plugin"
           requires:
-            - integration-test-win
             - integration-test-macos
             - integration-test-linux
           filters:

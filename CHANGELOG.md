@@ -1,3 +1,9 @@
+## [3.15.0](https://github.com/timo-reymann/python-binary-wheel-builder/compare/3.14.2...3.15.0) (2026-03-02)
+
+### Features
+
+* Add musl builtin platforms ([8b65adc](https://github.com/timo-reymann/python-binary-wheel-builder/commit/8b65adc66dc34b7ac2c2490a1af28e7c1353a44e))
+
 ## [3.14.2](https://github.com/timo-reymann/python-binary-wheel-builder/compare/3.14.1...3.14.2) (2025-09-14)
 
 

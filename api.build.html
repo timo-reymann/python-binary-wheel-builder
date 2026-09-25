@@ -348,7 +348,7 @@
   <div class="functionHeader">
     
     
-    <span class="py-keyword">def</span> <span class="py-defname">build_wheel</span><span class="function-signature">(wheel_meta: <code>Wheel</code>, dist_folder: <code><a href="https://docs.python.org/3/library/pathlib.html#pathlib.Path" class="intersphinx-link">Path</a></code>, worker_count: <code><a href="https://docs.python.org/3/library/functions.html#int" class="intersphinx-link">int</a></code> = 1) -&gt; <code><a href="https://docs.python.org/3/library/collections.abc.html#collections.abc.Generator" class="intersphinx-link">Generator</a>[<wbr></wbr>WheelPlatformBuildResult, <wbr></wbr><a href="https://docs.python.org/3/library/constants.html#None" class="intersphinx-link">None</a>, <wbr></wbr><a href="https://docs.python.org/3/library/constants.html#None" class="intersphinx-link">None</a>]</code></span>:
+    <span class="py-keyword">def</span> <span class="py-defname">build_wheel</span><span class="function-signature">(wheel_meta: <code>Wheel</code>, dist_folder: <code><a href="https://docs.python.org/3/library/pathlib.html#pathlib.Path" class="intersphinx-link">Path</a></code>, worker_count: <code><a href="https://docs.python.org/3/builtins/functions.html#int" class="intersphinx-link">int</a></code> = 1) -&gt; <code><a href="https://docs.python.org/3/library/collections.abc.html#collections.abc.Generator" class="intersphinx-link">Generator</a>[<wbr></wbr>WheelPlatformBuildResult, <wbr></wbr><a href="https://docs.python.org/3/builtins/constants.html#None" class="intersphinx-link">None</a>, <wbr></wbr><a href="https://docs.python.org/3/builtins/constants.html#None" class="intersphinx-link">None</a>]</code></span>:
     
     <a class="headerLink" href="#build_wheel" title="api.build.build_wheel">
       
@@ -360,7 +360,7 @@
     
     <div><p>Build a given wheel based on metadata and write all wheels to the dist folder.</p>
 <p>As this is a generator, make sure to consume all results to ensure all wheels are built properly.</p>
-<table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">wheel<wbr></wbr>_meta:</span><code>Wheel</code></td><td class="fieldArgDesc">Metadata about wheel, used to construct the wheel archive for each platform.</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">dist<wbr></wbr>_folder:</span><code><a href="https://docs.python.org/3/library/pathlib.html#pathlib.Path" class="intersphinx-link">Path</a></code></td><td class="fieldArgDesc">Path where all wheel files will be created</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">worker<wbr></wbr>_count:</span><code><a href="https://docs.python.org/3/library/functions.html#int" class="intersphinx-link">int</a></code></td><td class="fieldArgDesc">Amount of workers to run wheel builds in parallel</td></tr><tr class="fieldStart"><td class="fieldName" colspan="2">Returns</td></tr><tr><td class="fieldArgContainer"><code><a href="https://docs.python.org/3/library/collections.abc.html#collections.abc.Generator" class="intersphinx-link">Generator</a>[<wbr></wbr>WheelPlatformBuildResult, <wbr></wbr><a href="https://docs.python.org/3/library/constants.html#None" class="intersphinx-link">None</a>, <wbr></wbr><a href="https://docs.python.org/3/library/constants.html#None" class="intersphinx-link">None</a>]</code></td><td class="fieldArgDesc">Yields for each generated platform wheel</td></tr></table></div>
+<table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">wheel<wbr></wbr>_meta:</span><code>Wheel</code></td><td class="fieldArgDesc">Metadata about wheel, used to construct the wheel archive for each platform.</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">dist<wbr></wbr>_folder:</span><code><a href="https://docs.python.org/3/library/pathlib.html#pathlib.Path" class="intersphinx-link">Path</a></code></td><td class="fieldArgDesc">Path where all wheel files will be created</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">worker<wbr></wbr>_count:</span><code><a href="https://docs.python.org/3/builtins/functions.html#int" class="intersphinx-link">int</a></code></td><td class="fieldArgDesc">Amount of workers to run wheel builds in parallel</td></tr><tr class="fieldStart"><td class="fieldName" colspan="2">Returns</td></tr><tr><td class="fieldArgContainer"><code><a href="https://docs.python.org/3/library/collections.abc.html#collections.abc.Generator" class="intersphinx-link">Generator</a>[<wbr></wbr>WheelPlatformBuildResult, <wbr></wbr><a href="https://docs.python.org/3/builtins/constants.html#None" class="intersphinx-link">None</a>, <wbr></wbr><a href="https://docs.python.org/3/builtins/constants.html#None" class="intersphinx-link">None</a>]</code></td><td class="fieldArgDesc">Yields for each generated platform wheel</td></tr></table></div>
   </div>
 </div><div class="basefunction private">
   
@@ -398,7 +398,7 @@
   <div class="functionHeader">
     
     
-    <span class="py-keyword">def</span> <span class="py-defname">_write_platform_wheel_with_wrappers</span><span class="function-signature">(out_dir: <code><a href="https://docs.python.org/3/library/stdtypes.html#str" class="intersphinx-link">str</a></code>, wheel_info: <code>Wheel</code>, platform: <code>WheelPlatformIdentifier</code>, source: <code>WheelSource</code>)</span>:
+    <span class="py-keyword">def</span> <span class="py-defname">_write_platform_wheel_with_wrappers</span><span class="function-signature">(out_dir: <code><a href="https://docs.python.org/3/builtins/stdtypes.html#str" class="intersphinx-link">str</a></code>, wheel_info: <code>Wheel</code>, platform: <code>WheelPlatformIdentifier</code>, source: <code>WheelSource</code>)</span>:
     
     <a class="headerLink" href="#_write_platform_wheel_with_wrappers" title="api.build._write_platform_wheel_with_wrappers">
       
@@ -422,7 +422,7 @@
   <div class="functionHeader">
     
     
-    <span class="py-keyword">def</span> <span class="py-defname">_write_wheel</span><span class="function-signature">(out_dir: <code><a href="https://docs.python.org/3/library/stdtypes.html#str" class="intersphinx-link">str</a></code>, wheel: <code>Wheel</code>, tag: <code><a href="https://docs.python.org/3/library/stdtypes.html#str" class="intersphinx-link">str</a></code>, metadata: <code><a href="https://docs.python.org/3/library/stdtypes.html#dict" class="intersphinx-link">dict</a></code>, wheel_file_entries: <code><a href="https://docs.python.org/3/library/stdtypes.html#list" class="intersphinx-link">list</a>[<wbr></wbr>WheelFileEntry]</code>)</span>:
+    <span class="py-keyword">def</span> <span class="py-defname">_write_wheel</span><span class="function-signature">(out_dir: <code><a href="https://docs.python.org/3/builtins/stdtypes.html#str" class="intersphinx-link">str</a></code>, wheel: <code>Wheel</code>, tag: <code><a href="https://docs.python.org/3/builtins/stdtypes.html#str" class="intersphinx-link">str</a></code>, metadata: <code><a href="https://docs.python.org/3/builtins/stdtypes.html#dict" class="intersphinx-link">dict</a></code>, wheel_file_entries: <code><a href="https://docs.python.org/3/builtins/stdtypes.html#list" class="intersphinx-link">list</a>[<wbr></wbr>WheelFileEntry]</code>)</span>:
     
     <a class="headerLink" href="#_write_wheel" title="api.build._write_wheel">
       
@@ -446,7 +446,7 @@
   <div class="container-fluid">
     <a href="index.html">API Documentation</a> for <a href="https://github.com/timo-reymann/python-binary-wheel-builder" class="projecthome">binary_wheel_builder</a>,
   generated by <a href="https://github.com/twisted/pydoctor/">pydoctor</a>
-    24.11.2 at 2026-09-07 12:01:28.
+    24.11.2 at 2026-09-25 15:51:19.
   </div>
 
   <!-- Search related scripts needs to be loaded at the end of HTML 

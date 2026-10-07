@@ -57,7 +57,7 @@ body > .container-fluid {
     Navigation overrides
  */
 .navbar {
-    background: #d65108;
+    background: #c94b06;
     color: white;
 }
 
@@ -182,7 +182,7 @@ div.important {
         Links
      */
     a.internal-link {
-        color: rgb(218, 77, 110);
+        color: rgb(230, 100, 130);
         background-color: rgb(43, 21, 26);
     }
 

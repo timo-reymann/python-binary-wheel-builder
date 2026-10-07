@@ -1,5 +1,4 @@
 import io
-import os
 import tempfile
 from pathlib import Path
 
@@ -21,7 +20,7 @@ def test_tag_well_known_platform_valid():
 platform: !WellknownPlatform MAC_SILICON
     """)
     assert 'platform' in parsed
-    assert parsed['platform'] == well_known_platforms.MAC_SILICON
+    assert well_known_platforms.MAC_SILICON == parsed['platform']
 
 
 def test_tag_well_known_platform_invalid():
@@ -43,7 +42,7 @@ def test_tag_file_content_valid():
         content: !FileContent {fp.name}
         """)
         assert 'content' in parsed
-        assert parsed['content'] == "File content"
+        assert "File content" == parsed['content']
 
 
 def test_tag_file_content_not_found():
@@ -112,12 +111,12 @@ def test_tag_wheel_source_empty():
             '  in "<file>", line 1, column 9') == str(exc.value)
 
 
-def test_tag_env_var_exists():
-    val = os.environ['FOO'] = 'bar'
-    _parse_string('''\
+def test_tag_env_var_exists(monkeypatch):
+    monkeypatch.setenv('FOO', 'bar')
+    parsed = _parse_string('''\
     !Env FOO
     ''')
-    assert "bar" == val
+    assert "bar" == parsed
 
 
 def test_tag_env_var_not_set():

@@ -1,3 +1,9 @@
+## [3.15.1](https://github.com/timo-reymann/python-binary-wheel-builder/compare/3.15.0...3.15.1) (2026-10-07)
+
+### Bug Fixes
+
+* address all open SonarCloud findings ([#219](https://github.com/timo-reymann/python-binary-wheel-builder/issues/219)) ([a2ebd58](https://github.com/timo-reymann/python-binary-wheel-builder/commit/a2ebd583a7ff7dcca0c9bfa570c4eb2aafff10fb)), closes [timo-reymann/pydoctor-theme#4](https://github.com/timo-reymann/pydoctor-theme/issues/4)
+
 ## [3.15.0](https://github.com/timo-reymann/python-binary-wheel-builder/compare/3.14.2...3.15.0) (2026-03-02)
 
 ### Features

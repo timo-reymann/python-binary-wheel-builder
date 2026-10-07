@@ -1,4 +1,5 @@
 import logging
+import os
 import sys
 from argparse import ArgumentParser, Namespace
 from pathlib import Path
@@ -37,6 +38,21 @@ def _parse_args(args) -> Namespace:
     return parser.parse_args(args)
 
 
+def _safe_path(raw_path: str) -> Path:
+    """Resolve a CLI supplied path to an absolute path.
+
+    Relative paths must resolve inside the current working directory so
+    traversal sequences like ``../../etc`` can not escape it. Absolute
+    paths are resolved and used as given.
+    """
+    resolved = Path(os.path.realpath(raw_path))
+    if not os.path.isabs(raw_path):
+        base = os.path.realpath(os.getcwd())
+        if str(resolved) != base and not str(resolved).startswith(base + os.sep):
+            raise ValueError(f"path '{raw_path}' escapes the working directory")
+    return resolved
+
+
 def main(argv=None) -> None:
     try:
         import yaml
@@ -48,15 +64,21 @@ def main(argv=None) -> None:
 
     args = _parse_args(argv)
 
+    try:
+        args.wheel_spec = _safe_path(args.wheel_spec)
+        args.dist_folder = _safe_path(args.dist_folder)
+    except ValueError as e:
+        raise SystemExit(str(e))
+
     dist_path = Path(args.dist_folder)
-    
+
     try:
         dist_path.mkdir(exist_ok=True)
     except OSError as e:
         raise SystemExit(f"Failed to create dist folder at '{dist_path}': {e}")
 
     from binary_wheel_builder.cli.config_file import load_wheel_spec_from_yaml
-     
+
     try:
         wheel = load_wheel_spec_from_yaml(Path(args.wheel_spec))
     except Exception as e:
